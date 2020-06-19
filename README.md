@@ -8,7 +8,7 @@ Please include the coding styles present in this project (Note: This should be P
 
 ## Authors
 
-Solon#4472 (448210429119037450)
+Solon#4472 (448210429119037450)  
 Lumi Virtual#9704 (140207461939281920)
 
 ## Acknowledgments
