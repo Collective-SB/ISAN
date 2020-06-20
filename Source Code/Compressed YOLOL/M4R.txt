@@ -43,11 +43,6 @@ h // distance in meters to transmitter 2
 i // distance in meters to transmitter 3
 j // distance in meters to transmitter 4
 
-k // ="station_hq_imperial_a" transmitter 1 message
-l // ="station_hq_kingdom_a" transmitter 2 message
-m // ="station_capital_imperial_a" transmitter 3 message
-n // ="station_empire_outpost_b" transmitter 4 message
-
 o // =999999 max signal strength, inverts signal strength to get distance
 p // ="Loss\nY: of\nZ: Signal" error message, 'loss of signal'
 q // =[max 4, min 0] number of recieved transmitters, loss of signal detection

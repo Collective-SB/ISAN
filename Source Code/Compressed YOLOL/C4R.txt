@@ -46,10 +46,6 @@ o // =999999 max signal strength, inverts signal strength to get distance
 p // ="Loss\nY: of\nZ: Signal" error message, 'loss of signal'
 q // =[max 4, min 0] number of recieved transmitters, loss of signal detection
 
-r // old x
-s // old y
-t // old z
-
 x // x coordinate
 y // y coordinate
 z // z coordinate
