@@ -1,0 +1,55 @@
+CHIP
+a=19832.688 b=29157.219 c=-50445.701 d=9472.525 e=-4904.478 f=-801.149
+k="station_hq_imperial_a" l="station_hq_kingdom_a"
+m="station_proving_grounds" n="station_capital_imperial_a"
+o=10^6-1 p="Loss\nY: of\nZ: Signal" ox=-9938.401 oy=4904.714 oz=0
+h=o-:R :M=m
+x=(g^2-h^2+a^2)/(2*a)
+i=o-:R :M=n
+y=(g^2-i^2+b^2+c^2-2*b*x)/(2*c) q=(g<o)+(h<o)
+j=o-:R :M=k
+z=(g^2-j^2+d^2+e^2+f^2-2*d*x-2*e*y)/(2*f) q+=(i<o)+(j<o)
+g=o-:R :M=l
+if q<4 then :X=p goto5 end :X=x+ox+"\nY: "+(y+oy)+"\nZ: "+(z+oz) goto5
+
+RECEIVER
+R // signal strength
+180 // listen angle (intended to act as 360)
+M // receiver message
+
+TEXT DISPLAY
+X // name
+
+VAR KEY
+a // x component of transmitter 2
+b // x component of transmitter 3
+c // y component of transmitter 3
+d // x component of transmitter 4
+e // x component of transmitter 4
+f // y component of transmitter 4
+
+g // distance in meters to transmitter 1
+h // distance in meters to transmitter 2
+i // distance in meters to transmitter 3
+j // distance in meters to transmitter 4
+
+k // ="station_hq_imperial_a" transmitter 1 message
+l // ="station_hq_kingdom_a" transmitter 2 message
+m // ="station_capital_imperial_a" transmitter 3 message
+n // ="station_empire_outpost_b" transmitter 4 message
+
+o // =999999 max signal strength, inverts signal strength to get distance
+p // ="Loss\nY: of\nZ: Signal" error message, 'loss of signal'
+q // =[max 4, min 0] number of recieved transmitters, loss of signal detection
+
+x // x coordinate
+y // y coordinate
+z // z coordinate
+
+ox // x offset
+oy // y offset
+oz // z offset
+
+:M // receiver target message field
+:R // signal strength field
+:X // text display field

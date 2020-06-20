@@ -1,30 +1,22 @@
 CHIP
-a=11490 b=-6391.8 c=8576.08 d=-81870.86 e=44430.16 f=19309.07
-o=10^6-1 p="Loss\nY: of\nZ: Signal\nV:" u="\nV: " w=0.8
-g=o-:K h=o-:L i=o-:M j=o-:N v=sqrt (x-r)^2+(y-s)^2+(z-t)^2 r=x s=y t=z
-x=(g^2-h^2+a^2)/(2*a)y=(g^2-i^2+b^2+c^2-2*b*x)/(2*c)q=(g<o)+(h<o)
-z=(g^2-j^2+d^2+e^2+f^2-2*d*x-2*e*y)/(2*f)q+=(i<o)+(j<o)
-if q<4 then :X=p goto3 end :X=:X=x+"\nY: "+y+"\nZ: "+z+u+(v*w) goto3
+a=19832.688 b=29157.219 c=-50445.701 d=9472.525 e=-4904.478 f=-801.149
+k="station_hq_imperial_a" l="station_hq_kingdom_a"
+m="station_proving_grounds" n="station_capital_imperial_a"
+o=10^6-1 p="Loss\nY: of\nZ: Signal" ox=-9938.401 oy=4904.714 oz=0
+ox+=[MILITARY X] oy+=[MILITARY Y] oz+=[MILITARY Z]
+h=o-:R :M=m
+x=(g^2-h^2+a^2)/(2*a)
+i=o-:R :M=n
+y=(g^2-i^2+b^2+c^2-2*b*x)/(2*c) q=(g<o)+(h<o)
+j=o-:R :M=k
+z=(g^2-j^2+d^2+e^2+f^2-2*d*x-2*e*y)/(2*f) q+=(i<o)+(j<o)
+g=o-:R :M=l
+if q<4 then :X=p goto6 end :X=x+ox+"\nY: "+(y+oy)+"\nZ: "+(z+oz) goto6
 
-RECEIVER 1
-K // signal strength
+RECEIVER
+R // signal strength
 180 // listen angle (intended to act as 360)
-"station_capital_imperial_a" // transmitter message
-
-RECEIVER 2
-L // signal strength
-180 // listen angle (intended to act as 360)
-"station_hq_kingdom_a" // transmitter message
-
-RECEIVER 3
-M // signal strength
-180 // listen angle (intended to act as 360)
-"station_hq_imperial_a" // transmitter message
-
-RECEIVER 4
-N // signal strength
-180 // listen angle (intended to act as 360)
-"station_empire_outpost_b" // transmitter message
+M // receiver message
 
 TEXT DISPLAY
 X // name
@@ -51,17 +43,14 @@ o // =999999 max signal strength, inverts signal strength to get distance
 p // ="Loss\nY: of\nZ: Signal" error message, 'loss of signal'
 q // =[max 4, min 0] number of recieved transmitters, loss of signal detection
 
-r // old x
-s // old y
-t // old z
-
-u // ="\nV: " part of the output message, compression
-
-v // velocity
-
 x // x coordinate
 y // y coordinate
 z // z coordinate
+
+ox // x offset
+oy // y offset
+oz // z offset
+(second set is for military)
 
 :M // receiver target message field
 :R // signal strength field

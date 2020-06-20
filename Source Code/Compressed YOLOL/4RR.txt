@@ -1,0 +1,74 @@
+CHIP
+a=11490 b=-6391.8 c=8576.08 d=-81870.86 e=44430.16 f=19309.07
+o=10^6-1 p="Loss\nY: of\nZ: Signal\nV:" aa="\nV: " ab=0.8
+g=o-:K h=o-:L i=o-:M j=o-:N v=sqrt (x-r)^2+(y-s)^2+(z-t)^2 r=x s=y t=z
+u=(g^2-h^2+a^2)/(2*a)w=(g^2-i^2+b^2+c^2-2*b*x)/(2*c)q=(g<o)+(h<o)
+z=(g^2-j^2+d^2+e^2+f^2-2*d*x-2*e*y)/(2*f)q+=(i<o)+(j<o)
+x=(u*__)+(w*__)+(z*__) y=(u*__)+(w*__)+(z*__) z=(u*__)+(w*__)+(z*__)
+if q<4 then :X=p goto3 end :X=x+"\nY: "+y+"\nZ: "+z+aa+(v*ab) goto3
+
+RECEIVER 1
+K // signal strength
+180 // listen angle (intended to act as 360)
+"station_capital_imperial_a" // transmitter message
+
+RECEIVER 2
+L // signal strength
+180 // listen angle (intended to act as 360)
+"station_hq_kingdom_a" // transmitter message
+
+RECEIVER 3
+M // signal strength
+180 // listen angle (intended to act as 360)
+"station_hq_imperial_a" // transmitter message
+
+RECEIVER 4
+N // signal strength
+180 // listen angle (intended to act as 360)
+"station_empire_outpost_b" // transmitter message
+
+TEXT DISPLAY
+X // name
+
+VAR KEY
+a // x component of transmitter 2
+b // x component of transmitter 3
+c // y component of transmitter 3
+d // x component of transmitter 4
+e // x component of transmitter 4
+f // y component of transmitter 4
+
+g // distance in meters to transmitter 1
+h // distance in meters to transmitter 2
+i // distance in meters to transmitter 3
+j // distance in meters to transmitter 4
+
+k // ="station_hq_imperial_a" transmitter 1 message
+l // ="station_hq_kingdom_a" transmitter 2 message
+m // ="station_capital_imperial_a" transmitter 3 message
+n // ="station_empire_outpost_b" transmitter 4 message
+
+o // =999999 max signal strength, inverts signal strength to get distance
+p // ="Loss\nY: of\nZ: Signal" error message, 'loss of signal'
+q // =[max 4, min 0] number of recieved transmitters, loss of signal detection
+
+r // old x
+s // old y
+t // old z
+
+u // pre-rotation x
+w // pre-rotation y
+
+
+v // velocity
+
+aa // ="\nV: " part of the output message, compression
+ab // velocity multiplier fix
+
+x // x coordinate
+y // y coordinate
+z // z coordinate
+
+:M // receiver target message field
+:R // signal strength field
+:X // text display field

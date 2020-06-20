@@ -1,17 +1,31 @@
 CHIP
-a=11490b=-6391.8c=8576.08d=-81870.86e=44430.16f=19309.07
-k="station_capital_imperial_a"l="station_hq_kingdom_a"
-m="station_hq_imperial_a"n="station_empire_outpost_b"
-o=10^6-1 p="Loss\nY: of\nZ: Signal"
-h=o-:R :M=m x=(g^2-h^2+a^2)/(2*a)
-i=o-:R :M=n y=(g^2-i^2+b^2+c^2-2*b*x)/(2*c)q=(g<o)+(h<o)
-j=o-:R :M=k z=(g^2-j^2+d^2+e^2+f^2-2*d*x-2*e*y)/(2*f)q+=(i<o)+(j<o)
-g=o-:R :M=l if q<4 then :X=p goto5 end :X=x+"\nY: "+y+"\nZ: "+z goto5
+a=19832.688 b=29157.219 c=-50445.701 d=9472.525 e=-4904.478 f=-801.149
+o=10^6-1 p="Loss\nY: of\nZ: Signal" ox=-9938.401 oy=4904.714 oz=0
+ox+=[MILITARY X] oy+=[MILITARY Y] oz+=[MILITARY Z]
+g=o-:K h=o-:L i=o-:M j=o-:N q=(g<o)+(h<o)+(i<o)+(j<o)
+x=(g^2-h^2+a^2)/(2*a) y=(g^2-i^2+b^2+c^2-2*b*x)/(2*c)
+z=(g^2-j^2+d^2+e^2+f^2-2*d*x-2*e*y)/(2*f)
+if q<4 then :X=p goto4 end :X=x+ox+"\nY: "+(y+oy)+"\nZ: "+(z+oz) goto4
 
-RECEIVER
-R // signal strength
+RECEIVER 1
+K // signal strength
 180 // listen angle (intended to act as 360)
-M // receiver message
+"station_hq_imperial_a" // transmitter message
+
+RECEIVER 2
+L // signal strength
+180 // listen angle (intended to act as 360)
+"station_hq_kingdom_a" // transmitter message
+
+RECEIVER 3
+M // signal strength
+180 // listen angle (intended to act as 360)
+"station_proving_grounds" // transmitter message
+
+RECEIVER 4
+N // signal strength
+180 // listen angle (intended to act as 360)
+"station_capital_imperial_a" // transmitter message
 
 TEXT DISPLAY
 X // name
@@ -38,9 +52,18 @@ o // =999999 max signal strength, inverts signal strength to get distance
 p // ="Loss\nY: of\nZ: Signal" error message, 'loss of signal'
 q // =[max 4, min 0] number of recieved transmitters, loss of signal detection
 
+r // old x
+s // old y
+t // old z
+
 x // x coordinate
 y // y coordinate
 z // z coordinate
+
+ox // x offset
+oy // y offset
+oz // z offset
+(second set is for military)
 
 :M // receiver target message field
 :R // signal strength field
