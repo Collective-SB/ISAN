@@ -6,9 +6,9 @@ o=10^6-1 p="Loss\nY: of\nZ: Signal" ox=-9938.401 oy=4904.714 oz=0
 h=o-:R :M=m
 x=(g^2-h^2+a^2)/(2*a)
 i=o-:R :M=n
-y=(g^2-i^2+b^2+c^2-2*b*x)/(2*c) q=(g<o)+(h<o)
-j=o-:R :M=k
-z=(g^2-j^2+d^2+e^2+f^2-2*d*x-2*e*y)/(2*f) q+=(i<o)+(j<o)
+y=(g^2-i^2+b^2+c^2-2*b*x)/(2*c)
+j=o-:R :M=k q=(g<o)+(h<o)+(i<o)+(j<o)
+z=(g^2-j^2+d^2+e^2+f^2-2*d*x-2*e*y)/(2*f)
 g=o-:R :M=l
 if q<4 then :X=p goto5 end :X=x+ox+"\nY: "+(y+oy)+"\nZ: "+(z+oz) goto5
 
