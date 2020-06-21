@@ -1,0 +1,25 @@
+CHIP 1
+a=19832.688 b=29157.219 c=-50445.701 d=9472.525 e=-4904.478 f=-801.149
+:M5="station_hq_imperial_a" :M6="station_hq_kingdom_a" o=10^6-1
+:M7="station_proving_grounds" :M8="station_capital_imperial_a"
+ox=-9938.401 oy=4904.714 oz=0
+g=o-:R5 h=o-:R6 i=o-:R7 j=o-:R8
+:X2=(g^2-h^2+a^2)/(2*a)+ox :Y2=(g^2-i^2+b^2+c^2-2*b*(:X2-ox))/(2*c)+oy
+:Z2=(g^2-j^2+d^2+e^2+f^2-2*d*(:X2-ox)-2*e*(:Y2-oy))/(2*f)+oz
+if :CL>0 then goto5 end goto8
+
+
+CHIP 2
+er="\nH:LOS\nH:LOS"
+x=:XX-:X2 y=:YY-:Y2 :0A=(x<0)*((y>0)-0.5)*360+atan(y/x)+180
+z=:ZZ-:Z2 h=sqrt(x^2+y^2) :0B=(z<0)*((h>0)-0.5)*360+atan(h/z)+180
+vec="\nH:"+:0A+"\nP:"+:0B if :SD<4 then vec=er end
+if :CL>0 then :Vec=vec goto2 end goto5
+
+MEM
+:Vec // easy vector out
+:0A // heading (0..360)
+:0B // pitch (0..360)
+:X2 // fore x
+:Y2 // fore y
+:Z2 // fore z
