@@ -1,6 +1,0 @@
-:CL // clock pulse
-:XX // x
-:YY // y
-:ZZ // z
-:SD // signal detection
-:Pos // easy position out

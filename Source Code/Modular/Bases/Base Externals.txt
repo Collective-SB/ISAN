@@ -1,0 +1,11 @@
+MEMORY
+:CL // clock pulse
+:XX // x
+:YY // y
+:ZZ // z
+:SD // signal detection
+:Pos // text display output
+
+RECIEVERS
+:R1..:R# // reciever # signal strength
+:M1..:M# // reciever # target message

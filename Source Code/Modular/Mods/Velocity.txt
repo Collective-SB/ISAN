@@ -1,7 +1,7 @@
-:VV=sqrt((xl-:XX)^2+(xl-:YY)^2+(zl-:ZZ)^2) xl=:XX yl=:YY zl=:ZZ
-vec="\nV:"+:VV if :SD<4 then vec="\nV:LOS" end
-if :CL>0 then :Vec=vec goto1 end goto3
+:VV=sqrt((xl-:XX)^2+(yl-:YY)^2+(zl-:ZZ)^2)*(1/(i*0.2)) xl=:XX yl=:YY
+i=2 vel="\nV:"+:VV if :SD<4 then vel="\nV:LOS" end zl=:ZZ
+i++ if :CL>0 then :Vel=vel goto1 end goto3
 
 MEM
-:Vel // easy velocity out
 :VV // velocity
+:Vel // text display output
