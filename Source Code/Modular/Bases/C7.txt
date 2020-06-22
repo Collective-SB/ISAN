@@ -12,8 +12,8 @@ ox=-9938.401 oy=4904.714 oz=0 ox+=-9938.401 oy+=4904.714 oz+=0
 
 
 
-:M0="station_hq_imperial_a" :M1="station_hq_kingdom_a" :M2=:M1
-:M3="station_proving_grounds" :M4=:M3 :M5="station_capital_imperial_a"
-:M6=:M5
+:M1="station_hq_imperial_a" :M2="station_hq_kingdom_a" :M3=:M3
+:M4="station_proving_grounds" :M5=:M4 :M6="station_capital_imperial_a"
+:M7=:M6
 
 WIP

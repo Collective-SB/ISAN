@@ -9,3 +9,4 @@ MEMORY
 RECIEVERS
 :R1..:R# // reciever # signal strength
 :M1..:M# // reciever # target message
+:N1..:N# // reciever # message

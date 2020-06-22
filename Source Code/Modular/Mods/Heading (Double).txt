@@ -8,7 +8,6 @@ g=o-:R5 h=o-:R6 i=o-:R7 j=o-:R8
 :Z2=(g^2-j^2+d^2+e^2+f^2-2*d*(:X2-ox)-2*e*(:Y2-oy))/(2*f)+oz
 if :CL>0 then goto5 end goto8
 
-
 CHIP 2
 er="\nH:LOS\nH:LOS"
 x=:XX-:X2 y=:YY-:Y2 :0A=(x<0)*((y>0)-0.5)*360+atan(y/x)+180
@@ -23,3 +22,12 @@ MEM
 :X2 // fore x
 :Y2 // fore y
 :Z2 // fore z
+
+
+
+TEST
+er="\nH:LOS\nH:LOS" f=360 q=180 p=0.5
+x=:X2-:XX y=:Y2-:YY z=:Z2-:ZZ h=sqrt(x^2+z^2)
+:0A=(x<0)*((z>0)-p)*f+atan(z/x)+q :0B=(y<0)*((h>0)-p)*f+atan(h/y)+q
+vec="\nH:"+:0A+"\nP:"+:0B if :SD<4 then vec=er end
+if :CL>0 then :Vec=vec goto2 end goto5
