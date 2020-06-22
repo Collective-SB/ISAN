@@ -1,12 +1,11 @@
 a=19832.688 b=29157.219 c=-50445.701 d=9472.525 e=-4904.478 f=-801.149
-k="station_hq_imperial_a" l="station_hq_kingdom_a" o=10^6-1
+k="station_hq_imperial_a" l="station_hq_kingdom_a"
 m="station_proving_grounds" n="station_capital_imperial_a"
+er="\nX:Loss\nY:of\nZ:Signal" ax="\nX:" ay="\nY:" az="\nZ:" o=10^6-1
 ox=-9938.401 oy=4904.714 oz=0
-:CL=0 h=o-:R1 :M1=m
-:XX=(g^2-h^2+a^2)/(2*a)+ox
-i=o-:R1 :M1=n
-:YY=(g^2-i^2+b^2+c^2-2*b*(:XX-ox))/(2*c)+oy
-j=o-:R1 :M1=k :SD=(g<o)+(h<o)+(i<o)+(j<o)
-:ZZ=(g^2-j^2+d^2+e^2+f^2-2*d*(:XX-ox)-2*e*(:YY-oy))/(2*f)+oz
-g=o-:R1 pos="\nX:"+:XX+"\nY:"+:YY+"\nZ:"+:ZZ
-:CL=1 :Pos=pos if :SD<4 then :Pos="X:Loss\nY:of\nZ:Signal" end goto5
+:CL=0 g=o-:R1 :SD=(g<o)+(h<o)+(i<o)+(j<o) :M1=l
+h=o-:R1 :XX=(g^2-h^2+a^2)/(2*a)+ox if :N1!=:M1 then goto7 end :M1=m
+i=o-:R1 :YY=(g^2-i^2+b^2+c^2-2*b*(:XX-ox))/(2*c)+oy goto(8+(:N1==:M1))
+:M1=n j=o-:R1 goto(9+(:N1==:M1))
+:ZZ=(g^2-j^2+d^2+e^2+f^2-2*d*(:XX-ox)-2*e*(:YY-oy))/(2*f)+oz :M1=k
+:CL=1 :Pos=ax+:XX+ay+:YY+az+:ZZ if :SD<4 then :Pos=er end goto6
