@@ -1,6 +1,7 @@
+av="\nV:" e="\nV:LOS"
 :VV=sqrt((xl-:XX)^2+(yl-:YY)^2+(zl-:ZZ)^2)*(1/(i*0.2)) xl=:XX yl=:YY
-i=2 vel="\nV:"+:VV if :SD<4 then vel="\nV:LOS" end zl=:ZZ
-i++ if :CL>0 then :Vel=vel goto1 end goto3
+i=2 zl=:ZZ vd=:VV/vl if ((vd>1.5)+(vd<0.5))>0 then :VV=vl end vl=:VV
+i++ if :CL>0 then :Vel=av+:VV if :SD<4 then :Vel=e end goto2 end goto4
 
 MEM
 :VV // velocity
