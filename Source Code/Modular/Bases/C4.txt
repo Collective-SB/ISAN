@@ -7,3 +7,5 @@ ox=-9938.401 oy=4904.714 oz=0
 x=(g^2-h^2+a^2)/2/a y=(g^2-i^2+b^2+c^2-2*b*x)/2/c
 :XX=x+ox :YY=y+oy :ZZ=(g^2-j^2+d^2+e^2+f^2-2*d*x-2*e*y)/2/f+oz
 :CL=1 :Pos=ax+:XX+ay+:YY+az+:ZZ if :SD<4 then :Pos=er end goto6
+
+1.1

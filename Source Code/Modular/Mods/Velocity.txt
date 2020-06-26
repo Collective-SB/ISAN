@@ -6,3 +6,5 @@ i++ if :CL>0 then :Vel=av+:VV if :SD<4 then :Vel=e end goto2 end goto4
 MEM
 :VV // velocity
 :Vel // text display output
+
+1.1

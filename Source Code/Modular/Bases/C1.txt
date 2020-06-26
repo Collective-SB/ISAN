@@ -9,3 +9,5 @@ ox=-9938.401 oy=4904.714 oz=0
 :M1=k j=o-:R1 w++ y=(ya-2*b*x)/2/c w/=(w<5)/(:N1!=n) :M1=n goto9
 :XX=x+ox :YY=y+oy :ZZ=(g^2-j^2+d^2+e^2+f^2-2*d*x-2*e*y)/2/f+oz
 :CL=1 :Pos=ax+:XX+ay+:YY+az+:ZZ if :SD<4 then :Pos=er end goto6
+
+1.1
