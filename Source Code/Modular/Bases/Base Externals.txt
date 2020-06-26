@@ -1,8 +1,8 @@
 MEMORY
-:CL // clock pulse
 :XX // x
 :YY // y
 :ZZ // z
+:CL // clock pulse
 :SD // signal detection
 :Pos // text display output
 
