@@ -1,36 +1,12 @@
 a=19832.688 b=29157.219 c=-50445.701 d=9472.525 e=-4904.478 f=-801.149
 :M1="station_hq_imperial_a" :M2="station_hq_kingdom_a"
 :M3="station_proving_grounds" :M4="station_capital_imperial_a"
-
-
-er="\nX:Loss\nY:of\nZ:Signal" ax="\nX:" ay="\nY:" az="\nZ:" o=10^6-1
-ox=-9938.401 oy=4904.714 oz=0 ox+=-9938.401 oy+=4904.714 oz+=0
-:CL=0 g=o-:R1 h=o-:R2 i=o-:R3 j=o-:R4 :SD=(g<o)+(h<o)+(i<o)+(j<o)
-:XX=(g^2-h^2+a^2)/(2*a)+ox :YY=(g^2-i^2+b^2+c^2-2*b*(:XX-ox))/(2*c)+oy
-:ZZ=(g^2-j^2+d^2+e^2+f^2-2*d*(:XX-ox)-2*e*(:YY-oy))/(2*f)+oz
-:CL=1 :Pos=ax+:XX+ay+:YY+az+:ZZ if :SD<4 then :Pos=er end goto6
-
-
-
-:M1="station_hq_imperial_a" :M2="station_hq_kingdom_a" :M3=:M3
-:M4="station_proving_grounds" :M5=:M4 :M6="station_capital_imperial_a"
-:M7=:M6
-
-
-
-
-TEST
-oppsiite corders of cube
-
-a=19832.688 b=29157.219 c=-50445.701 d=9472.525 e=-4904.478 f=-801.149
-:M1="station_hq_imperial_a" :M2="station_hq_kingdom_a"
-:M3="station_proving_grounds" :M4="station_capital_imperial_a"
-:M6=:M2 :M7=:M3 :M8=:M4
-r="\nX:Loss\nY:of\nZ:Signal" ax="\nX:" ay="\nY:" az="\nZ:" o=10^6-1
+:M5=:M1 :M6=:M2 :M7=:M3 :M8=:M4
+r="\nX:Loss\nY:of\nZ:Signal" ax="\nX:" ay="\nY:" az="\nZ:" o=2*10^6-2
 ox=-9938.401 oy=4904.714 oz=0
-:CL=0 g=o-(:R1+:R5)/2 h=o-(:R2+:R6)/2 i=o-(:R3+:R7)/2 j=o-(:R4+:R8)/2
+:CL=0 g=(o-:R1-:R5)/2 h=(o-:R2-:R6)/2 i=(o-:R3-:R7)/2 j=(o-:R4-:R8)/2
 x=(g^2-h^2+a^2)/2/a y=(g^2-i^2+b^2+c^2-2*b*x)/2/c s=(h<o)+(i<o)+(j<o)
-:XX=x+ox :YY=y+oy :ZZ=(g^2-j^2+d^2+e^2+f^2-2*d*x-2*e*y)/2/f+oz t=(g<0)
+:XX=x+ox :YY=y+oy :ZZ=(g^2-j^2+d^2+e^2+f^2-2*d*x-2*e*y)/2/f+oz t=(g<o)
 :CL=1 :SD=s+t :Pos=ax+:XX+ay+:YY+az+:ZZ if :SD<4 then :Pos=r end goto7
 
 octo

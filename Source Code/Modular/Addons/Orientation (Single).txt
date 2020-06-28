@@ -1,11 +1,11 @@
 er="\nH:LOS\nH:LOS" ah="\nH:" ap="\nP:" f=360 q=180 p=0.5
-x=xl-:XX y=yl-:YY z=zl-:ZZ h=sqrt(x^2+z^2) xl=:XX yl=:YY zl=:ZZ
-:0A=atan(x/y)+q+(y>0)*((x<0)-p)*f :0B=-atan(z/h) o=ah+:0A+ap+:0B
+x=xl-:XX y=:YY-yl z=:ZZ-zl h=sqrt(x^2+z^2) xl=:XX yl=:YY zl=:ZZ
+:0H=atan(x/y)+q+(y>0)*((x<0)-p)*f :0P=2*atan(z/h) o=ah+:0H+ap+:0P
 if :CL>0 then :Orn=o if :SD<4 then :Orn=er end goto2 end goto4
 
 MEM
+:0H // heading (0..360)
+:0P // pitch (-90..90)
 :Orn // easy orientation out
-:0A // heading (0..360)
-:0B // pitch (0..360)
 
 1.1
