@@ -1,0 +1,17 @@
+ax="\nX:" ay="\nY:" az="\nZ:" ah="\nH:" ap="\nP:" ad="\nD:"
+e="\nX:"+:DX+"\nY:"+:DY+"\nZ:"+:DZ+"\nH:ERR\nP:ERR" f=360 q=180 p=0.5
+x=:XX-:DX y=:DY-:YY z=:DZ-:ZZ h=sqrt(x^2+y^2) :DP=atan(z/h)
+:DH=atan(x/y)+q+(y>0)*((x<0)-p)*f
+:DD=sqrt(x^2+y^2+z^2) o=ax+:DX+ay+:DY+az+:DZ+ah+:DH+ap+:DP+ad+:DD
+if :CL>0 then :Dst=o if :SD<4 then :Dst=e end goto3 end goto6
+
+MEM
+:DX // destination x
+:DY // destination y
+:DZ // destination z
+:DH // destination heading (0..360)
+:DP // destination pitch (-90..90)
+:DD // destination distance
+:Dst // easy destination out
+
+1.3

@@ -10,4 +10,4 @@ x=(g^2-h^2+a^2)/2/a y=(g^2-i^2+b^2+c^2-2*b*x)/2/c s=(h<o)+(i<o)+(j<o)
 :CL=1 :SD=s+t :Pos=ax+:XX+ay+:YY+az+:ZZ if :SD<4 then :Pos=r end goto7
 
 octo
-1.1
+1.3
