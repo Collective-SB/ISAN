@@ -1,0 +1,28 @@
+:DH // destination heading (0..360)
+:DP // destination pitch (-90..90)
+:DD // destination distance
+:HH // heading (0..360)
+:PP // pitch (-90..90)
+:RR // roll (0..360)
+
+
+
+a=100 b=180 d=360
+h=a*sin((((:HH-:DH+b)%d)-b)/2) p=a*sin(:PP-:DP)/2) c=cos :RR s=sin :RR
+m=2.4 f=h*c-p*s g=h*s+p*c l=a*m-sqrt(f^2+g^2)*m
+if :CL>0 and :SD>3 then :FCUY=f :FCUP=g :FCUF=l goto2 end goto4
+
+
+
+a=100 b=180 d=360
+hh=(((:HH-:DH+b)%d)-b) pp=:PP-:DP hd=hh/hl hh=(hd>0.5)*(hd<1.5)*hh+hl
+hl=hh h=a*sin(hh/2) pd=pp/pl pp=(pd>0.5)*(pd<1.5)*pp+pl p=a*sin(pp)/2)
+pl=pp c=cos :RR s=sin :RR f=h*c-p*s g=h*s+p*c l=a*m-sqrt(f^2+g^2)*m
+m=2.4 if :CL>0 and :SD>3 then :FCUY=f :FCUP=g :FCUF=l goto2 end goto4
+
+
+
+m // multiplier
+:FCUY // flight controller yaw
+:FCUP // flight controller pitch
+:FCUF // flight controller forward

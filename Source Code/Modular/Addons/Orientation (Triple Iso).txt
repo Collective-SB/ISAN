@@ -1,0 +1,57 @@
+back left
+a=19832.688 b=29157.219 c=-50445.701 d=9472.525 e=-4904.478 f=-801.149
+:M5="station_hq_imperial_a" :M6="station_hq_kingdom_a"
+:M7="station_proving_grounds" :M8="station_capital_imperial_a"
+er="\nX:Loss\nY:of\nZ:Signal" ax="\nX:" ay="\nY:" az="\nZ:" o=10^6-1
+ox=-9938.401 oy=4904.714 oz=0
+g=o-:R5 h=o-:R6 i=o-:R7 j=o-:R8 :SD=(g<o)+(h<o)+(i<o)+(j<o)
+x=(g^2-h^2+a^2)/2/a y=(g^2-i^2+b^2+c^2-2*b*x)/2/c z=g^2-j^2+d^2+e^2
+:X2=x+ox :Y2=y+oy :Z2=(z+f^2-2*d*x-2*e*y)/2/f+oz goto6+(:CL<1)*2
+
+
+
+back top
+a=19832.688 b=29157.219 c=-50445.701 d=9472.525 e=-4904.478 f=-801.149
+:M9="station_hq_imperial_a" :MA="station_hq_kingdom_a"
+:MB="station_proving_grounds" :MC="station_capital_imperial_a"
+er="\nX:Loss\nY:of\nZ:Signal" ax="\nX:" ay="\nY:" az="\nZ:" o=10^6-1
+ox=-9938.401 oy=4904.714 oz=0
+g=o-:R9 h=o-:RA i=o-:RB j=o-:RC :SD=(g<o)+(h<o)+(i<o)+(j<o)
+x=(g^2-h^2+a^2)/2/a y=(g^2-i^2+b^2+c^2-2*b*x)/2/c z=g^2-j^2+d^2+e^2
+:X3=x+ox :Y3=y+oy :Z3=(z+f^2-2*d*x-2*e*y)/2/f+oz goto6+(:CL<1)*2
+
+
+
+er="\nH:LOS\nH:LOS\nR:LOS" f=360 q=180 d=0.5
+a="\nH:" b="\nP:" c="\nR:"
+x=:XX-:X2 y=:Y2-:YY z=:Z2-:ZZ i=:XX-:X3 j=:Y3-:YY k=:Z3-:ZZ
+:HH=atan(x/y)+q+(y>0)*((x<0)-d)*f v=sqrt(x^2+y^2) :PP=atan(z/v)
+w=sqrt(i^2+j^2) :RR=atan(w/k)+q+(k>0)*((w<0)-d)*f o=a+:HH+b+:PP+c
+if :CL>0 then :Orn=o+:RR if :SD<4 then :Orn=er end goto3 end goto6
+
+
+
+e="\nH:LOS\nH:LOS\nR:LOS" f=360 q=180 d=0.5 a="\nH:" b="\nP:" c="\nR:"
+x=:XX-:X2 y=:Y2-:YY z=:Z2-:ZZ i=:XX-:X3 j=:Y3-:YY k=:Z3-:ZZ
+:HH=atan(x/y)+q+(y>0)*((x<0)-d)*f v=sqrt(x^2+y^2) :PP=atan(z/v)
+w=sqrt(i^2+j^2-z) :RR=atan(w/k)+q+(k>0)*((w<0)-d)*f o=a+:HH+b+:PP
+if :CL>0 then :Orn=o+c+:RR if :SD<4 then :Orn=e end goto2 end goto5
+
+
+
+MEM
+:HH // heading (0..360)
+:PP // pitch (-90..90)
+:RR // roll (0..360)
+:Orn // easy orientation out
+
+1.4
+
+
+
+er="\nH:LOS\nH:LOS\nR:LOS" f=360 q=180 d=0.5
+a="\nH:" b="\nP:" c="\nR:"
+x=:XX-:X2 y=:Y2-:YY z=:Z2-:ZZ i=:XX-:X3 j=:Y3-:YY k=:Z3-:ZZ
+:HH=atan(x/y)+q+(y>0)*((x<0)-d)*f v=sqrt(x^2+y^2) :PP=atan(z/v)
+w=sqrt(i^2+j^2-z) :RR=atan(w/k)+q+(k>0)*((w<0)-d)*f o=a+:HH+b+:PP+c
+if :CL>0 then :Orn=o+:RR if :SD<4 then :Orn=er end goto3 end goto6

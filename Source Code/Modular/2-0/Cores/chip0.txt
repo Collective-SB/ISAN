@@ -1,0 +1,45 @@
+CHIP 0
+s="13579"
+n=0 m=(:M1!=t) t=:M1 goto2+m :ER=(:R1>0)+(:R2>0)+(:R3>0)+(:R4>0)
+d=t---t n=n*10+2*((d>1)+(d>3)+(d>5)+(d>7))+(s<s-d) goto3
+of=n t=:M2 n=0 j=-3
+d=t---t n+=(2*((d>1)+(d>3)+(d>5)+(d>7))+(s<s-d))*10^j++ goto5
+x=n t=:M3 n=0 j=-3
+d=t---t n+=(2*((d>1)+(d>3)+(d>5)+(d>7))+(s<s-d))*10^j++ goto7
+y=n t=:M4 n=0 j=-3
+d=t---t n+=(2*((d>1)+(d>3)+(d>5)+(d>7))+(s<s-d))*10^j++ goto9
+j=0 :OF=of :OX=x :OY=y :OZ=n goto2
+
+1..99
+1000..1299
+
+
+
+CHIP 1
+m=10^6-1 a=100^2 b=2*a fx=1000 fy=1100 fz=1200
+:CL=0 o=(m-:R1)^2 x=m-:R2 y=:R3 z=:R4 :F2=fx+:OF :F3=fy+:OF :F4=fz+:OF
+:CL=1 :XX=(o-x^2+a)/b :YY=(o-(m-y)^2+a)/b :ZZ=(o-(m-z)^2+a)/b goto2
+
+
+
+CHIP DISPLAY 1 (with H P and V)
+m=10^6-1 l="\nLoss of\nsignal" s="\nHandover in\nprogress"
+x="\nX:" y="\nY:" z="\nZ:" h=\nH:" p="\nP:" v="\nV:"
+o=h+:HH+p+:PP+v+:VV goto3+(:CL<1)*(1+(:LS>0)+(:SS>0)*2)
+:Dis=x+(:XX+:OX)+y+(:YY+:OY)+z+(:ZZ+:OZ)+o goto3
+:Dis=l goto3
+:Dis=s goto3
+
+
+
+MEM 1
+XX
+YY
+ZZ
+OX
+OY
+OZ
+OF
+CL
+LS
+SS // rename later
