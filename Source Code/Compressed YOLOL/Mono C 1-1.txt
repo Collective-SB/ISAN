@@ -1,30 +1,21 @@
 CHIP
 a=19832.688 b=29157.219 c=-50445.701 d=9472.525 e=-4904.478 f=-801.149
+k="station_hq_imperial_a" l="station_hq_kingdom_a"
+m="station_proving_grounds" n="station_capital_imperial_a"
 o=10^6-1 p="Loss\nY: of\nZ: Signal" ox=-9938.401 oy=4904.714 oz=0
-g=o-:K h=o-:L i=o-:M j=o-:N q=(g<o)+(h<o)+(i<o)+(j<o)
-x=(g^2-h^2+a^2)/(2*a) y=(g^2-i^2+b^2+c^2-2*b*x)/(2*c)
+h=o-:R :M=m
+x=(g^2-h^2+a^2)/(2*a)
+i=o-:R :M=n
+y=(g^2-i^2+b^2+c^2-2*b*x)/(2*c)
+j=o-:R :M=k q=(g<o)+(h<o)+(i<o)+(j<o)
 z=(g^2-j^2+d^2+e^2+f^2-2*d*x-2*e*y)/(2*f)
-if q<4 then :X=p goto3 end :X=x+ox+"\nY: "+(y+oy)+"\nZ: "+(z+oz) goto3
+g=o-:R :M=l
+if q<4 then :X=p goto5 end :X=x+ox+"\nY: "+(y+oy)+"\nZ: "+(z+oz) goto5
 
-RECEIVER 1
-K // signal strength
+RECEIVER
+R // signal strength
 180 // listen angle (intended to act as 360)
-"station_hq_imperial_a" // transmitter message
-
-RECEIVER 2
-L // signal strength
-180 // listen angle (intended to act as 360)
-"station_hq_kingdom_a" // transmitter message
-
-RECEIVER 3
-M // signal strength
-180 // listen angle (intended to act as 360)
-"station_proving_grounds" // transmitter message
-
-RECEIVER 4
-N // signal strength
-180 // listen angle (intended to act as 360)
-"station_capital_imperial_a" // transmitter message
+M // receiver message
 
 TEXT DISPLAY
 X // name
@@ -41,6 +32,11 @@ g // distance in meters to transmitter 1
 h // distance in meters to transmitter 2
 i // distance in meters to transmitter 3
 j // distance in meters to transmitter 4
+
+k // ="station_hq_imperial_a" transmitter 1 message
+l // ="station_hq_kingdom_a" transmitter 2 message
+m // ="station_capital_imperial_a" transmitter 3 message
+n // ="station_empire_outpost_b" transmitter 4 message
 
 o // =999999 max signal strength, inverts signal strength to get distance
 p // ="Loss\nY: of\nZ: Signal" error message, 'loss of signal'
