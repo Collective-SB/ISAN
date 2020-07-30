@@ -1,4 +1,4 @@
-back left
+forward
 a=19832.688 b=29157.219 c=-50445.701 d=9472.525 e=-4904.478 f=-801.149
 :M5="station_hq_imperial_a" :M6="station_hq_kingdom_a"
 :M7="station_proving_grounds" :M8="station_capital_imperial_a"
@@ -9,8 +9,7 @@ x=(g^2-h^2+a^2)/2/a y=(g^2-i^2+b^2+c^2-2*b*x)/2/c z=g^2-j^2+d^2+e^2
 :X2=x+ox :Y2=y+oy :Z2=(z+f^2-2*d*x-2*e*y)/2/f+oz goto6+(:CL<1)*2
 
 
-
-back top
+right
 a=19832.688 b=29157.219 c=-50445.701 d=9472.525 e=-4904.478 f=-801.149
 :M9="station_hq_imperial_a" :MA="station_hq_kingdom_a"
 :MB="station_proving_grounds" :MC="station_capital_imperial_a"
