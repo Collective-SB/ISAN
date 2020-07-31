@@ -1,16 +1,31 @@
-# ISAN Addendum
+# ISAN
+**Integrated System for Autonomous Navigation** in [STARBASE](https://www.starbasegame.com/)
 
-Addendums and upgrades to the ISAN navigation system such as: compressison of pre-existing code, variants that use 1, 2, and 4 recievers, grid transformation, grid rotation, velocity, and heading.
+Under development by the Collective, ISAN uses in-game station transmitters as reference points, in order to calculate your relative position. This is the private home of that project.
 
-### Coding Style
+## Things to see
 
-Please include the coding styles present in this project (Note: This should be PEP8 unless authorisation is given by Solon#4472)
+ - Documentation Section
+    - Explanation of Terms
+ - Development Section
+    - The readme (file/folder format restrictions)
 
-## Authors
+## Credits
 
-Solon#4472 (448210429119037450)  
-Lumi Virtual#9704 (140207461939281920)
+| Subroutine | Contribution |
+|-|-|
+|[Solon](https://github.com/1Solon "Solon#4472 on Discord")|Project management
+|[Lumi](https://github.com/Lumi-Virtual "Lumi Virtual#9704 on Discord")|Development of ISAN V1 ‘ISAN alchemist’
+|[Azurethi](https://github.com/Azurethi "Azurethi#0789 on Discord")|The Painful math of ISAN V2
+|[Recatek](https://github.com/Recatek "Recatek#1707 on Discord")|Code minification, Lighthouse protocol
+|[Strikeeaglechase](# "Strikeeaglechase#0001 on discord")|Development of offsets and Autopilot
+|MuNk|Code consultation
+|Nordwolf|Coordinate system calculation and measurements, Dev of ISAN V0
+|Battle_Wrath|Various design ideas and general help.|
+|Archduke|Support and document writeup|
+|Zaff|Security and usability consultation, Documentation|
+|Meboy100|Le rubber duck|
 
-## Acknowledgments
+*hover for discord usernames, click for githubs*
 
-General acknoledgments (If unessessary, delete this section)
+

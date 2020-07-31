@@ -1,0 +1,20 @@
+ISAN V2 CORE
+- Lighthouse Protocol
+- Lighthouse Scanner
+- Lighthouse Decoder
+# Setup Script (temp)
++ Inversion Engine
++ Axis processors (Quad, multi-chip)
++ Position Processor (Quad, single-chip)
++ Position Processor (Mono, single-chip)
+
+New Addons
+- Velocity | Speed
+- Heading (Multi-sample)
+- Heading (Multi-core)
+- Waypoint Navigation
+- Autopilot
+- Performance
+
+New Docs
+- Various.

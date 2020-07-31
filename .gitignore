@@ -1,2 +1,5 @@
 # Mac hidden files
 .DS_store
+
+# Azur's TODO list
+/TODO

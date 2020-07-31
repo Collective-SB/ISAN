@@ -1,0 +1,18 @@
+z="station_" M1=z+"hq_imperial_a" M2=z+"hq_kingdom_a" i=214589.634
+M3=z+"proving_grounds" M4=z+"capital_imperial_a" a=1.836 b=2.792
+c=10.285 e=39665.376 f=-39665.376 j=-68626.15 k=100891.402 m=-2820.508
+n=-4787.429 o=-16480.662 p=1602.298 q=122828033.859 r=121953134.66 
+s=2443344462.251 t=858880.223 y=999999 :M1=M1 :M2=M1 :M3=M1 :M4=M1 
+:M1=M2 :M2=M2 :M3=M2 :M4=M2 R1u=y-:R1 R2u=y-:R2 R3u=y-:R3 R4u=y-:R4
+:M1=M3 :M2=M3 :M3=M3 :M4=M3 R1v=y-:R1 R2v=y-:R2 R3v=y-:R3 R4v=y-:R4
+:M1=M4 :M2=M4 :M3=M4 :M4=M4 R1w=y-:R1 R2w=y-:R2 R3w=y-:R3 R4w=y-:R4
+                            R1x=y-:R1 R2x=y-:R2 R3x=y-:R3 R4x=y-:R4
+:X1=(R1u^2-q)/e+(R1v^2-r)/f :Y1=(R1u^2-q)/i+(R1v^2-r)/j+(R1w^2-s)/k
+:Z1=(R1u^2-q)/m+(R1v^2-r)/n+(R1w^2-s)/o+(R1x^2-t)/p
+:X2=(R2u^2-q)/e+(R2v^2-r)/f :Y2=(R2u^2-q)/i+(R2v^2-r)/j+(R2w^2-s)/k
+:Z2=(R2u^2-q)/m+(R2v^2-r)/n+(R2w^2-s)/o+(R2x^2-t)/p
+:X3=(R3u^2-q)/e+(R3v^2-r)/f :Y3=(R3u^2-q)/i+(R3v^2-r)/j+(R3w^2-s)/k
+:Z3=(R3u^2-q)/m+(R3v^2-r)/n+(R3w^2-s)/o+(R3x^2-t)/p
+:X4=(R4u^2-q)/e+(R4v^2-r)/f :Y4=(R4u^2-q)/i+(R4v^2-r)/j+(R4w^2-s)/k
+:Z4=(R4u^2-q)/m+(R4v^2-r)/n+(R4w^2-s)/o+(R4x^2-t)/p
+goto 18
