@@ -22,7 +22,7 @@ Maybe we can throw some math & code at those questions, hoping for the best.
 
 ## The architecture at a glance
 (Don't worry, this is explained ***at length*** below)
-![flowchart](https://i.imgur.com/BqjssiK.png)
+![flowchart](img/flowchart.png)
 
 ## Some context
 
@@ -41,12 +41,12 @@ You can check out those respective links to their own official wiki pages, but a
 
 The best part about that last point, is that "Signal Strength" is directly related to distance (from the transmitter to our receiver) by the beautifully simple:
 
-![d=999999-r](http://www.sciweavers.org/tex2img.php?eq=r%3D999999-s&bc=white&fc=Black&im=jpg&fs=24&ff=mathdesign&edit=0)
+![d=999999-r](img/eqn1.png)
 s: signal strength  | r: distance
 
 So this means, if we have a receiver on our ship, we can easily measure the distance to any transmitter we like. Using this in combination with [the measured coordinates of the transmitters](https://wiki.starbasegame.com/index.php/Radio_transmitters#Known_station_transmitters), we can use our receiver to give us a sphere of potential points we occupy (Inaccuracy technically makes this a shell but whatever). Put into some math, where T is the transmitter position & (X,Y,Z) is ours:
 
-![(X-T_{x})^2+(Y-T_{y})^2+(Z-T_{z})^2=r^2](http://www.sciweavers.org/tex2img.php?eq=%28X-T_%7Bx%7D%29%5E2%2B%28Y-T_%7By%7D%29%5E2%2B%28Z-T_%7Bz%7D%29%5E2%3Dr%5E2&bc=White&fc=Black&im=jpg&fs=24&ff=mathdesign&edit=0 "")
+![(X-T_{x})^2+(Y-T_{y})^2+(Z-T_{z})^2=r^2](img/eqn2.png)
 
 
 A sphere is better than no idea (we have dropped from three dimentiosn of uncertanty to two!), but it's not really great. That said, it's trivial to now measure to another station, which will give us another sphere of points we should be in. Since we've just measured ourselves to be in two different spheres, we know we must be in the intersection of those & we've refined our search to a circle (technically a weird-fat-squarish-torus) of points. And so we keep going, another measurement gives us two points & a final measurement singles out one of those. **BOOM, we've done it:** just measure distance to four transmitters & work out the intersection of those four spheres.
@@ -58,7 +58,7 @@ Well, that last bit is actually kinda tricky, made a little worse by the need to
 (X-T_{2x})^2+(Y-T_{2y})^2+(Z-T_{2z})^2=r_{2}^2\\
 (X-T_{3x})^2+(Y-T_{3y})^2+(Z-T_{3z})^2=r_{3}^2\\
 (X-T_{4x})^2+(Y-T_{4y})^2+(Z-T_{4z})^2=r_{4}^2\\
-\end{cases}](http://www.sciweavers.org/tex2img.php?eq=%20%5Cbegin%7Bcases%7D%0A%28X-T_%7B1x%7D%29%5E2%2B%28Y-T_%7B1y%7D%29%5E2%2B%28Z-T_%7B1z%7D%29%5E2%3Dr_%7B1%7D%5E2%5C%5C%0A%28X-T_%7B2x%7D%29%5E2%2B%28Y-T_%7B2y%7D%29%5E2%2B%28Z-T_%7B2z%7D%29%5E2%3Dr_%7B2%7D%5E2%5C%5C%0A%28X-T_%7B3x%7D%29%5E2%2B%28Y-T_%7B3y%7D%29%5E2%2B%28Z-T_%7B3z%7D%29%5E2%3Dr_%7B3%7D%5E2%5C%5C%0A%28X-T_%7B4x%7D%29%5E2%2B%28Y-T_%7B4y%7D%29%5E2%2B%28Z-T_%7B4z%7D%29%5E2%3Dr_%7B4%7D%5E2%5C%5C%0A%5Cend%7Bcases%7D%0A%0A&bc=White&fc=Black&im=jpg&fs=24&ff=mathdesign&edit=0)
+\end{cases}](img/eqn3.png)
 
 Where (X,Y,Z) is still just our position, {T1, T2, T3, T4} are x,y,z positions of the four transmitters & {R1,R2,R3,R4} are the distances we've measured to each of these transmitters.
 
@@ -70,7 +70,7 @@ If we take each of these equations & expand those squared terms (I'll just show 
 (Z^2-2ZT_{1z}+T_{1z}^2)=
 r_{1}^2\\
 (X^2+Y^2+Z^2)-2XT_{1x}-2YT_{1y}-2ZT_{1z}=
-r_{1}^2-(T_{1x}^2+T_{1y}^2+T_{1z}^2)](http://www.sciweavers.org/tex2img.php?eq=%28X-T_%7B1x%7D%29%5E2%2B%28Y-T_%7B1y%7D%29%5E2%2B%28Z-T_%7B1z%7D%29%5E2%3Dr_%7B1%7D%5E2%5C%5C%0A%28X%5E2-2XT_%7B1x%7D%2BT_%7B1x%7D%5E2%29%2B%0A%28Y%5E2-2YT_%7B1y%7D%2BT_%7B1y%7D%5E2%29%2B%0A%28Z%5E2-2ZT_%7B1z%7D%2BT_%7B1z%7D%5E2%29%3D%0Ar_%7B1%7D%5E2%5C%5C%0A%28X%5E2%2BY%5E2%2BZ%5E2%29-2XT_%7B1x%7D-2YT_%7B1y%7D-2ZT_%7B1z%7D%3D%0Ar_%7B1%7D%5E2-%28T_%7B1x%7D%5E2%2BT_%7B1y%7D%5E2%2BT_%7B1z%7D%5E2%29&bc=White&fc=Black&im=jpg&fs=24&ff=mathdesign&edit=0)
+r_{1}^2-(T_{1x}^2+T_{1y}^2+T_{1z}^2)](img/eqn4.png)
 
 Doing this to all three equations yields:
 
@@ -83,21 +83,21 @@ r_{2}^2-(T_{2x}^2+T_{2y}^2+T_{2z}^2)\\
 r_{3}^2-(T_{3x}^2+T_{3y}^2+T_{3z}^2)\\
 (X^2+Y^2+Z^2)-2XT_{4x}-2YT_{4y}-2ZT_{4z}=
 r_{4}^2-(T_{4x}^2+T_{4y}^2+T_{4z}^2)
-\end{cases}](http://www.sciweavers.org/tex2img.php?eq=%5Cbegin%7Bcases%7D%0A%28X%5E2%2BY%5E2%2BZ%5E2%29-2XT_%7B1x%7D-2YT_%7B1y%7D-2ZT_%7B1z%7D%3D%0Ar_%7B1%7D%5E2-%28T_%7B1x%7D%5E2%2BT_%7B1y%7D%5E2%2BT_%7B1z%7D%5E2%29%5C%5C%0A%28X%5E2%2BY%5E2%2BZ%5E2%29-2XT_%7B2x%7D-2YT_%7B2y%7D-2ZT_%7B2z%7D%3D%0Ar_%7B2%7D%5E2-%28T_%7B2x%7D%5E2%2BT_%7B2y%7D%5E2%2BT_%7B2z%7D%5E2%29%5C%5C%0A%28X%5E2%2BY%5E2%2BZ%5E2%29-2XT_%7B3x%7D-2YT_%7B3y%7D-2ZT_%7B3z%7D%3D%0Ar_%7B3%7D%5E2-%28T_%7B3x%7D%5E2%2BT_%7B3y%7D%5E2%2BT_%7B3z%7D%5E2%29%5C%5C%0A%28X%5E2%2BY%5E2%2BZ%5E2%29-2XT_%7B4x%7D-2YT_%7B4y%7D-2ZT_%7B4z%7D%3D%0Ar_%7B4%7D%5E2-%28T_%7B4x%7D%5E2%2BT_%7B4y%7D%5E2%2BT_%7B4z%7D%5E2%29%0A%5Cend%7Bcases%7D&bc=White&fc=Black&im=jpg&fs=24&ff=mathdesign&edit=0)
+\end{cases}](img/eqn5.png)
 
 Hopefully you can see that this can be written more simply in matrix form as follows (if not just google "Matrix Multiplication & Matrix Equations" to keep following along, optionally, hit up Azurethi#0789 for a math lesson): 
 
-![ \begin{bmatrix}1 & -2T_{1x} & -2T_{1y} & -2T_{1z}\\1 & -2T_{2x} & -2T_{2y} & -2T_{2z}\\1 & -2T_{3x} & -2T_{3y} & -2T_{3z}\\1 & -2T_{4x} & -2T_{4y} & -2T{4z\\\end{bmatrix}\begin{bmatrix}X^2+Y^2+Z^2\\X\\Y\\Z\end{bmatrix}=\begin{bmatrix}r_{1}^2\\r_{2}^2\\r_{3}^2\\r_{4}^2\end{bmatrix}-\begin{bmatrix}T_{1x}^2+T_{1y}^2+T_{1z}^2\\T_{2x}^2+T_{2y}^2+T_{2z}^2\\T_{3x}^2+T_{3y}^2+T_{3z}^2\\T_{4x}^2+T_{4y}^2+T_{4z}^2\end{bmatrix}](http://www.sciweavers.org/tex2img.php?eq=%20%5Cbegin%7Bbmatrix%7D%0A1%20%26%20-2T_%7B1x%7D%20%26%20-2T_%7B1y%7D%20%26%20-2T_%7B1z%7D%5C%5C%0A1%20%26%20-2T_%7B2x%7D%20%26%20-2T_%7B2y%7D%20%26%20-2T_%7B2z%7D%5C%5C%0A1%20%26%20-2T_%7B3x%7D%20%26%20-2T_%7B3y%7D%20%26%20-2T_%7B3z%7D%5C%5C%0A1%20%26%20-2T_%7B4x%7D%20%26%20-2T_%7B4y%7D%20%26%20-2T_%7B4z%7D%5C%5C%0A%5Cend%7Bbmatrix%7D%0A%5Cbegin%7Bbmatrix%7D%0AX%5E2%2BY%5E2%2BZ%5E2%5C%5CX%5C%5CY%5C%5CZ%0A%5Cend%7Bbmatrix%7D%0A%3D%0A%5Cbegin%7Bbmatrix%7D%0Ar_%7B1%7D%5E2%5C%5Cr_%7B2%7D%5E2%5C%5Cr_%7B3%7D%5E2%5C%5Cr_%7B4%7D%5E2%0A%5Cend%7Bbmatrix%7D%0A-%0A%5Cbegin%7Bbmatrix%7D%0AT_%7B1x%7D%5E2%2BT_%7B1y%7D%5E2%2BT_%7B1z%7D%5E2%5C%5C%0AT_%7B2x%7D%5E2%2BT_%7B2y%7D%5E2%2BT_%7B2z%7D%5E2%5C%5C%0AT_%7B3x%7D%5E2%2BT_%7B3y%7D%5E2%2BT_%7B3z%7D%5E2%5C%5C%0AT_%7B4x%7D%5E2%2BT_%7B4y%7D%5E2%2BT_%7B4z%7D%5E2%0A%5Cend%7Bbmatrix%7D&bc=White&fc=Black&im=jpg&fs=24&ff=mathdesign&edit=0)
+![ \begin{bmatrix}1 & -2T_{1x} & -2T_{1y} & -2T_{1z}\\1 & -2T_{2x} & -2T_{2y} & -2T_{2z}\\1 & -2T_{3x} & -2T_{3y} & -2T_{3z}\\1 & -2T_{4x} & -2T_{4y} & -2T{4z\\\end{bmatrix}\begin{bmatrix}X^2+Y^2+Z^2\\X\\Y\\Z\end{bmatrix}=\begin{bmatrix}r_{1}^2\\r_{2}^2\\r_{3}^2\\r_{4}^2\end{bmatrix}-\begin{bmatrix}T_{1x}^2+T_{1y}^2+T_{1z}^2\\T_{2x}^2+T_{2y}^2+T_{2z}^2\\T_{3x}^2+T_{3y}^2+T_{3z}^2\\T_{4x}^2+T_{4y}^2+T_{4z}^2\end{bmatrix}](img/eqn6.png)
 
 And this instantly simplifies to:
 
-![ A\overrightarrow{x}  = \overrightarrow{r} - \overrightarrow{p}](http://www.sciweavers.org/tex2img.php?eq=%20A%5Coverrightarrow%7Bx%7D%20%20%3D%20%5Coverrightarrow%7Br%7D%20-%20%5Coverrightarrow%7Bp%7D&bc=White&fc=Black&im=jpg&fs=24&ff=mathdesign&edit=0)
+![ A\overrightarrow{x}  = \overrightarrow{r} - \overrightarrow{p}](img/eqn7.png)
 
 where A is our big 4x4 matrix, R is the measured distances (**R**adii) & P is the distance of each transmitter from the origin (magnitude of it's **P**osition vector) and finally X is what we want to solve for.
 
 To solve this, we simply need to multiply both sides by the inverse of A from the right. This gives:
 
-![ \overrightarrow{x}  =A^{-1}( \overrightarrow{r} - \overrightarrow{p}) ](http://www.sciweavers.org/tex2img.php?eq=%20%5Coverrightarrow%7Bx%7D%20%20%3DA%5E%7B-1%7D%28%20%5Coverrightarrow%7Br%7D%20-%20%5Coverrightarrow%7Bp%7D%29%20&bc=White&fc=Black&im=jpg&fs=24&ff=mathdesign&edit=0)
+![ \overrightarrow{x}  =A^{-1}( \overrightarrow{r} - \overrightarrow{p}) ](img/eqn8.png)
 
 So overall, we have our position (X), now in terms of a bunch of "transmitter-constant" variables & our measured distances. And by "transmitter-constant" I just mean, for a given set of four transmitters, if we calculate these values, they'll stay constant until we want to swap to another set of four transmitters. 
 
@@ -130,7 +130,7 @@ Z_a & Z_b & Z_c & Z_d
 \end{bmatrix}\begin{bmatrix}r_{1}^2\\r_{2}^2\\r_{3}^2\\r_{4}^2\end{bmatrix}-\begin{bmatrix}
 W_e \\ X_e \\ Y_e \\ Z_e 
 \end{bmatrix}\\
-](http://www.sciweavers.org/tex2img.php?eq=%5Coverrightarrow%7Bx%7D%3DA%5E%7B-1%7D%28%5Coverrightarrow%7Br%7D-%5Coverrightarrow%7Bp%7D%29%5C%5C%0A%5Coverrightarrow%7Bx%7D%3DA%5E%7B-1%7D%5Coverrightarrow%7Br%7D-A%5E%7B-1%7D%5Coverrightarrow%7Bp%7D%5C%5C%0AA%5E%7B-1%7D%20%3D%20%20%5Cbegin%7Bbmatrix%7D%0AW_a%20%26%20W_b%20%26%20W_c%20%26%20W_d%20%5C%5C%0AX_a%20%26%20X_b%20%26%20X_c%20%26%20X_d%20%5C%5C%20%0AY_a%20%26%20Y_b%20%26%20Y_c%20%26%20Y_d%20%5C%5C%20%0AZ_a%20%26%20Z_b%20%26%20Z_c%20%26%20Z_d%0A%5Cend%7Bbmatrix%7D%5C%5C%0AA%5E%7B-1%7D%5Coverrightarrow%7Bp%7D%3D%5Cbegin%7Bbmatrix%7D%0AW_e%20%5C%5C%20X_e%20%5C%5C%20Y_e%20%5C%5C%20Z_e%20%0A%5Cend%7Bbmatrix%7D%5C%5C%0A%5Coverrightarrow%7Bx%7D%3D%5Cbegin%7Bbmatrix%7D%0AW_a%20%26%20W_b%20%26%20W_c%20%26%20W_d%20%5C%5C%0AX_a%20%26%20X_b%20%26%20X_c%20%26%20X_d%20%5C%5C%20%0AY_a%20%26%20Y_b%20%26%20Y_c%20%26%20Y_d%20%5C%5C%20%0AZ_a%20%26%20Z_b%20%26%20Z_c%20%26%20Z_d%0A%5Cend%7Bbmatrix%7D%5Cbegin%7Bbmatrix%7Dr_%7B1%7D%5E2%5C%5Cr_%7B2%7D%5E2%5C%5Cr_%7B3%7D%5E2%5C%5Cr_%7B4%7D%5E2%5Cend%7Bbmatrix%7D-%5Cbegin%7Bbmatrix%7D%0AW_e%20%5C%5C%20X_e%20%5C%5C%20Y_e%20%5C%5C%20Z_e%20%0A%5Cend%7Bbmatrix%7D%5C%5C%0A&bc=White&fc=Black&im=jpg&fs=24&ff=mathdesign&edit=0)
+](img/eqn9.png)
 
 Then, with those constants a, b, c, d & e for each axis W*, X, Y & Z calculated. Where the W axis is just X^2 + Y^2 + Z^2, and could be used as a double check on accuracy, but this is more usefull when using more reference points & the least squares method (since the resultant A matrix wouldn't be square & so dosen't have an inverse without it) so well ignore W for now.
 
@@ -140,7 +140,7 @@ We can simply multiply out the matrix equation, to yield individual equations fo
 X=r_1^2X_a+r_2^2X_b+r_3^2X_c+r_4^2X_d - X_e\\
 Y=r_1^2Y_a+r_2^2Y_b+r_3^2Y_c+r_4^2Y_d - Y_e\\
 Z=r_1^2Z_a+r_2^2Z_b+r_3^2Z_c+r_4^2Z_d - Z_e\\
-\end{cases} ](http://www.sciweavers.org/tex2img.php?eq=%5Cbegin%7Bcases%7D%0AX%3Dr_1%5E2X_a%2Br_2%5E2X_b%2Br_3%5E2X_c%2Br_4%5E2X_d%20-%20X_e%5C%5C%0AY%3Dr_1%5E2Y_a%2Br_2%5E2Y_b%2Br_3%5E2Y_c%2Br_4%5E2Y_d%20-%20Y_e%5C%5C%0AZ%3Dr_1%5E2Z_a%2Br_2%5E2Z_b%2Br_3%5E2Z_c%2Br_4%5E2Z_d%20-%20Z_e%5C%5C%0A%5Cend%7Bcases%7D%20&bc=White&fc=Black&im=jpg&fs=24&ff=mathdesign&edit=0)
+\end{cases}](img/eqn10.png)
 
 However, since these constants become very small in practice due to the scale of Starbase, yolol would be unable to store them with it's maximum precision of 0.001. But this issue can be resolved by simply redefining the a,b,c & d constants to be one over their original definition. Since we're moving into the start of yolol teritory, we'll also substitute in our equation for converting reciever signal strength into distance, which gives the final form of our axis equations: 
 
@@ -161,7 +161,7 @@ Z=
 \frac{(k-s_2)^2}{Z_b}+
 \frac{(k-s_3)^2}{Z_c}+
 \frac{(k-s_4)^2}{Z_d}-Z_e
-\end{cases}](http://www.sciweavers.org/tex2img.php?eq=k%3D999999%5C%5C%0A%5Cbegin%7Bcases%7D%0AX%3D%0A%5Cfrac%7B%28k-s_1%29%5E2%7D%7BX_a%7D%2B%0A%5Cfrac%7B%28k-s_2%29%5E2%7D%7BX_b%7D%2B%0A%5Cfrac%7B%28k-s_3%29%5E2%7D%7BX_c%7D%2B%0A%5Cfrac%7B%28k-s_4%29%5E2%7D%7BX_d%7D-X_e%5C%5C%0AY%3D%0A%5Cfrac%7B%28k-s_1%29%5E2%7D%7BY_a%7D%2B%0A%5Cfrac%7B%28k-s_2%29%5E2%7D%7BY_b%7D%2B%0A%5Cfrac%7B%28k-s_3%29%5E2%7D%7BY_c%7D%2B%0A%5Cfrac%7B%28k-s_4%29%5E2%7D%7BY_d%7D-Y_e%5C%5C%0AZ%3D%0A%5Cfrac%7B%28k-s_1%29%5E2%7D%7BZ_a%7D%2B%0A%5Cfrac%7B%28k-s_2%29%5E2%7D%7BZ_b%7D%2B%0A%5Cfrac%7B%28k-s_3%29%5E2%7D%7BZ_c%7D%2B%0A%5Cfrac%7B%28k-s_4%29%5E2%7D%7BZ_d%7D-Z_e%0A%5Cend%7Bcases%7D%20&bc=White&fc=Black&im=jpg&fs=24&ff=mathdesign&edit=0)
+\end{cases}](img/eqn11.png)
 
 which you can see directly reflected in the yolol form (this is for X only): 
 ```c
@@ -176,7 +176,7 @@ Lovely! We've now got this completely general purpose "axis processor", but it n
 
 There are many ways to calculate the inverse of a matrix, it's used a lot. However we're going to do it in a kind of weird-ish old fashion way (just because it works better with yolol). The whole equation we're going to need to hash out in yolol is as follows:
 
-![A^{-1}=\frac{1}{\mid A \mid} adj(A)](http://www.sciweavers.org/tex2img.php?eq=A%5E%7B-1%7D%3D%5Cfrac%7B1%7D%7B%5Cmid%20A%20%5Cmid%7D%20adj%28A%29&bc=White&fc=Black&im=jpg&fs=24&ff=mathdesign&edit=0)
+![A^{-1}=\frac{1}{\mid A \mid} adj(A)](img/eqn12.png)
 
 Where |A| is the *determinant* of A and adj(A) is the *Adjugate* of A.
 
@@ -194,18 +194,18 @@ Some Rapid fire definitions before we start:
 
 The determinant of a matrix can be defined recursively as the determinant's of a set of it's submatrices with a column of factors & alternating signs. For example:
 
-![\begin{vmatrix}a & b & c\\d & e & f\\g & h & i\\\end{vmatrix}= a \begin{vmatrix} e & f\\ h & i\\\end{vmatrix}-d \begin{vmatrix} b & c\\ h & i\\\end{vmatrix}+g \begin{vmatrix} b & c\\ e & f\\\end{vmatrix}](http://www.sciweavers.org/tex2img.php?eq=%5Cbegin%7Bvmatrix%7Da%20%26%20b%20%26%20c%5C%5Cd%20%26%20e%20%26%20f%5C%5Cg%20%26%20h%20%26%20i%5C%5C%5Cend%7Bvmatrix%7D%3D%20a%20%5Cbegin%7Bvmatrix%7D%20e%20%26%20f%5C%5C%20h%20%26%20i%5C%5C%5Cend%7Bvmatrix%7D-d%20%5Cbegin%7Bvmatrix%7D%20b%20%26%20c%5C%5C%20h%20%26%20i%5C%5C%5Cend%7Bvmatrix%7D%2Bg%20%5Cbegin%7Bvmatrix%7D%20b%20%26%20c%5C%5C%20e%20%26%20f%5C%5C%5Cend%7Bvmatrix%7D&bc=White&fc=Black&im=jpg&fs=24&ff=mathdesign&edit=0)
+![\begin{vmatrix}a & b & c\\d & e & f\\g & h & i\\\end{vmatrix}= a \begin{vmatrix} e & f\\ h & i\\\end{vmatrix}-d \begin{vmatrix} b & c\\ h & i\\\end{vmatrix}+g \begin{vmatrix} b & c\\ e & f\\\end{vmatrix}](img/eqn13.png)
 
 (Take a moment to see how I got those smaller 2x2 submatrices from the larger 3x3 matrix, by removing the row & column that the submatrices' factors (a, d & g) are in.)
 
 Then since the determinant of a single element matrix, is just that element:
 
 ![\begin{vmatrix} e & f\\ h & i\\\end{vmatrix}=ei-hf
-](http://www.sciweavers.org/tex2img.php?eq=%5Cbegin%7Bvmatrix%7D%20e%20%26%20f%5C%5C%20h%20%26%20i%5C%5C%5Cend%7Bvmatrix%7D%3Dei-hf%0A&bc=White&fc=Black&im=jpg&fs=24&ff=mathdesign&edit=0)
+](img/eqn14.png)
 
 so for that original 3x3:
 
-![\begin{vmatrix}a & b & c\\d & e & f\\g & h & i\\\end{vmatrix}=a(ei-hf)-d(bi-hc)+g(bf-ec)\\=aei-ahf-dbi-dhc+gbf-gec](http://www.sciweavers.org/tex2img.php?eq=%5Cbegin%7Bvmatrix%7Da%20%26%20b%20%26%20c%5C%5Cd%20%26%20e%20%26%20f%5C%5Cg%20%26%20h%20%26%20i%5Cend%7Bvmatrix%7D%3Da%28ei-hf%29-d%28bi-hc%29%2Bg%28bf-ec%29%3Daei-ahf-dbi-dhc%2Bgbf-gec&bc=White&fc=Black&im=jpg&fs=24&ff=mathdesign&edit=0)
+![\begin{vmatrix}a & b & c\\d & e & f\\g & h & i\\\end{vmatrix}=a(ei-hf)-d(bi-hc)+g(bf-ec)\\=aei-ahf-dbi-dhc+gbf-gec](img/eqn15.png)
 
 This fits quite nicely into a yolol line (70 char limit, 2nd line is just showing this limit) like so:
 ```c
@@ -220,17 +220,17 @@ det=(a*f*k*p - a*f*l*o - a*g*j*p + a*g*l*n + a*h*j*o - a*h*k*n - b*e*k*p + b*e*l
 
 Which is pretty far from fitting into our 70 char limit. There's a nice trick to deal with this tho. I'm just going to ask you to [trust me](" "you could use just the equations here to prove this for yourself") when I tell you that if we subtract one row of a matrix from another row in the same matrix, the determinant remains unchanged. This dosen't change the mess that is the 4x4 general case determinant, but if we recall that the A matrix that we're trying to find the determinant of always has a left column full of ones. So lets subtract the first row from all the others like so:
 
-![\begin{vmatrix}1 & -2T_{1x} & -2T_{1y} & -2T_{1z}\\1 & -2T_{2x} & -2T_{2y} & -2T_{2z}\\1 & -2T_{3x} & -2T_{3y} & -2T_{3z}\\1 & -2T_{4x} & -2T_{4y} & -2T_{4z}\\\end{vmatrix} = \begin{vmatrix}1 & -2T_{1x} & -2T_{1y} & -2T_{1z}\\0 & 2T_{1x}-2T_{2x} & 2T_{1y}-2T_{2y} & 2T_{1z}-2T_{2z}\\0 & 2T_{1x}-2T_{3x} & 2T_{1y}-2T_{3y} & 2T_{1z}-2T_{3z}\\0 & 2T_{1x}-2T_{4x} & 2T_{1y}-2T_{4y} & 2T_{1z}-2T_{4z}\\\end{vmatrix}](http://www.sciweavers.org/tex2img.php?eq=%5Cbegin%7Bvmatrix%7D1%20%26%20-2T_%7B1x%7D%20%26%20-2T_%7B1y%7D%20%26%20-2T_%7B1z%7D%5C%5C1%20%26%20-2T_%7B2x%7D%20%26%20-2T_%7B2y%7D%20%26%20-2T_%7B2z%7D%5C%5C1%20%26%20-2T_%7B3x%7D%20%26%20-2T_%7B3y%7D%20%26%20-2T_%7B3z%7D%5C%5C1%20%26%20-2T_%7B4x%7D%20%26%20-2T_%7B4y%7D%20%26%20-2T_%7B4z%7D%5C%5C%5Cend%7Bvmatrix%7D%20%3D%20%5Cbegin%7Bvmatrix%7D1%20%26%20-2T_%7B1x%7D%20%26%20-2T_%7B1y%7D%20%26%20-2T_%7B1z%7D%5C%5C0%20%26%202T_%7B1x%7D-2T_%7B2x%7D%20%26%202T_%7B1y%7D-2T_%7B2y%7D%20%26%202T_%7B1z%7D-2T_%7B2z%7D%5C%5C0%20%26%202T_%7B1x%7D-2T_%7B3x%7D%20%26%202T_%7B1y%7D-2T_%7B3y%7D%20%26%202T_%7B1z%7D-2T_%7B3z%7D%5C%5C0%20%26%202T_%7B1x%7D-2T_%7B4x%7D%20%26%202T_%7B1y%7D-2T_%7B4y%7D%20%26%202T_%7B1z%7D-2T_%7B4z%7D%5C%5C%5Cend%7Bvmatrix%7D&bc=White&fc=Black&im=jpg&fs=24&ff=mathdesign&edit=0)
+![\begin{vmatrix}1 & -2T_{1x} & -2T_{1y} & -2T_{1z}\\1 & -2T_{2x} & -2T_{2y} & -2T_{2z}\\1 & -2T_{3x} & -2T_{3y} & -2T_{3z}\\1 & -2T_{4x} & -2T_{4y} & -2T_{4z}\\\end{vmatrix} = \begin{vmatrix}1 & -2T_{1x} & -2T_{1y} & -2T_{1z}\\0 & 2T_{1x}-2T_{2x} & 2T_{1y}-2T_{2y} & 2T_{1z}-2T_{2z}\\0 & 2T_{1x}-2T_{3x} & 2T_{1y}-2T_{3y} & 2T_{1z}-2T_{3z}\\0 & 2T_{1x}-2T_{4x} & 2T_{1y}-2T_{4y} & 2T_{1z}-2T_{4z}\\\end{vmatrix}](img/eqn16.png)
 
 This initially looks more complicated at a glance, but since 3 of the left column are 0, the determenant expands like so:
 
-![\begin{vmatrix}1 & -2T_{1x} & -2T_{1y} & -2T_{1z}\\0 & 2T_{1x}-2T_{2x} & 2T_{1y}-2T_{2y} & 2T_{1z}-2T_{2z}\\0 & 2T_{1x}-2T_{3x} & 2T_{1y}-2T_{3y} & 2T_{1z}-2T_{3z}\\0 & 2T_{1x}-2T_{4x} & 2T_{1y}-2T_{4y} & 2T_{1z}-2T_{4z}\end{vmatrix}=1 \begin{vmatrix}2T_{1x}-2T_{2x} & 2T_{1y}-2T_{2y} & 2T_{1z}-2T_{2z}\\2T_{1x}-2T_{3x} & 2T_{1y}-2T_{3y} & 2T_{1z}-2T_{3z}\\2T_{1x}-2T_{4x} & 2T_{1y}-2T_{4y} & 2T_{1z}-2T_{4z}\end{vmatrix} \underbrace{- 0 \begin{vmatrix} {I} \end{vmatrix}+ 0 \begin{vmatrix} {J} \end{vmatrix}- 0 \begin{vmatrix} {K} \end{vmatrix}}](http://www.sciweavers.org/tex2img.php?eq=%5Cbegin%7Bvmatrix%7D1%20%26%20-2T_%7B1x%7D%20%26%20-2T_%7B1y%7D%20%26%20-2T_%7B1z%7D%5C%5C0%20%26%202T_%7B1x%7D-2T_%7B2x%7D%20%26%202T_%7B1y%7D-2T_%7B2y%7D%20%26%202T_%7B1z%7D-2T_%7B2z%7D%5C%5C0%20%26%202T_%7B1x%7D-2T_%7B3x%7D%20%26%202T_%7B1y%7D-2T_%7B3y%7D%20%26%202T_%7B1z%7D-2T_%7B3z%7D%5C%5C0%20%26%202T_%7B1x%7D-2T_%7B4x%7D%20%26%202T_%7B1y%7D-2T_%7B4y%7D%20%26%202T_%7B1z%7D-2T_%7B4z%7D%5Cend%7Bvmatrix%7D%3D1%20%5Cbegin%7Bvmatrix%7D2T_%7B1x%7D-2T_%7B2x%7D%20%26%202T_%7B1y%7D-2T_%7B2y%7D%20%26%202T_%7B1z%7D-2T_%7B2z%7D%5C%5C2T_%7B1x%7D-2T_%7B3x%7D%20%26%202T_%7B1y%7D-2T_%7B3y%7D%20%26%202T_%7B1z%7D-2T_%7B3z%7D%5C%5C2T_%7B1x%7D-2T_%7B4x%7D%20%26%202T_%7B1y%7D-2T_%7B4y%7D%20%26%202T_%7B1z%7D-2T_%7B4z%7D%5Cend%7Bvmatrix%7D%20%5Cunderbrace%7B-%200%20%5Cbegin%7Bvmatrix%7D%20%7BI%7D%20%5Cend%7Bvmatrix%7D%2B%200%20%5Cbegin%7Bvmatrix%7D%20%7BJ%7D%20%5Cend%7Bvmatrix%7D-%200%20%5Cbegin%7Bvmatrix%7D%20%7BK%7D%20%5Cend%7Bvmatrix%7D%7D&bc=White&fc=Black&im=jpg&fs=24&ff=mathdesign&edit=0)
+![\begin{vmatrix}1 & -2T_{1x} & -2T_{1y} & -2T_{1z}\\0 & 2T_{1x}-2T_{2x} & 2T_{1y}-2T_{2y} & 2T_{1z}-2T_{2z}\\0 & 2T_{1x}-2T_{3x} & 2T_{1y}-2T_{3y} & 2T_{1z}-2T_{3z}\\0 & 2T_{1x}-2T_{4x} & 2T_{1y}-2T_{4y} & 2T_{1z}-2T_{4z}\end{vmatrix}=1 \begin{vmatrix}2T_{1x}-2T_{2x} & 2T_{1y}-2T_{2y} & 2T_{1z}-2T_{2z}\\2T_{1x}-2T_{3x} & 2T_{1y}-2T_{3y} & 2T_{1z}-2T_{3z}\\2T_{1x}-2T_{4x} & 2T_{1y}-2T_{4y} & 2T_{1z}-2T_{4z}\end{vmatrix} \underbrace{- 0 \begin{vmatrix} {I} \end{vmatrix}+ 0 \begin{vmatrix} {J} \end{vmatrix}- 0 \begin{vmatrix} {K} \end{vmatrix}}](img/eqn17.png)
 
 Where I, J & K would be other submatrices, but I've excluded them as you can see they just end up being multiplied by those zeros we created. This leaving the entire underbraced section as just zero, reducing our 4x4 determinant to a 3x3 determinant.
 
  Another fun trick, is that if we divide a row by some constant, it'll divide the entire determinant by that constant. So we could divide all three rows by 2, & multiply by 8 to get the determinant back to what it was. Giving us: 
 
-![\begin{vmatrix}A\end{vmatrix}=8 \begin{vmatrix}T_{1x}-T_{2x} & T_{1y}-T_{2y} & T_{1z}-T_{2z}\\T_{1x}-T_{3x} & T_{1y}-T_{3y} & T_{1z}-T_{3z}\\T_{1x}-T_{4x} & T_{1y}-T_{4y} & T_{1z}-T_{4z}\end{vmatrix}](http://www.sciweavers.org/tex2img.php?eq=%5Cbegin%7Bvmatrix%7DA%5Cend%7Bvmatrix%7D%3D8%20%5Cbegin%7Bvmatrix%7DT_%7B1x%7D-T_%7B2x%7D%20%26%20T_%7B1y%7D-T_%7B2y%7D%20%26%20T_%7B1z%7D-T_%7B2z%7D%5C%5CT_%7B1x%7D-T_%7B3x%7D%20%26%20T_%7B1y%7D-T_%7B3y%7D%20%26%20T_%7B1z%7D-T_%7B3z%7D%5C%5CT_%7B1x%7D-T_%7B4x%7D%20%26%20T_%7B1y%7D-T_%7B4y%7D%20%26%20T_%7B1z%7D-T_%7B4z%7D%5Cend%7Bvmatrix%7D&bc=White&fc=Black&im=jpg&fs=24&ff=mathdesign&edit=0)
+![\begin{vmatrix}A\end{vmatrix}=8 \begin{vmatrix}T_{1x}-T_{2x} & T_{1y}-T_{2y} & T_{1z}-T_{2z}\\T_{1x}-T_{3x} & T_{1y}-T_{3y} & T_{1z}-T_{3z}\\T_{1x}-T_{4x} & T_{1y}-T_{4y} & T_{1z}-T_{4z}\end{vmatrix}](img/eqn18.png)
 
 Where we can just load each value in to a->i & use our 3x3 determinant formula (which actually fits in yolol) to get the determinant of A
 
@@ -240,7 +240,7 @@ Per our list of definitions, the Adjugate of a matrix is the transpose of it's c
 
 The cofactor matrix, is a matrix of the determinants of all the submatrices of the original matrix. For example:
 
-![comatrix(\begin{bmatrix}a&b&c&d\\e&f&g&h\\i&j&k&l\\m&n&o&p\\\end{bmatrix})=\begin{bmatrix}\begin{vmatrix}f&g&h\\j&k&l\\n&o&p\\\end{vmatrix}&-\begin{vmatrix}e&g&h\\i&k&l\\n&o&p\\\end{vmatrix}&\begin{vmatrix}e&f&h\\i&j&l\\m&n&p\\\end{vmatrix}&-\begin{vmatrix}e&f&g\\i&j&k\\m&n&o\\\end{vmatrix}\\-\begin{vmatrix}b&c&d\\j&k&l\\n&o&p\\\end{vmatrix}&\begin{vmatrix}a&c&d\\i&k&l\\m&o&p\\\end{vmatrix}&-\begin{vmatrix}a&b&d\\i&j&l\\m&n&p\\\end{vmatrix}&\begin{vmatrix}e&f&g\\i&j&k\\m&n&o\\\end{vmatrix}\\\begin{vmatrix}b&c&d\\f&g&h\\n&o&p\\\end{vmatrix}&-\begin{vmatrix}a&c&d\\e&g&h\\m&o&p\\\end{vmatrix}&\begin{vmatrix}a&b&d\\e&f&h\\m&n&p\\\end{vmatrix}&-\begin{vmatrix}a&b&c\\e&f&g\\m&n&o\\\end{vmatrix}\\-\begin{vmatrix}b&c&d\\f&g&h\\j&k&l\\\end{vmatrix}&\begin{vmatrix}a&c&d\\e&g&h\\i&k&l\\\end{vmatrix}&-\begin{vmatrix}a&b&d\\e&f&h\\i&j&l\\\end{vmatrix}&\begin{vmatrix}a&b&c\\e&f&g\\i&j&k\\\end{vmatrix}\end{bmatrix}](http://www.sciweavers.org/tex2img.php?eq=comatrix%28%5Cbegin%7Bbmatrix%7Da%26b%26c%26d%5C%5Ce%26f%26g%26h%5C%5Ci%26j%26k%26l%5C%5Cm%26n%26o%26p%5C%5C%5Cend%7Bbmatrix%7D%29%3D%5Cbegin%7Bbmatrix%7D%5Cbegin%7Bvmatrix%7Df%26g%26h%5C%5Cj%26k%26l%5C%5Cn%26o%26p%5C%5C%5Cend%7Bvmatrix%7D%26-%5Cbegin%7Bvmatrix%7De%26g%26h%5C%5Ci%26k%26l%5C%5Cn%26o%26p%5C%5C%5Cend%7Bvmatrix%7D%26%5Cbegin%7Bvmatrix%7De%26f%26h%5C%5Ci%26j%26l%5C%5Cm%26n%26p%5C%5C%5Cend%7Bvmatrix%7D%26-%5Cbegin%7Bvmatrix%7De%26f%26g%5C%5Ci%26j%26k%5C%5Cm%26n%26o%5C%5C%5Cend%7Bvmatrix%7D%5C%5C-%5Cbegin%7Bvmatrix%7Db%26c%26d%5C%5Cj%26k%26l%5C%5Cn%26o%26p%5C%5C%5Cend%7Bvmatrix%7D%26%5Cbegin%7Bvmatrix%7Da%26c%26d%5C%5Ci%26k%26l%5C%5Cm%26o%26p%5C%5C%5Cend%7Bvmatrix%7D%26-%5Cbegin%7Bvmatrix%7Da%26b%26d%5C%5Ci%26j%26l%5C%5Cm%26n%26p%5C%5C%5Cend%7Bvmatrix%7D%26%5Cbegin%7Bvmatrix%7De%26f%26g%5C%5Ci%26j%26k%5C%5Cm%26n%26o%5C%5C%5Cend%7Bvmatrix%7D%5C%5C%5Cbegin%7Bvmatrix%7Db%26c%26d%5C%5Cf%26g%26h%5C%5Cn%26o%26p%5C%5C%5Cend%7Bvmatrix%7D%26-%5Cbegin%7Bvmatrix%7Da%26c%26d%5C%5Ce%26g%26h%5C%5Cm%26o%26p%5C%5C%5Cend%7Bvmatrix%7D%26%5Cbegin%7Bvmatrix%7Da%26b%26d%5C%5Ce%26f%26h%5C%5Cm%26n%26p%5C%5C%5Cend%7Bvmatrix%7D%26-%5Cbegin%7Bvmatrix%7Da%26b%26c%5C%5Ce%26f%26g%5C%5Cm%26n%26o%5C%5C%5Cend%7Bvmatrix%7D%5C%5C-%5Cbegin%7Bvmatrix%7Db%26c%26d%5C%5Cf%26g%26h%5C%5Cj%26k%26l%5C%5C%5Cend%7Bvmatrix%7D%26%5Cbegin%7Bvmatrix%7Da%26c%26d%5C%5Ce%26g%26h%5C%5Ci%26k%26l%5C%5C%5Cend%7Bvmatrix%7D%26-%5Cbegin%7Bvmatrix%7Da%26b%26d%5C%5Ce%26f%26h%5C%5Ci%26j%26l%5C%5C%5Cend%7Bvmatrix%7D%26%5Cbegin%7Bvmatrix%7Da%26b%26c%5C%5Ce%26f%26g%5C%5Ci%26j%26k%5C%5C%5Cend%7Bvmatrix%7D%5Cend%7Bbmatrix%7D&bc=White&fc=Black&im=jpg&fs=24&ff=mathdesign&edit=0)
+![comatrix(\begin{bmatrix}a&b&c&d\\e&f&g&h\\i&j&k&l\\m&n&o&p\\\end{bmatrix})=\begin{bmatrix}\begin{vmatrix}f&g&h\\j&k&l\\n&o&p\\\end{vmatrix}&-\begin{vmatrix}e&g&h\\i&k&l\\n&o&p\\\end{vmatrix}&\begin{vmatrix}e&f&h\\i&j&l\\m&n&p\\\end{vmatrix}&-\begin{vmatrix}e&f&g\\i&j&k\\m&n&o\\\end{vmatrix}\\-\begin{vmatrix}b&c&d\\j&k&l\\n&o&p\\\end{vmatrix}&\begin{vmatrix}a&c&d\\i&k&l\\m&o&p\\\end{vmatrix}&-\begin{vmatrix}a&b&d\\i&j&l\\m&n&p\\\end{vmatrix}&\begin{vmatrix}e&f&g\\i&j&k\\m&n&o\\\end{vmatrix}\\\begin{vmatrix}b&c&d\\f&g&h\\n&o&p\\\end{vmatrix}&-\begin{vmatrix}a&c&d\\e&g&h\\m&o&p\\\end{vmatrix}&\begin{vmatrix}a&b&d\\e&f&h\\m&n&p\\\end{vmatrix}&-\begin{vmatrix}a&b&c\\e&f&g\\m&n&o\\\end{vmatrix}\\-\begin{vmatrix}b&c&d\\f&g&h\\j&k&l\\\end{vmatrix}&\begin{vmatrix}a&c&d\\e&g&h\\i&k&l\\\end{vmatrix}&-\begin{vmatrix}a&b&d\\e&f&h\\i&j&l\\\end{vmatrix}&\begin{vmatrix}a&b&c\\e&f&g\\i&j&k\\\end{vmatrix}\end{bmatrix}](img/eqn19.png)
 
 Now this looks bad. But you might notice something: Moving from one submatrix to an adjacent submatrix only changes three values. So our yolol could just look like this:
 ```c
@@ -395,7 +395,7 @@ m="station_"
 ```
 Where `:M#` are just the message filters of 4 receivers. The overall architecture so far, looks like this:
 
-![flowchart](https://i.imgur.com/BqjssiK.png)
+![flowchart](img/flowchart.png)
 
 Where in future, we'll add implement the scanner which will monitor the recievers for loss of signal. In this event, it will use the receivers to scan for new reference points, then update the message filters & coordinates of those reference points in memory. Once this is done, it will trigger the inversion engine to recalculate the axis constants, allowing positioning using the new reference transmitters.
 
