@@ -13,7 +13,7 @@
    - [Step 3: Yololification](#Step-3:-Yololification)
  - [Summary](#Summary)
  - [Next Steps](#Next-steps)
-
+ - [References](#References)
 
 ## Intro
 
@@ -416,3 +416,10 @@ WIP
    - Waypoint Navigation
    - Orientatnion (Yaw, Pitch & Roll)
    - Autopilot
+
+## References
+
+- [ISANv1 public doc](https://docs.google.com/document/d/1UZWv5UM_DUMQZnlsFbLcuyjbu__Bs0yltIHsXP88qvk)
+- [Starbase Wiki](https://wiki.starbasegame.com/index.php/Main_Page)
+- [An Algebraic Solution to the Multilateration Problem](https://www.researchgate.net/publication/275027725_An_Algebraic_Solution_to_the_Multilateration_Problem)
+ - [Sciweavers tex2img tool](http://www.sciweavers.org/tex2img.php)
