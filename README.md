@@ -6,7 +6,7 @@ Under development by the Collective, ISAN uses in-game station transmitters as r
 ## Things to see
 
  - Documentation Section
-    - [Under the Hood of ISAN v2](Documentation/The%20Math/V2+/README.md)
+    - [Under the Hood of ISAN v2](Documentation/Core/Readme.md)
     - [Explanation of Terms](Documentation/README.md)
  - Development Section
     - [The readme](Development/README.md) (file/folder format restrictions)
