@@ -12,6 +12,7 @@
    - [Step 2: the Adjugate](#Step-2:-the-Adjugate)
    - [Step 3: Yololification](#Step-3:-Yololification)
  - [Summary](#Summary)
+ - [Next Steps](#Next-steps)
 
 
 ## Intro
