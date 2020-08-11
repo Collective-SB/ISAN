@@ -133,7 +133,7 @@ W_e \\ X_e \\ Y_e \\ Z_e
 \end{bmatrix}\\
 ](img/eqn9.png)
 
-Then, with those constants a, b, c, d & e for each axis W*, X, Y & Z calculated. Where the W axis is just X^2 + Y^2 + Z^2, and could be used as a double check on accuracy, but this is more usefull when using more reference points & the least squares method (since the resultant A matrix wouldn't be square & so dosen't have an inverse without it) so well ignore W for now.
+Then, with those constants a, b, c, d & e for each axis W, X, Y & Z calculated. Where the W axis is just X^2 + Y^2 + Z^2, and could be used as a double check on accuracy, but this is more usefull when using more reference points & the least squares method (since the resultant A matrix wouldn't be square & so dosen't have an inverse without it) so we'll ignore W for now.
 
 We can simply multiply out the matrix equation, to yield individual equations for X, Y & Z: 
 
