@@ -21,7 +21,7 @@ Welcome to the dev section.
             - **Releases/**
             - **README.MD**
 
-The **README.MD** in the root of a module folder, should contain *at least* a brief description of what that module does & have a link to the most recent version in **`<Module Name>`/Releases/** at the top. Feel free to add sections under this with further explanation, credits, etc.
+The **README.MD** in the root of a module folder, should contain *at least* a brief description of what that module does, a link to the most recent version in **`<Module Name>`/Releases/** at the top and have a method of contact for the lead contributer(s) (discord is preferred). Feel free to add sections under this with further explanation, credits, etc.
 
 The **dev/** folder can contain whatever notes you have pertaining to the problem, in whatever folder structure you like. Use the .yodev & .yolol formats to explain yolol code, and note formats for extra explanation.
 
