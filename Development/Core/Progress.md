@@ -4,7 +4,7 @@
 - [ ] Lighthouse Protocol
 - [ ] Lighthouse Scanner
 - [ ] Lighthouse Decoder
-- [ ] Setup Script (temp)
+- [X] Setup Script (temp)
 - [X] Inversion Engine
 - [X] Axis processors (Quad, multi-chip)
 - [X] Position Processor (Quad, single-chip)

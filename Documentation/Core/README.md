@@ -27,7 +27,7 @@ Maybe we can throw some math & code at those questions, hoping for the best.
 
 ## Some context
 
-So, we can't just give F3 a little smack & have our coordinates pop right up. *However*, the dev's were nice enough to throw in these three snazzy little devices:
+So, we can't just give F3 a little smack & have our coordinates pop right up. *However*, the devs were nice enough to throw in these three snazzy little devices:
  
  - [Radio transmitters](https://wiki.starbasegame.com/index.php/Radio_transmitters) - Broadcasts a message on a given frequency
  - [Navigation receivers](https://wiki.starbasegame.com/index.php/Navigation_receivers) - Receives a message (Optional filtering by frequency and/or message)
@@ -50,7 +50,7 @@ So this means, if we have a receiver on our ship, we can easily measure the dist
 ![(X-T_{x})^2+(Y-T_{y})^2+(Z-T_{z})^2=r^2](img/eqn2.png)
 
 
-A sphere is better than no idea (we have dropped from three dimentiosn of uncertanty to two!), but it's not really great. That said, it's trivial to now measure to another station, which will give us another sphere of points we should be in. Since we've just measured ourselves to be in two different spheres, we know we must be in the intersection of those & we've refined our search to a circle (technically a weird-fat-squarish-torus) of points. And so we keep going, another measurement gives us two points & a final measurement singles out one of those. **BOOM, we've done it:** just measure distance to four transmitters & work out the intersection of those four spheres.
+A sphere is better than no idea (we have dropped from three dimensions of uncertainty to two!), but it's not really great. That said, it's trivial to now measure to another station, which will give us another sphere of points we should be in. Since we've just measured ourselves to be in two different spheres, we know we must be in the intersection of those & we've refined our search to a circle (technically a weird-fat-squarish-torus) of points. And so we keep going, another measurement gives us two points & a final measurement singles out one of those. **BOOM, we've done it:** just measure distance to four transmitters & work out the intersection of those four spheres.
 
 Well, that last bit is actually kinda tricky, made a little worse by the need to fit it all into yolol... But we'll do it in the real world first. Our four spheres look like so:
 
@@ -133,7 +133,7 @@ W_e \\ X_e \\ Y_e \\ Z_e
 \end{bmatrix}\\
 ](img/eqn9.png)
 
-Then, with those constants a, b, c, d & e for each axis W, X, Y & Z calculated. Where the W axis is just X^2 + Y^2 + Z^2, and could be used as a double check on accuracy, but this is more usefull when using more reference points & the least squares method (since the resultant A matrix wouldn't be square & so dosen't have an inverse without it) so we'll ignore W for now.
+Then, with those constants a, b, c, d & e for each axis W, X, Y & Z calculated. Where the W axis is just X^2 + Y^2 + Z^2, and could be used as a double check on accuracy, but this is more useful when using more reference points & the least squares method (since the resultant A matrix wouldn't be square & so doesn't have an inverse without it) so we'll ignore W for now.
 
 We can simply multiply out the matrix equation, to yield individual equations for X, Y & Z: 
 
@@ -143,7 +143,7 @@ Y=r_1^2Y_a+r_2^2Y_b+r_3^2Y_c+r_4^2Y_d - Y_e\\
 Z=r_1^2Z_a+r_2^2Z_b+r_3^2Z_c+r_4^2Z_d - Z_e\\
 \end{cases}](img/eqn10.png)
 
-However, since these constants become very small in practice due to the scale of Starbase, yolol would be unable to store them with it's maximum precision of 0.001. But this issue can be resolved by simply redefining the a,b,c & d constants to be one over their original definition. Since we're moving into the start of yolol teritory, we'll also substitute in our equation for converting reciever signal strength into distance, which gives the final form of our axis equations: 
+However, since these constants become very small in practice due to the scale of Starbase, yolol would be unable to store them with it's maximum precision of 0.001. But this issue can be resolved by simply redefining the a,b,c & d constants to be one over their original definition. Since we're moving into the start of yolol territory, we'll also substitute in our equation for converting receiver signal strength into distance, which gives the final form of our axis equations: 
 
 ![k=999999\\
 \begin{cases}
@@ -389,9 +389,9 @@ We can use a simple setup script for now, to select four transmitters & load the
 ```c
 m="station_"
 :M1=m+"hq_imperial_a"      :X1=-9938.401 :Y1=  4904.714 :Z1=0
-:M2=m+"hq_kingdom_a"       :X2= 9894.287 :Y2=  4904.714 :Z1=0
-:M3=m+"proving_grounds"    :X3=19218.818 :Y3=-45540.987 :Z1=0
-:M4=m+"capital_imperial_a" :X4= -465.876 :Y4=     0.236 :Z1=-801.149
+:M2=m+"hq_kingdom_a"       :X2= 9894.287 :Y2=  4904.714 :Z2=0
+:M3=m+"proving_grounds"    :X3=19218.818 :Y3=-45540.987 :Z3=0
+:M4=m+"capital_imperial_a" :X4= -465.876 :Y4=     0.236 :Z4=-801.149
 :rst=1 //ISAN 2.0:Temp_Setup_2.1a                       THE COLLECTIVE
 ```
 Where `:M#` are just the message filters of 4 receivers. The overall architecture so far, looks like this:
@@ -422,4 +422,4 @@ WIP
 - [ISANv1 public doc](https://docs.google.com/document/d/1UZWv5UM_DUMQZnlsFbLcuyjbu__Bs0yltIHsXP88qvk)
 - [Starbase Wiki](https://wiki.starbasegame.com/index.php/Main_Page)
 - [An Algebraic Solution to the Multilateration Problem](https://www.researchgate.net/publication/275027725_An_Algebraic_Solution_to_the_Multilateration_Problem)
- - [Sciweavers tex2img tool](http://www.sciweavers.org/tex2img.php)
+ - [Sciweavers tex2img tool](http://www.sciweavers.org/free-online-latex-equation-editor)
