@@ -17,7 +17,7 @@
 
 ## Intro
 
-Given Frozenbyte's very interesting decision to hide global coordinates from players in favour of realism - y'know, relativity and all - us Endos are faced with some interesting questions: **Where the fuck am I? and where the fuck are you?**
+Given Frozenbyte's very interesting decision to hide global coordinates from players in favour of realism - y'know, relativity and all - us Endos are faced with some interesting questions: **Where the hell am I? and where the fuck are you?**
 
 Maybe we can throw some math & code at those questions, hoping for the best.
 
