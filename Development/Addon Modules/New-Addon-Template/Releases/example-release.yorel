@@ -1,0 +1,20 @@
+//Name:             New Addon Module Template: Example release
+//Current Version:      V2.0a
+//Credit:               <Devs> <Helpers>
+
+//Globals:
+//  :X, :Y, :Z      - Core position
+//  :R[1|2|3|4]     - Receiver's signal strength
+//  :[X|Y|Z][A-D]   - Axis scale constants
+//  :[X|Y|Z]E       - Axis Offset constants
+
+//Locals:
+//  y=999999       - Conversion constant (Signal Strength -> Distance)
+
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+// chip 1
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+// chip 2
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+// chip 3
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
