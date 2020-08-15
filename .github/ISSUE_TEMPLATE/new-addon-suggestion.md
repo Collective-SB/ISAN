@@ -2,7 +2,7 @@
 name: New Addon Suggestion
 about: Suggest a new Addon idea!
 title: 'New Addon: AddonNameHere'
-labels: ''
+labels: Addon Module
 assignees: ''
 
 ---

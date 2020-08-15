@@ -2,7 +2,7 @@
 name: Core Feature Request
 about: Suggest an idea for the core modules
 title: 'Core improvement:'
-labels: enhancement
+labels: enhancement, Core Module
 assignees: Azurethi
 
 ---
