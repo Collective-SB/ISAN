@@ -25,7 +25,7 @@ The first version of ISAN only allows for the use of four hard-coded transmitter
 | Subroutine | Contribution |
 |-|-|
 |[Solon](https://github.com/1Solon "Solon#4472 on Discord")|Project management
-|[Azurethi](https://github.com/Azurethi "Azurethi#0789 on Discord")|ISAN V2 math & code, repo management
+|[Azurethi](https://github.com/Azurethi "Azurethi#0789 on Discord")|ISAN V2 math & code, repo management ‘The V2 guy’
 |[Lumi](https://github.com/Lumi-Virtual "Lumi Virtual#9704 on Discord")|Development of ISAN V1 ‘ISAN alchemist’
 |[Recatek](https://github.com/Recatek "Recatek#1707 on Discord")|Code minification, Lighthouse protocol
 |[Strikeeaglechase](# "Strikeeaglechase#0001 on discord")|Development of offsets and Autopilot
