@@ -8,7 +8,7 @@ Here lies the ISAN documentation. Read the Version descriptors & Core module par
 | Version | Main update |
 |-|-|
 |V1| Original Public version of ISAN|
-|V2| Core Math Update |
+|V2| Core Math Update (the current WIP)|
 |V3| Lighthouse update|
 
 ## V2/3 Core modules

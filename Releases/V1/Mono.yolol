@@ -1,0 +1,14 @@
+a=19832.688 b=29157.219 c=-50445.701 d=9472.525 e=-4904.478 f=-801.149
+k="station_hq_imperial_a" l="station_hq_kingdom_a"
+m="station_proving_grounds" n="station_capital_imperial_a"
+er="\nX:Loss\nY:of\nZ:Signal" ax="\nX:" ay="\nY:" az="\nZ:" o=10^6-1
+ox=-9938.401 oy=4904.714 oz=0
+:CL=0 g=o-:R1 :SD=(g<o)+(h<o)+(i<o)+(j<o) :M1=l u=0 v=0 w=0
+:M1=m h=o-:R1 u++ x=(g^2-h^2+a^2)/2/a u/=(u<5)/(:N1!=l) :M1=l goto7
+:M1=n i=o-:R1 v++ ya=g^2-i^2+b^2+c^2 v/=(v<5)/(:N1!=m) :M1=m goto8
+:M1=k j=o-:R1 w++ y=(ya-2*b*x)/2/c w/=(w<5)/(:N1!=n) :M1=n goto9
+:XX=x+ox :YY=y+oy :ZZ=(g^2-j^2+d^2+e^2+f^2-2*d*x-2*e*y)/2/f+oz
+:CL=1 :Pos=ax+:XX+ay+:YY+az+:ZZ if :SD<4 then :Pos=er end goto6
+// ISAN by Collective.
+// YOLOL: Strikeeaglechase, Lumi Virtual, Solonerus; Coords: Nordwolf
+// Documentation: https://tinyurl.com/collective-isan // MONO 1.1
