@@ -9,7 +9,7 @@
 //  :rst             - Chip Halt control, set==1 to run.
 
 //Locals:
-// A,z,u,r,e,t,h,i   - 3x3 matrix, operand of the determinant function
+// A,z,u,r,e,t,h,i,C - 3x3 matrix, operand of the determinant function
                             (its a watermark, what can I say :p)
 // n=-0.5            - 4x4 scaled A matrix constant
 // m=[Yolol:MaxInt]  - Yolol Max int constant
