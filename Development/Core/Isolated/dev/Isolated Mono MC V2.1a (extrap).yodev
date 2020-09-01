@@ -1,0 +1,172 @@
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+//Globals
+    N, M, R     - Receiver fields
+    A, B, C, D  - Distance Measurement Cache
+    E, F, G, H  - Cache Times
+    u, v, w, x  - extrapolated distance (& partial axis calc)
+
+    X, Y, Z     - Core position
+
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+z="station_" u=z+"hq_imperial_a" v=z+"hq_kingdom_a" :M=u
+w=z+"proving_grounds" x=z+"capital_imperial_a" y=999999
+if :N==u then :A=y-:R :E=:T++ :M=v goto 4 end :D=y-:R :H=:T++ goto 3
+if :N==v then :B=y-:R :F=:T++ :M=w goto 5 end :A=y-:R :E=:T++ goto 4
+if :N==w then :C=y-:R :G=:T++ :M=x goto 6 end :B=y-:R :F=:T++ goto 5
+if :N==x then :D=y-:R :H=:T++ :M=u goto 3 end :C=y-:R :G=:T++ goto 6
+//ISANv2_IsoMonoMC_scanner_2.3a                         THE COLLECTIVE
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+a=:A^2 b=0 q=122828033.859
+if :E!=b then c=a d=b end a=:A^2 b=:E :u=a+(a-c)*(:T-b)/(b-d)-q goto 2
+//ISANv2_IsoMonoMC_extrapA_2.4a                         THE COLLECTIVE
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+a=:B^2 b=0 r=121953134.66
+if :F!=b then c=a d=b end a=:B^2 b=:F :v=a+(a-c)*(:T-b)/(b-d)-r goto 2
+//ISANv2_IsoMonoMC_extrapB_2.4a                         THE COLLECTIVE
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+a=:C^2 b=0 s=2443344462.251
+if :G!=b then c=a d=b end a=:C^2 b=:G :w=a+(a-c)*(:T-b)/(b-d)-s goto 2
+//ISANv2_IsoMonoMC_extrapC_2.4a                         THE COLLECTIVE
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+a=:D^2 b=0  t=858880.223
+if :H!=b then c=a d=b end a=:D^2 b=:H :x=a+(a-c)*(:T-b)/(b-d)-t goto 2
+//ISANv2_IsoMonoMC_extrapD_2.4a                         THE COLLECTIVE
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+i=214589.634 a=1.836 b=2.792 n=-4787.429 o=-16480.662 p=1602.298
+c=10.285 e=39665.376 f=-39665.376 j=-68626.15 k=100891.402 m=-2820.508
+:X=:u/e+:v/f :Y=:u/i+:v/j+:w/k :Z=:u/m+:v/n+:w/o+:x/p goto 3
+//ISAN 2.0:IsoMonoAxP_2.1a                              THE COLLECTIVE
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+////VARS
+Reciever: R, N, M
+Measurement (recent): R1, R2, R3, R4  |  T1, T2, T3, T4
+Measurement (old   ): O1, O2, O3, O4  |  TO1, TO2, TO3, TO4
+Now: T
+
+
+
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+z="station_" M1=z+"hq_imperial_a" M2=z+"hq_kingdom_a" :M1=M1
+M3=z+"proving_grounds" M4=z+"capital_imperial_a"
+q=122828033.859 r=121953134.66 s=2443344462.251 t=858880.223 y=999999
+if :N==M1 then :R1=:R :T1=:T++ :M=M2 goto 4 end :R4=:R :T4=:T++ goto 3
+if :N==M2 then :R2=:R :T2=:T++ :M=M3 goto 5 end :R1=:R :T1=:T++ goto 4
+if :N==M3 then :R3=:R :T3=:T++ :M=M4 goto 6 end :R2=:R :T2=:T++ goto 5
+if :N==M4 then :R4=:R :T4=:T++ :M=M1 goto 3 end :R3=:R :T3=:T++ goto 6
+//ISAN 2.0:IsoMonoScn_2.0a                              THE COLLECTIVE
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+//if all vars -> single char
+if :N==# then :#=:R :#=:T++ :M=# goto 4 end :#=:R :#=:T++ goto 3
+if :N==# then :#=y-:R :#=:T++ :M=# goto 4 end :#=y-:R :#=:T++ goto 3
+
+
+recentDist          = Dr =a
+recentSampleTime    = Tr =b
+previousDist        = Dp =c
+previousSampleTime  = Tp =d
+currentDist         = Dc =e
+currentTime         = Tc =f
+Measurement Cache   = #d = :u
+ 
+Tc=0 Dr=#d Tr=0 Dp=#d Tp=0
+if Dr!=#d then Dp=Dr Tp=Tr Dr=#d Tr=Tc end Dc=Dr+(Dr-Dp)*(Tc++-Tr)/(Tr-Tp) goto 2
+
+lR1=:R1 lT1=0
+if :T1!=lT1 then Dp=lR1 Tp=lT1 end lR1=:R1 lT1=:T1 Dc=:R1+(:R1-Dp)*(:T-:T1)/(:T1-Tp)
+
+lR1=a
+lT1=b
+dp =c
+tp =d
+Dc -> :u=(y-Dc)^2-#
+
+a=:R1^2 b=0
+if :T1!=b then c=a d=b end a=:R1^2 b=:T1 Dc=a+(a-c)*(:T-b)/(b-d)-#
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+//if all vars 1 char
+if :#!=b then c=a d=b end a=:#^2 b=:# Dc=a+(a-c)*(:T-b)/(b-d)-# goto #
+
+
+
+
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+x
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+x
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+i=214589.634 a=1.836 b=2.792 n=-4787.429 o=-16480.662 p=1602.298
+c=10.285 e=39665.376 f=-39665.376 j=-68626.15 k=100891.402 m=-2820.508
+:X=:u/e+:v/f :Y=:u/i+:v/j+:w/k :Z=:u/m+:v/n+:w/o+:x/p goto 3
+//ISAN 2.0:IsoMonoAxP_1.0a                              THE COLLECTIVE
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+z="station_" M1=z+"hq_imperial_a" M2=z+"hq_kingdom_a" :M1=M1
+M3=z+"proving_grounds" M4=z+"capital_imperial_a"
+q=122828033.859 r=121953134.66 s=2443344462.251 t=858880.223 y=999999
+if :N1==M1 then :u=(y-:R1)^2-q :M1=M2 goto 4 end :x=(y-:R4)^2-t goto 3
+if :N1==M2 then :v=(y-:R2)^2-r :M1=M3 goto 5 end :u=(y-:R1)^2-q goto 4
+if :N1==M3 then :w=(y-:R3)^2-s :M1=M4 goto 6 end :v=(y-:R2)^2-r goto 5
+if :N1==M4 then :x=(y-:R4)^2-t :M1=M1 goto 3 end :w=(y-:R3)^2-s goto 6
+//ISAN 2.0:IsoMonoScn_1.0a                              THE COLLECTIVE
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+changePerTick = (recentDist-previousDist)/(recentSampleTime-previousSampleTime)
+currentDist = recentDist+changePerTick*(currentTime-recentSampleTime)
+
+recentDist          = Dr
+recentSampleTime    = Tr
+previousDist        = Dp
+previousSampleTime  = Tp
+currentDist         = Dc
+currentTime         = Tc
+Measurement Cache = #d
+
+Dc = Dr+(Dr-Dp)*(Tc-Tr)/(Tr-Tp)
+
+--
+Tc=0 Dr=#d Tr=0 Dp=#d Tp=0  //NB: Tc should be -1 in current real world yolol (pre=post issue)
+if Dr!=#d then Dp=Dr Tp=Tr Dr=#d Tr=Tc end Dc=Dr+(Dr-Dp)*(Tc++-Tr)/(Tr-Tp) goto 2
+--
+
+recentDist          = Dr =a
+recentSampleTime    = Tr =b
+previousDist        = Dp =c
+previousSampleTime  = Tp =d
+currentDist         = Dc =e
+currentTime         = Tc =f
+Measurement Cache   = #d = :u
+ 
+--  
+f=0 a=:u b=0 c=:u d=0  //NB: f=-1 ^^^
+if a!=:u then c=a d=b a=:u b=f end e=a+(a-c)*(f++-b)/(b-d) goto 2
+--
+
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+i=214589.634 a=1.836 b=2.792 n=-4787.429 o=-16480.662 p=1602.298
+c=10.285 e=39665.376 f=-39665.376 j=-68626.15 k=100891.402 m=-2820.508
+:X=:u/e+:v/f :Y=:u/i+:v/j+:w/k :Z=:u/m+:v/n+:w/o+:x/p goto 3
+//ISAN 2.0:IsoMonoAxP_1.0a                              THE COLLECTIVE
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+
+
+
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+z="station_" M1=z+"hq_imperial_a" M2=z+"hq_kingdom_a" :M1=M1
+M3=z+"proving_grounds" M4=z+"capital_imperial_a"
+q=122828033.859 r=121953134.66 s=2443344462.251 t=858880.223 y=999999
+if :N1==M1 then :u=(y-:R1)^2-q :M1=M2 goto 4 end :x=(y-:R4)^2-t goto 3
+if :N1==M2 then :v=(y-:R2)^2-r :M1=M3 goto 5 end :u=(y-:R1)^2-q goto 4
+if :N1==M3 then :w=(y-:R3)^2-s :M1=M4 goto 6 end :v=(y-:R2)^2-r goto 5
+if :N1==M4 then :x=(y-:R4)^2-t :M1=M1 goto 3 end :w=(y-:R3)^2-s goto 6
+//ISAN 2.0:IsoMonoScn_1.0a                              THE COLLECTIVE
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+i=214589.634 a=1.836 b=2.792 n=-4787.429 o=-16480.662 p=1602.298
+c=10.285 e=39665.376 f=-39665.376 j=-68626.15 k=100891.402 m=-2820.508
+:X=:u/e+:v/f :Y=:u/i+:v/j+:w/k :Z=:u/m+:v/n+:w/o+:x/p goto 3
+//ISAN 2.0:IsoMonoAxP_1.0a                              THE COLLECTIVE
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|

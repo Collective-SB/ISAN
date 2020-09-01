@@ -1,0 +1,26 @@
+//Name:             Isolated Mono MC.
+//Current Version:      V2.0a
+//Credit:               Azur
+
+//Globals:
+//  :X, :Y, :Z      - Core position
+//  :R1             - Receiver Signal strength
+//  :N1             - Receiver Message
+//  :M1             - Receiver Target Message
+//  :u, :v, :w, :x  - Receiver measurement cache
+
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+z="station_" M1=z+"hq_imperial_a" M2=z+"hq_kingdom_a" :M1=M1
+M3=z+"proving_grounds" M4=z+"capital_imperial_a"
+q=122828033.859 r=121953134.66 s=2443344462.251 t=858880.223 y=999999
+if :N1==M1 then :u=(y-:R1)^2-q :M1=M2 goto 4 end :x=(y-:R4)^2-t goto 3
+if :N1==M2 then :v=(y-:R2)^2-r :M1=M3 goto 5 end :u=(y-:R1)^2-q goto 4
+if :N1==M3 then :w=(y-:R3)^2-s :M1=M4 goto 6 end :v=(y-:R2)^2-r goto 5
+if :N1==M4 then :x=(y-:R4)^2-t :M1=M1 goto 3 end :w=(y-:R3)^2-s goto 6
+//ISAN 2.0:IsoMonoScn_2.0a                              THE COLLECTIVE
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+i=214589.634 a=1.836 b=2.792 n=-4787.429 o=-16480.662 p=1602.298
+c=10.285 e=39665.376 f=-39665.376 j=-68626.15 k=100891.402 m=-2820.508
+:X=:u/e+:v/f :Y=:u/i+:v/j+:w/k :Z=:u/m+:v/n+:w/o+:x/p goto 3
+//ISAN 2.0:IsoMonoAxP_2.0a                              THE COLLECTIVE
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
