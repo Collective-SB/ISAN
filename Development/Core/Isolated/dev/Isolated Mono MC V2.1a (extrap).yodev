@@ -1,0 +1,67 @@
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+z="station_" M1=z+"hq_imperial_a" M2=z+"hq_kingdom_a" :M1=M1
+M3=z+"proving_grounds" M4=z+"capital_imperial_a"
+q=122828033.859 r=121953134.66 s=2443344462.251 t=858880.223 y=999999
+if :N1==M1 then :u=(y-:R1)^2-q :M1=M2 goto 4 end :x=(y-:R4)^2-t goto 3
+if :N1==M2 then :v=(y-:R2)^2-r :M1=M3 goto 5 end :u=(y-:R1)^2-q goto 4
+if :N1==M3 then :w=(y-:R3)^2-s :M1=M4 goto 6 end :v=(y-:R2)^2-r goto 5
+if :N1==M4 then :x=(y-:R4)^2-t :M1=M1 goto 3 end :w=(y-:R3)^2-s goto 6
+//ISAN 2.0:IsoMonoScn_1.0a                              THE COLLECTIVE
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+changePerTick = (recentDist-previousDist)/(recentSampleTime-previousSampleTime)
+currentDist = recentDist+changePerTick*(currentTime-recentSampleTime)
+
+recentDist          = Dr
+recentSampleTime    = Tr
+previousDist        = Dp
+previousSampleTime  = Tp
+currentDist         = Dc
+currentTime         = Tc
+Measurement Cache = #d
+
+Dc = Dr+(Dr-Dp)*(Tc-Tr)/(Tr-Tp)
+
+--
+Tc=0 Dr=#d Tr=0 Dp=#d Tp=0  //NB: Tc should be -1 in current real world yolol (pre=post issue)
+if Dr!=#d then Dp=Dr Tp=Tr Dr=#d Tr=Tc end Dc=Dr+(Dr-Dp)*(Tc++-Tr)/(Tr-Tp) goto 2
+--
+
+recentDist          = Dr =a
+recentSampleTime    = Tr =b
+previousDist        = Dp =c
+previousSampleTime  = Tp =d
+currentDist         = Dc =e
+currentTime         = Tc =f
+Measurement Cache   = #d = :u
+ 
+--  
+f=0 a=:u b=0 c=:u d=0  //NB: f=-1 ^^^
+if a!=:u then c=a d=b a=:u b=f end e=a+(a-c)*(f++-b)/(b-d) goto 2
+--
+
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+i=214589.634 a=1.836 b=2.792 n=-4787.429 o=-16480.662 p=1602.298
+c=10.285 e=39665.376 f=-39665.376 j=-68626.15 k=100891.402 m=-2820.508
+:X=:u/e+:v/f :Y=:u/i+:v/j+:w/k :Z=:u/m+:v/n+:w/o+:x/p goto 3
+//ISAN 2.0:IsoMonoAxP_1.0a                              THE COLLECTIVE
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+
+
+
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+z="station_" M1=z+"hq_imperial_a" M2=z+"hq_kingdom_a" :M1=M1
+M3=z+"proving_grounds" M4=z+"capital_imperial_a"
+q=122828033.859 r=121953134.66 s=2443344462.251 t=858880.223 y=999999
+if :N1==M1 then :u=(y-:R1)^2-q :M1=M2 goto 4 end :x=(y-:R4)^2-t goto 3
+if :N1==M2 then :v=(y-:R2)^2-r :M1=M3 goto 5 end :u=(y-:R1)^2-q goto 4
+if :N1==M3 then :w=(y-:R3)^2-s :M1=M4 goto 6 end :v=(y-:R2)^2-r goto 5
+if :N1==M4 then :x=(y-:R4)^2-t :M1=M1 goto 3 end :w=(y-:R3)^2-s goto 6
+//ISAN 2.0:IsoMonoScn_1.0a                              THE COLLECTIVE
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+i=214589.634 a=1.836 b=2.792 n=-4787.429 o=-16480.662 p=1602.298
+c=10.285 e=39665.376 f=-39665.376 j=-68626.15 k=100891.402 m=-2820.508
+:X=:u/e+:v/f :Y=:u/i+:v/j+:w/k :Z=:u/m+:v/n+:w/o+:x/p goto 3
+//ISAN 2.0:IsoMonoAxP_1.0a                              THE COLLECTIVE
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
