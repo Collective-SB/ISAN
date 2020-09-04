@@ -6,3 +6,14 @@
     19218.818   -45540.987  0
 :M4="station_capital_imperial_a"
     -465.876    0.236   -801.149
+
+                            ----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+Imperial Capital (Origin)	:M1=m+"capital_imperial_a"  :X1=-465.876  :Y1=0.236      :Z1=-801.149
+Empire HQ	                :M1=m+"hq_imperial_a"       :X1=-9938.401 :Y1=4904.714   :Z1=0
+Kingdom HQ	                :M1=m+"hq_kingdom_a"        :X1=9894.287  :Y1=4904.714   :Z1=0
+Proving Grounds	            :M1=m+"proving_grounds"     :X1=19218.818 :Y1=-45540.987 :Z1=0
+PvP Station	                :M1=m+"kingdom_outpost_b"   :X1=39152.3   :Y1=-46104.2   :Z1=-174.2
+Empire Outpost	            :M1=m+"imperial_outpost_a"  :X1=-   .0  :Y1=6211.8     :Z1=30225.2
+Wrecked Kingdom Outpost	    :M1=m+"kingdom_outpost_a"   :X1=90444.9	  :Y1=18244.4    :Z1=-30137.4
+New Kingdom Outpost         :M1=m+"kingdom_outpost_b_2" :X1=100519.2  :Y1=12718.0    :Z1=-10221.2
+                            ----+----|----+----|----+----|----+----|----+----|----+----|----+----|
