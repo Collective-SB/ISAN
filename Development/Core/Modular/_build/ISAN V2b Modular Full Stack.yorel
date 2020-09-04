@@ -12,10 +12,11 @@
 //  :[X|Y|Z]         - Core position
 //  :Pos             - Display driver output / System messages
 
-----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+// remeber to set :XB=1 & :XC=1 on first time install
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|       
 s="station_" o="outpost_" i="imperial_" k="kingdom_" s2=s+"hq_"+i+"a"
 s1=s+"capital_"+i+"a" s3=s+"hq_"+k+"a" s4=s+"proving_grounds"
-s5=s+k+o+"b" s6=s+i+o+"a" s7=s+k+o+"a" s8=s+k+o+"b_2" ovr=0
+s5=s+k+o+"b" s6=s+i+o+"a" s7=s+k+o+"a" s8=s+k+o+"b_2"
 l=0 goto 4+(:R1==0 + :R2==0 + :R3==0 + :R4==0 + :ISAN_SCN)>0
 :M1=s1 :M2=s2 :M3=s3 :M4=s4 :ISAN_SCN=0 :XD=0 x="Selected Transmitter"
 :Pos="Lost signal, searching for four nearest transmitters"
