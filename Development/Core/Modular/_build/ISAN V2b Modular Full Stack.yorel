@@ -1,0 +1,89 @@
+//Name:             ISAN version 2 beta, build 1
+//Current Version:      V2b
+
+//Globals:
+//  :ISAN_SCN        - Scanner override (>0 force rescan, <0 inhibit rescan, <-3 disable rescan)
+//  :M[1-4]          - Message filter of transmitter [1-4]
+//  :R[1-4]          - Signal strength of transmitter [1-4]
+//  
+//  :[X|Y|Z][1-4]    - Position of transmitter [1-4]
+//  :[X|Y|Z][A-D]    - Axis scale constants (XB, XC & XD are also used as control variables when not calculating position)
+//  :[X|Y|Z]E        - Axis Offset constants
+//  :[X|Y|Z]         - Core position
+//  :Pos             - Display driver output / System messages
+
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+s="station_" o="outpost_" i="imperial_" k="kingdom_" s2=s+"hq_"+i+"a"
+s1=s+"capital_"+i+"a" s3=s+"hq_"+k+"a" s4=s+"proving_grounds"
+s5=s+k+o+"b" s6=s+i+o+"a" s7=s+k+o+"a" s8=s+k+o+"b_2" ovr=0
+l=0 goto 4+(:R1==0 + :R2==0 + :R3==0 + :R4==0 + :ISAN_SCN)>0
+:M1=s1 :M2=s2 :M3=s3 :M4=s4 :ISAN_SCN=0 :XD=0 x="Selected Transmitter"
+:Pos="Lost signal, searching for four nearest transmitters"
+A=:R1 B=:R2 C=:R3 D=:R4 :M1=s5 :M2=s6 :M3=s7 :M4=s8
+//ISAN 2.0:Scanner_2.2b                                 THE COLLECTIVE
+E=:R1 F=:R2 G=:R3 H=:R4
+m=s1 n=11 goto n+((A<B+A<C+A<D+A<E+A<F+A<G+A<H)<4)*8*(A>0)
+m=s2 n=12 goto n+((B<A+B<C+B<D+B<E+B<F+B<G+B<H)<4)*7*(B>0)
+m=s3 n=13 goto n+((C<A+C<B+C<D+C<E+C<F+C<G+C<H)<4)*6*(C>0)
+m=s4 n=14 goto n+((D<A+D<B+D<C+D<E+D<F+D<G+D<H)<4)*5*(D>0)
+m=s5 n=15 goto n+((E<A+E<B+E<C+E<D+E<F+E<G+E<H)<4)*4*(E>0)
+m=s6 n=16 goto n+((F<A+F<B+F<C+F<D+F<E+F<G+F<H)<4)*3*(F>0)
+m=s7 n=17 goto n+((G<A+G<B+G<C+G<D+G<E+G<F+G<H)<4)*2*(G>0)
+m=s8 n=18 goto n+((H<A+H<B+H<C+H<D+H<E+H<F+H<G)<4)*1*(H>0)
+:XD=0 :Pos="Could not select four transmitters" goto 1
+if ++l>2 then goto 20 else if l>1 then :M2=m else :M1=m end end goto n
+if l>3 then :M4=m :XB=0 :Pos=x+"s!" goto 4 else :M3=m end goto n
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+rx=11 tx=2 h="station_" k=" transmitter positions" goto 1+(:XB==0)
+:XB=1 m=h+"capital_imperial_a" x=-465 y=0       z=-800      goto rx
+m=h+"hq_imperial_a"         x=-9938   y=4905    z=0         goto rx
+m=h+"hq_kingdom_a"          x=9894    y=4904    z=0         goto rx
+m=h+"proving_grounds"       x=19219   y=-45541  z=0         goto rx
+m=h+"kingdom_outpost_b"     x=39152   y=-46104  z=-174      goto rx
+m=h+"imperial_outpost_a"    x=-90194  y=6212    z=30225     goto rx
+m=h+"kingdom_outpost_a"     x=90445   y=18244   z=-30137    goto rx
+m=h+"kingdom_outpost_b_2"   x=100519  y=12718   z=-10221    goto rx
+:XB=1 :ISAN_SCN=1 :Pos="Failed to load"+k goto 1
+rx=11 if :M1==m then :X1=x :Y1=y :Z1=z ++rx tx=1 end goto ++tx
+rx=12 if :M2==m then :X2=x :Y2=y :Z2=z ++rx tx=1 end goto ++tx
+rx=13 if :M3==m then :X3=x :Y3=y :Z3=z ++rx tx=1 end goto ++tx
+rx=14 if :M4==m then :X4=x :Y4=y :Z4=z ++rx goto 15 end goto ++tx
+:XB=1 :XC=0 :Pos="Loaded"+k+", Starting inversion." goto 1
+//ISAN 2.0:DataStore_2.1b                               THE COLLECTIVE
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+goto 1+(:XC==0)
+A=:X1-:X2 z=:Y1-:Y2 u=:Z1-:Z2 r=:X1-:X3 e=:Y1-:Y3 t=:Z1-:Z3 h=:X1-:X4
+i=:Y1-:Y4 C=:Z1-:Z4 da=A*e*C-A*t*i-z*r*C+z*t*h+u*r*i-u*e*h n=-0.5
+:XA=m  z=:Y2 u=:Z2 e=:Y3 t=:Z3 i=:Y4 C=:Z4 m=9223372036854775.807
+:YA=m  A=n   r=n   h=n   :XA= da/(A*e*C-A*t*i-z*r*C+z*t*h+u*r*i-u*e*h)
+:ZA=m  z=:X2 e=:X3 i=:X4 :YA=-da/(A*e*C-A*t*i-z*r*C+z*t*h+u*r*i-u*e*h)
+:ZB=m  u=:Y2 t=:Y3 C=:Y4 :ZA= da/(A*e*C-A*t*i-z*r*C+z*t*h+u*r*i-u*e*h)
+:YB=m  z=:X1 u=:Y1       :ZB=-da/(A*e*C-A*t*i-z*r*C+z*t*h+u*r*i-u*e*h)
+:XB=m  u=:Z1 t=:Z3 C=:Z4 :YB= da/(A*e*C-A*t*i-z*r*C+z*t*h+u*r*i-u*e*h)
+       z=:Y1 e=:Y3 i=:Y4 :XB=-da/(A*e*C-A*t*i-z*r*C+z*t*h+u*r*i-u*e*h)
+:XC=m  e=:Y2 t=:Z2 //ISAN 2.0:InvEng_2.4b               THE COLLECTIVE
+:YC=m  A=n   r=n   h=n   :XC= da/(A*e*C-A*t*i-z*r*C+z*t*h+u*r*i-u*e*h)
+:ZC=m  z=:X1 e=:X2 i=:X4 :YC=-da/(A*e*C-A*t*i-z*r*C+z*t*h+u*r*i-u*e*h)
+:ZD=m  u=:Y1 t=:Y2 C=:Y4 :ZC= da/(A*e*C-A*t*i-z*r*C+z*t*h+u*r*i-u*e*h)
+:YD=m  i=:X3 C=:Y3       :ZD=-da/(A*e*C-A*t*i-z*r*C+z*t*h+u*r*i-u*e*h)
+:XD=m  u=:Z1 t=:Z2 C=:Z3 :YD= da/(A*e*C-A*t*i-z*r*C+z*t*h+u*r*i-u*e*h)
+       z=:Y1 e=:Y2 i=:Y3 :XD=-da/(A*e*C-A*t*i-z*r*C+z*t*h+u*r*i-u*e*h)
+P1=:X1^2+:Y1^2+:Z1^2 P2=:X2^2+:Y2^2+:Z2^2 P3=:X3^2+:Y3^2+:Z3^2
+P4=:X4^2+:Y4^2+:Z4^2 :XE=P1/:XA+P2/:XB+P3/:XC+P4/:XD
+:YE=P1/:YA+P2/:YB+P3/:YC+P4/:YD :ZE=P1/:ZA+P2/:ZB+P3/:ZC+P4/:ZD
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+y=999999
+:X=(y-:R1)^2/:XA+(y-:R2)^2/:XB+(y-:R3)^2/:XC+(y-:R4)^2/:XD-:XE goto 2
+goto 2 //ISAN 2.0:AxP_X_2.2b                            THE COLLECTIVE
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+y=999999
+:Y=(y-:R1)^2/:YA+(y-:R2)^2/:YB+(y-:R3)^2/:YC+(y-:R4)^2/:YD-:YE goto 2
+goto 2 //ISAN 2.0:AxP_Y_2.2b                            THE COLLECTIVE
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+y=999999
+:Z=(y-:R1)^2/:ZA+(y-:R2)^2/:ZB+(y-:R3)^2/:ZC+(y-:R4)^2/:ZD-:ZE goto 2
+goto 2 //ISAN 2.0:AxP_Z_2.2b                            THE COLLECTIVE
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+:Pos="\nX: "+:X+"\nY: "+:Y+"\nZ: "+:Z goto 1+(:XD==0)
+goto 2-(:XD>0) //ISAN 2.0:DisplayDriver_2.1b            THE COLLECTIVE
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|

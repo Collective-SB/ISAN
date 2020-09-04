@@ -1,1 +1,2 @@
-:Pos="\nX: "+:X+"\nY: "+:Y+"\nZ: "+:Z goto 1
+:Pos="\nX: "+:X+"\nY: "+:Y+"\nZ: "+:Z goto 1+(:XD==0)
+goto 2-(:XD>0)

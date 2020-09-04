@@ -1,5 +1,26 @@
 s="station_" o="outpost_" i="imperial_" k="kingdom_" s2=s+"hq_"+i+"a"
 s1=s+"capital_"+i+"a" s3=s+"hq_"+k+"a" s4=s+"proving_grounds"
+s5=s+k+o+"b" s6=s+i+o+"a" s7=s+k+o+"a" s8=s+k+o+"b_2" ovr=0
+l=0 goto 4+(:R1==0 + :R2==0 + :R3==0 + :R4==0 + :ISAN_SCN)>0
+:M1=s1 :M2=s2 :M3=s3 :M4=s4 :ISAN_SCN=0 :XD=0 x="Selected Transmitter"
+:Pos="Lost signal, searching for four nearest transmitters"
+A=:R1 B=:R2 C=:R3 D=:R4 :M1=s5 :M2=s6 :M3=s7 :M4=s8
+//ISAN 2.0:Scanner_2.2b                                 THE COLLECTIVE
+E=:R1 F=:R2 G=:R3 H=:R4
+m=s1 n=11 goto n+((A<B+A<C+A<D+A<E+A<F+A<G+A<H)<4)*8*(A>0)
+m=s2 n=12 goto n+((B<A+B<C+B<D+B<E+B<F+B<G+B<H)<4)*7*(B>0)
+m=s3 n=13 goto n+((C<A+C<B+C<D+C<E+C<F+C<G+C<H)<4)*6*(C>0)
+m=s4 n=14 goto n+((D<A+D<B+D<C+D<E+D<F+D<G+D<H)<4)*5*(D>0)
+m=s5 n=15 goto n+((E<A+E<B+E<C+E<D+E<F+E<G+E<H)<4)*4*(E>0)
+m=s6 n=16 goto n+((F<A+F<B+F<C+F<D+F<E+F<G+F<H)<4)*3*(F>0)
+m=s7 n=17 goto n+((G<A+G<B+G<C+G<D+G<E+G<F+G<H)<4)*2*(G>0)
+m=s8 n=18 goto n+((H<A+H<B+H<C+H<D+H<E+H<F+H<G)<4)*1*(H>0)
+:XD=0 :Pos="Could not select four transmitters" goto 1
+if ++l>2 then goto 20 else if l>1 then :M2=m else :M1=m end end goto n
+if l>3 then :M4=m :XB=0 :Pos=x+"s!" goto 4 else :M3=m end goto n
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
+s="station_" o="outpost_" i="imperial_" k="kingdom_" s2=s+"hq_"+i+"a"
+s1=s+"capital_"+i+"a" s3=s+"hq_"+k+"a" s4=s+"proving_grounds"
 s5=s+k+o+"b" s6=s+i+o+"a" s7=s+k+o+"a" s8=s+k+o+"b_2"
 l=0 goto 4+(:R1==0 + :R2==0 + :R3==0 + :R4==0 + :ISAN_SCN)>0
 :M1=s1 :M2=s2 :M3=s3 :M4=s4 //Add a message, let user know
@@ -16,7 +37,7 @@ m=s6 n=16 goto n+((F<A+F<B+F<C+F<D+F<E+F<G+F<H)<4)*3*(F>0)
 m=s7 n=17 goto n+((G<A+G<B+G<C+G<D+G<E+G<F+G<H)<4)*2*(G>0)
 m=s8 n=18 goto n+((H<A+H<B+H<C+H<D+H<E+H<F+H<G)<4)*1*(H>0)
 //ERROR :ISAN_SCN=-4 goto 4 //Need better error
-++l if l>2 then goto 18 end if l>1 then :M2=m else :M1=m end goto n
+if ++l>2 then goto 20 else if l>1 then :M2=m else :M1=m end end goto n
 if l>3 then :M4=m :ISAN_DS=1 :ISAN_SCN=0 goto 4 else :M3=m end goto n
 ----+----|----+----|----+----|----+----|----+----|----+----|----+----|
 s="station_" o="outpost_" i="imperial_" k="kingdom_" s2=s+"hq_"+i+"a"

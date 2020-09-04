@@ -1,3 +1,20 @@
+rx=11 tx=2 h="station_" k=" transmitter positions" goto 1+(:XB==0)
+:XB=1 m=h+"capital_imperial_a" x=-465 y=0       z=-800      goto rx
+m=h+"hq_imperial_a"         x=-9938   y=4905    z=0         goto rx
+m=h+"hq_kingdom_a"          x=9894    y=4904    z=0         goto rx
+m=h+"proving_grounds"       x=19219   y=-45541  z=0         goto rx
+m=h+"kingdom_outpost_b"     x=39152   y=-46104  z=-174      goto rx
+m=h+"imperial_outpost_a"    x=-90194  y=6212    z=30225     goto rx
+m=h+"kingdom_outpost_a"     x=90445   y=18244   z=-30137    goto rx
+m=h+"kingdom_outpost_b_2"   x=100519  y=12718   z=-10221    goto rx
+:XB=1 :ISAN_SCN=1 :Pos="Failed to load"+k goto 1
+rx=11 if :M1==m then :X1=x :Y1=y :Z1=z ++rx tx=1 end goto ++tx
+rx=12 if :M2==m then :X2=x :Y2=y :Z2=z ++rx tx=1 end goto ++tx
+rx=13 if :M3==m then :X3=x :Y3=y :Z3=z ++rx tx=1 end goto ++tx
+rx=14 if :M4==m then :X4=x :Y4=y :Z4=z ++rx goto 15 end goto ++tx
+:XB=1 :XC=0 :Pos="Loaded"+k+", Starting inversion." goto 1
+//ISAN 2.0:DataStore_2.1b                               THE COLLECTIVE
+----+----|----+----|----+----|----+----|----+----|----+----|----+----|
 rx=11 tx=2 h="station_" goto 1+:ISAN_DS
 m=h+"capital_imperial_a"    x=-465    y=0       z=-800      goto rx
 m=h+"hq_imperial_a"         x=-9938   y=4905    z=0         goto rx
