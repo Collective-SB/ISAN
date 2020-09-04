@@ -6,7 +6,7 @@
     N, M, R     - Receiver fields
     A, B, C, D  - Distance Measurement Cache
     E, F, G, H  - Cache Times
-    u, v, w, x  - extrapolated distance (& partial axis calc)
+    u, v, w, l  - extrapolated distance (& partial axis calc)
 
     X, Y, Z     - Core position
 
@@ -32,11 +32,11 @@ if :G!=b then c=a d=b end a=:C^2 b=:G :w=a+(a-c)*(:T-b)/(b-d)-s goto 2
 //ISANv2_IsoMonoMC_extrapC_2.4a                         THE COLLECTIVE
 ----+----|----+----|----+----|----+----|----+----|----+----|----+----|
 a=:D^2 b=0  t=858880.223
-if :H!=b then c=a d=b end a=:D^2 b=:H :x=a+(a-c)*(:T-b)/(b-d)-t goto 2
+if :H!=b then c=a d=b end a=:D^2 b=:H :l=a+(a-c)*(:T-b)/(b-d)-t goto 2
 //ISANv2_IsoMonoMC_extrapD_2.4a                         THE COLLECTIVE
 ----+----|----+----|----+----|----+----|----+----|----+----|----+----|
 i=214589.634 a=1.836 b=2.792 n=-4787.429 o=-16480.662 p=1602.298
 c=10.285 e=39665.376 f=-39665.376 j=-68626.15 k=100891.402 m=-2820.508
-:X=:u/e+:v/f :Y=:u/i+:v/j+:w/k :Z=:u/m+:v/n+:w/o+:x/p goto 3
+:X=:u/e+:v/f :Y=:u/i+:v/j+:w/k :Z=:u/m+:v/n+:w/o+:l/p goto 3
 //ISAN 2.0:IsoMonoAxP_2.1a                              THE COLLECTIVE
 ----+----|----+----|----+----|----+----|----+----|----+----|----+----|
