@@ -1,7 +1,7 @@
 # ISAN
 **Integrated System for Autonomous Navigation** in [STARBASE](https://www.starbasegame.com/)
 
-Under development by the Collective, ISAN uses in-game station transmitters as reference points, in order to calculate your relative position. This is the private home of that project.
+Under development by the Collective, ISAN uses in-game station transmitters as reference points, in order to calculate your relative position. This is the home of that project.
 
 ## What's new in V2?
 
