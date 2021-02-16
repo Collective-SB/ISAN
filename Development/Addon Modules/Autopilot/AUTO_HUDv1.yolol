@@ -1,0 +1,20 @@
+//input
+// Destination unit vector in ship oriented space  [:u,:v,:w]  (MAY BE RENAMED)
+
+//need to render on text panel
+//  Sign of X component determines marker ( o or + )
+//  Y component (v) tells us how much yaw left
+//  Z component (w) tells us how much pitch up
+
+w = :v*(SOME_SCALE_WIDTH)
+h = :w*(SOME_SCALE_HEIGHT)
+
+s="" x=1                      //need to check if decrement returns prev value or new
+x/=h-- s+="\n" x/=h-- s+="\n" //... repeat to get to max height if need 
+x/=w-- s+=" " x/=w-- s+=" "   //... === width ====
+if :x>0 then :TAR=s+"+" else :TAR=s+"o" end //+ if in front, o if behind
+
+
+
+
+

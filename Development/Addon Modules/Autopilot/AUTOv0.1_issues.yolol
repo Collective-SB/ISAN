@@ -1,0 +1,44 @@
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|      AUTO v1 
+x=0 y=0 z=0 i=5 div=0                                                       //initialise dir [x, y, z], avg cycles (i) & divider
+x-=:X y-=:Y z-=:Z div++ goto LINE+(i--==0)                                  //accumulate position (negated) i times
+j=10 i=5 m=:DX-x/5 n=:DY-y/5 o=:DZ-z/5                                      //set wait (j), reset avg cycles (i), initialise (dest[RS]) [m, n, o]
+goto LINE+(j--==0)                                                          //wait for j ticks
+x+=:X y+=:Y z+=:Z goto LINE+(i--==0)                                        //accumulate position i times
+
+v=sqrt(x^2+y^2+z^2) x/=v y/=v z/=v v=sqrt(m^2+n^2+o^2) m/=v n/=v o/=v       //normalise dir, normalise dest[RS]
+                                        
+                                                                            //calculate dest[SO] [u,v,w] (using dir [x,y,z] & up [a,b,c])
+u=((z*a-x*c)*c-b*(x*b-y*a))*m+(a*(x*b-y*a)-(y*c-z*b)*c)*n+((y*c-z*b)*b-a*(z*a-x*c))*o
+v=(b*z-y*c)*m+(x*c-a*z)*n+(a*y-x*b)*o
+w=(y*(x*b-y*a)-(z*a-x*c)*z)*m+((y*c-z*b)*z-x*(x*b-y*a))*n+(x*(z*a-x*c)-(y*c-z*b)*y)*o
+
+du=u-lu dv=v-lv dw=w-lw err=180-atan(dv/dw)-(dw<0)*360 lu=u lv=v lw=w       //Get angle of (last dest -> cur dest)
+correction=err-(ly<0)*180-(lp>0)*90+(lp<0)*90                               //Compare to expected & get correction angle
+
+c=cos(theta) s=sin(theta) m=1-c                                             //rotate up around dir by correction angle
+at = (c+x*x*m)*a + (x*y*m-z*s)*b + (x*z*m+y*s)*c
+bt = (y*x*m+z*s)*a + (c+y*y*m)*b + (y*z*m-x*s)*c
+ct = (z*x*m-y*s)*a + (z*y*m+x*s)*b + (c+z*z*m)*c
+a=at b=bt c=ct
+
+i=10 ly=0 lp=0                                                              //set thrust value & reset last pitch / last yaw
+if v>w then ly=i-2*i*(v<0) :yaw=ly else lp=i-2*i*(w<0) :pitch=lp end        //thrust using thrust value in most needed direction, saving what was done
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+//MAJOR ISSUES:
+// 1) if we thrust P+, up is no longer perp to dir & this is never checked or corrected for
+// 2) up initialisation not implemented
+// 3) wasting a lot of space calculating u/du & storing lu
+
+// ideas
+//  just store a roll angle value wrt global grid & construct up from that.
+//      get cross of dir global up (this gives vector sideways in a flat global plane)
+//      get cross of dir & that vector to get UP, if 0 roll
+//      rotate up by current roll value around dir
+
+
+
+
+
+
+
