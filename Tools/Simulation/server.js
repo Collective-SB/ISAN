@@ -1,3 +1,21 @@
+//----Simulation setup----
+//------------------------------------------------------------------Modify from here
+
+var totalTicks=200; //Total number of yolol ticks to run
+
+//Craft state updates (all in meters(^2/3) per second)
+
+var craft=[
+    {x:0, y:0, z:0, vx:0, vy:0, vz:0, ax:0, ay:0, az:0},    //initial state
+    {ax:20, ay:20, az:20},                                  //update acceleration to (20,20,20)
+    {ax:0, ay:0, az:0}                                      //stop accelerating
+]
+
+//What ticks to update the ships state at
+var switchAt=[0, 50, 70];                                   //Start accelerating at tick 50, stop at tick 70
+
+//------------------------------------------------------------------Dont Modify from here
+
 //Run simulation
 console.log("ISAN TOOLS:: Simulation.");
 console.log("This tool simulates all navigation implementations placed in /Tools/Simulation/Navigation systems");
@@ -74,17 +92,6 @@ navsystems.forEach(sys=>{
     simsInfo.push(info);
     console.log(`\t\tOutput fields:\n\t\t\t${info.position}`);
 });
-
-//----Simulation setup----
-//Craft states
-var craft=[
-    {x:0, y:0, z:0, vx:0, vy:0, vz:0, ax:0, ay:0, az:0}, //meters(^2/3) per second
-    {ax:20, ay:20, az:20},
-    {ax:0, ay:0, az:0}
-]
-//var simulation ticks to switch craft states at
-var switchAt=[0, 50, 70];
-var totalTicks=200;
 
 var curcraft=craft[0];
 var cstate=0;
