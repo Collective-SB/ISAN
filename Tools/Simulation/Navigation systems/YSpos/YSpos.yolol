@@ -1,0 +1,15 @@
+h=1000000 e=1000 j="\n\nVel: "
+k=393347889 l=39666 m=100890 n=3395*10^6 o=58319
+p=114430000 q=18945 r=9809.3 s=1599
+ox=-9940 oy=4900 oz=0
+m1="station_hq_imperial_a" m2="station_capital_imperial_a"
+m3="station_hq_kingdom_a" m4="station_proving_grounds" :tm=m4
+
+cd=md md=h-:s :tm=m1 d=md
+x=(a^2+k-c^2)/l y=-(a^2+n-o*x-d^2)/m z=-(a^2+p-q*x-r*-y-b^2)/s
+ca=ma ma=h-:s :tm=m2 a=ma+(ma-ca)*3/4
+x=x+ox y=y+oy z=z+oz
+cb=mb mb=h-:s :tm=m3 b=mb+(mb-cb)/2
+i=((x-xo)^2+(y-yo)^2+(z-zo)^2)^0.5/1.6 xo=x yo=y zo=z
+cc=mc mc=h-:s :tm=m4 c=mc+(mc-cc)/4
+:sx=x :sy=y :sz=z goto 8

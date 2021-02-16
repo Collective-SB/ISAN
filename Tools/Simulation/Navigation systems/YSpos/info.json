@@ -1,0 +1,21 @@
+{
+    "id":"yspos",
+    "desc":"YS.pos v1.0.0.2",
+    "receivers":[
+        {"targetMessage":"tm", "signalStrength":"s", "message":"N1", "initialTarget":""}
+    ],
+    "position":[
+        "sx","sy","sz"
+    ],
+    "fields":[],
+    "chips":[
+        "YSpos.yolol"
+    ],
+    "transmitterSet":{
+        "station_capital_imperial_a":{"x":-465,"y":0,"z":-800},
+        "station_hq_kingdom_a":{"x":9894,"y":4904,"z":0},
+        "station_proving_grounds":{"x":19219,"y":-45541,"z":0},
+        "station_hq_imperial_a":{"x":-9938,"y":4905,"z":0}
+    },
+    "offsets":[-1.253,-4.11,-13.452]
+}
