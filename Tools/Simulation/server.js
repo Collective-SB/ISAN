@@ -149,7 +149,7 @@ for(var tick=0; tick<totalTicks; tick++){
 
 //write sim data to file in web_public
 console.log("Simulation complete, writing data to public file");
-fs.writeFileSync(`${__dirname}\\web_public\\simdata.json`,JSON.stringify({simsInfo,simdata}));
+fs.writeFileSync(`${__dirname}\\web_public\\simdata.json`,JSON.stringify({simsInfo,simdata, craftInfo:{states:craft, updates:switchAt}}));
 
 //Launch simple express server to serve web files in web_public
 var express = require('express');

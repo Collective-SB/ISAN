@@ -34,8 +34,44 @@ window.addEventListener('load',()=>{
         var layout = {
             title:"STARBASE navigation systems, error while in motion",
             xaxis:{title:"Ticks"},
-            yaxis:{title:"Error",range:[0,1000]}
+            yaxis:{title:"Error",range:[0,1000]},
+            shapes: [],
+            annotations:[]
         };
+
+        console.log(data.craftInfo);
+
+        data.craftInfo.states.forEach((craft,i)=>{
+            if(i==0) return;
+            layout.shapes.push({
+                type: 'line',
+                x0: data.craftInfo.updates[i],
+                y0: 0,
+                x1: data.craftInfo.updates[i],
+                yref: 'paper',
+                y1: 1,
+                line: {
+                  color: 'grey',
+                  width: 1.5,
+                  dash: 'dot'
+                },
+              });
+            layout.annotations.push(
+                {
+                    x: data.craftInfo.updates[i],
+                    y: 600,
+                    xref: 'x',
+                    yref: 'y',
+                    text: JSON.stringify(craft).replaceAll('"',''),
+                    showarrow: true,
+                    arrowhead: 3,
+                    ax: -70,
+                    ay: -70
+                }
+            );
+        });
+
+        console.log(layout.annotations);
 
         Plotly.newPlot('chart', traces, layout,{editable: false});
     });
