@@ -1,0 +1,91 @@
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+//:A  - received signal
+//:T  - message filter
+//:Q  - message recvd
+
+//p - what message was just recd (enum)
+//M - random tmp
+//q - time
+
+// t = 999999
+
+//vars needed:
+// magics e,f,g,h,i,j,k,l,m,n,o,p,q,r,s
+
+"station_hq_imperial_a" "station_proving_grounds" "station_kingdom_outpost_b" "station_kingdom_outpost_b_2"
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|  //ISAN mono (with speed)
+z="station_" w=z+"hq_imperial_a" x=z+"proving_grounds"                  //Not final values
+y=z+"kingdom_outpost_b" z+="kingdom_outpost_b_2" ss=999999 aa=11 qq=4   //Not final values
+e= 207744.954 f=-1550111.534 g=486779.292 h=-160699.392 i=-46169.175    //Not final values
+j=-140483.070 k=  103669.797 l=799664.698 m=-264673.522 n= -4718.935    //Not final values
+o=-230400.908 p=  345153.593 q= 41051.448 r= -43636.344 s= -1606.533    //Not final values
+qq+=4 :T=x ac=(ss-:A)^2 ar=(ac-la)/(qq-at) at=qq la=ac uu=7 goto10
+qq+=4 :T=y bc=(ss-:A)^2 br=(bc-lb)/(qq-bt) bt=qq lb=bc uu=8 goto10
+qq+=4 :T=z cc=(ss-:A)^2 cr=(cc-lc)/(qq-ct) ct=qq lc=cc uu=9 goto10
+qq+=4 :T=w dc=(ss-:A)^2 cr=(dc-ld)/(qq-dt) dt=qq ld=dc uu=6 goto10
+a=ac+ar*(qq-at) b=bc+br*(qq-bt) c=cc+cr*(qq-ct) d=dc+dr*(qq-dt) gotoaa      //goto 11 3x, then goto 12
+t+=:X u+=:Y v+=:Z aa+=(jj++>3) jj*=jj<4 kk=(v-v2)^2 goto13 
+:S=sqrt((t-t2)^2+(u-u2)^2+kk)/9.6 aa=11 t2=t u2=u v2=v t=0 u=0 v=0      //div = 3*4*4*0.2
+:x=a/e+b/f+c/g+d/h-i :y=a/j+b/k+c/l+d/m-n :z=a/o+b/p+c/q+d/r-s gotouu
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+t-=xx u-=yy v-=zz aa+=(ii++>3) :X=xx :Y=yy :Z=zz goto 14                    //3 -> 4 samples (8 ticks)
+t+=xx u+=yy v+=zz aa+=(jj++>3) :X=xx :Y=yy :Z=zz goto 14
+:S=sqrt(t^2+u^2+v^2)/5 aa=11 ii=0 jj=0 t=0 u=0 v=0 :X=xx :Y=yy :Z=zz
+xx=a/e+b/f+c/g+d/h-i yy=a/j+b/k+c/l+d/m-n zz=a/o+b/p+c/q+d/r-s gotouu
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+
+
+
+x1+=:X y1+=:Y z1+=:Z v/0 x2=-x1 y2=-y1 z2=-z1 x1=0 y1=0 z1=0    sqrt((x1-x2)^2+(x1-x2)^2+(x1-x2)^2)
+
+vv++ vv xx+=:X*v yy+=:Y*v zz+=:Z*v 
+
+x=0 y=0 z=0 i=5 div=0                                                       //initialise dir [x, y, z], avg cycles (i) & divider
+x-=:X y-=:Y z-=:Z div++ goto LINE+(i--==0)                                  //accumulate position (negated) i times
+j=10 i=5                                                                    //set wait (j), reset avg cycles (i)
+goto LINE+(j--==0)                                                          //wait for j ticks
+x+=:X y+=:Y z+=:Z goto LINE+(i--==0)                                        //accumulate position i times
+v=sqrt(x^2+y^2+z^2) x/=v y/=v z/=v
+
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|  //ISAN mono basic (no speed)
+z="station_" w=z+"hq_imperial_a" x=z+"proving_grounds"                  //Not final values
+y=z+"kingdom_outpost_b" z+="kingdom_outpost_b_2" t=999999 qq=3          //Not final values
+e= 207744.954 f=-1550111.534 g=486779.292 h=-160699.392 i=-46169.175    //Not final values
+j=-140483.070 k=  103669.797 l=799664.698 m=-264673.522 n= -4718.935    //Not final values
+o=-230400.908 p=  345153.593 q= 41051.448 r= -43636.344 s= -1606.533    //Not final values
+qq+=3 :T=x ac=t-:E ac*=ac ar=(ac-la)/(qq-at) at=qq la=ac u=7 goto10
+qq+=3 :T=y bc=t-:E bc*=bc br=(bc-lb)/(qq-bt) bt=qq lb=bc u=8 goto10
+qq+=3 :T=z cc=t-:E cc*=cc cr=(cc-lc)/(qq-ct) ct=qq lc=cc u=9 goto10
+qq+=3 :T=w dc=t-:E dc*=dc dr=(dc-ld)/(qq-dt) dt=qq ld=dc u=6 goto10
+a=ac+ar*(qq-at) b=bc+br*(qq-bt) c=cc+cr*(qq-ct) d=dc+dr*(qq-dt)
+:i=a/e+b/f+c/g+d/h-i :j=a/j+b/k+c/l+d/m-n :k=a/o+b/p+c/q+d/r-s gotou
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|  //ISAN mono basic (no speed)
+z="station_" w=z+"hq_imperial_a" x=z+"proving_grounds"                  //Not final values
+y=z+"kingdom_outpost_b" z+="kingdom_outpost_b_2" t=999999               //Not final values
+e= 207744.954 f=-1550111.534 g=486779.292 h=-160699.392 i=-46169.175    //Not final values
+j=-140483.070 k=  103669.797 l=799664.698 m=-264673.522 n= -4718.935    //Not final values
+o=-230400.908 p=  345153.593 q= 41051.448 r= -43636.344 s= -1606.533    //Not final values
+:T=bm ac=t-:A ac*=ac ar=(ac-la)/(qq-at) at=qq la=ac u=7 goto11
+:T=cm bc=t-:A bc*=bc br=(bc-lb)/(qq-bt) bt=qq lb=bc u=8 goto11
+:T=dm cc=t-:A cc*=cc cr=(cc-lc)/(qq-ct) ct=qq lc=cc u=9 goto11
+:T=am dc=t-:A dc*=dc dr=(dc-ld)/(qq-dt) dt=qq ld=dc u=6 goto11
+a=ac+ar*(qq-at) b=bc+br*(qq-bt) c=cc+cr*(qq-ct) d=dc+dr*(qq-dt)
+:X=a/e+b/f+c/g+d/h-i :Y=a/j+b/k+c/l+d/m-n :Z=a/o+b/p+c/q+d/r-s gotou
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+//Lumi's sketchbook version
+z="station_" w=z+"hq_imperial_a" x=z+"hq_kingdom_a"
+y=z+"proving_grounds" z+="capital_imperial_a"
+t=999999 ee=39665.376 ff=-ee gg=-t*t*t h=gg i=22.057 j=214589.611
+k=-68626.152 l=100891.412 m=gg n=23012.886 o=-2820.507 p=-4787.428
+q=-16480.662 r=1602.298 s=-216741.039 at=5 bt=5 ct=5
+:T=x an=:Q!=w a=t-:A+((at+3)*ad+:A-e)*an ad=(e-:A)/at/an e=:A at=0
+:T=y bn=:Q!=x b=t-:A+((bt+2)*bd+:A-f)*bn bd=(f-:A)/bt/bn f=:A bt=0
+:T=z cn=:Q!=y c=t-:A+((ct+1)*cd+:A-g)*cn cd=(g-:A)/ct/cn g=:A ct=0
+XX=a/ee+b/ff+c/gg+d/h-i YY=a/j+b/k+c/l+d/m-n at+=5 bt+=5 ct+=5
+:I=:X :J=:Y :K=:Z :X=XX :Y=YY :Z=a/o+b/p+c/q+d/r-s :T=w d=t-:A goto5
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
