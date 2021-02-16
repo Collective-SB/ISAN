@@ -3,3 +3,6 @@
 
 # Azur's TODO list
 /TODO
+
+#any node modules
+/Tools/Simulation/node_modules/
