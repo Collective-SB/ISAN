@@ -16,12 +16,7 @@ var craft=[
 //What ticks to update the ships state at
 var switchAt=[0, 50, 75, 320, 345];                                   //Start accelerating at tick 50, stop at tick 70
 
-var cellhits=[100, 200, 300];
 var cellbounds=[];
-cellhits.forEach(ch=>{
-    for(var i=0; i<10; i++) cellbounds.push(ch+i);
-});
-
 //------------------------------------------------------------------Dont Modify from here
 
 //Run simulation
