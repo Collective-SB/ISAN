@@ -34,7 +34,7 @@ const Yazur = require('./Yazur/yazur');
 
 
 console.log("\nLoading Navigation systems:");
-var navsystems=fs.readdirSync(path.join(__dirname,"Navigation Systems"));
+var navsystems=fs.readdirSync(path.join(__dirname,"Navigation systems"));
 
 var sims = [];
 var simsInfo = [];
@@ -45,7 +45,7 @@ navsystems.forEach(sys=>{
         console.log(`\tSkipping ${sys}`);
         return;
     }
-    var info=require(path.join(__dirname,"Navigation Systems",sys,"info.json"));
+    var info=require(path.join(__dirname,"Navigation systems",sys,"info.json"));
     console.log(`\tLoading ${info.desc}`);
 
     var network = new Yazur.netmgr();
@@ -54,7 +54,7 @@ navsystems.forEach(sys=>{
     info.chips.forEach(chipCode=>{
         console.log(`\t\t\tfrom ${chipCode}`);
         new Yazur.yChip(
-            getCode(path.join(__dirname,"Navigation Systems",sys,chipCode)),
+            getCode(path.join(__dirname,"Navigation systems",sys,chipCode)),
             "root",
             network
         )
