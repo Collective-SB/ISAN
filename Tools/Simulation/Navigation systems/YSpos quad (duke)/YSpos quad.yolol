@@ -2,7 +2,7 @@ f="\nX: " g="\nY: " h="\nZ: " i=0.5 j=1000000 p="\nVel: " co=":"
 e=1000 k=393347889 l=39666 m=100890 n=3395000000 o=58319 t=60 u=3600
 p1=114430000 q=18945 r=9809.3 s=1599 ox=-9940 oy=4900 oz=0 rt=1.4
 :tm1="station_hq_imperial_a" :tm2="station_capital_imperial_a"
-:tm3="station_hq_kingdom_a" :tm4="station_proving_grounds" ab=163
+:tm3="station_hq_kingdom_a" :tm4="station_proving_grounds" ab=16300
 ah="\nH:" ap="\nP:" af=360 aq=180
 a=j-:s1 a*=a b=j-:s2 c=j-:s3 d=j-:s4 x=(a+k-c*c)/l y=-(a+n-o*x-d*d)/m
 z=-(a+p1-q*x-r*-y-b*b)/s x+=ox y+=oy vx=x-xo vy=y-yo vz=z-zo xo=x yo=y
@@ -10,7 +10,7 @@ zo=z vt=(vx^2+vy^2+vz^2)^i w=dx-x ty=dy-y tz=dz-z tt=(w^2+ty^2+tz^2)^i
 v=vt/rt v=v*(v<ab)+ab*(v>ab) ve=(v+v1+v2+v3+v4)/5 v4=v3 v3=v2 v2=v1
 v1=v v=ve et=tt/v th=et/u/e*e tm=(et-th*u)/t/e*e ts=(et-th*u-tm*t)/e*e
 ch=(vx^2+vy^2)^i bh=(w^2+ty^2)^i 
-:x=x :y=y :z=z :pos=f+x/e*e+g+y/e*e+h+z/e*e+p+v/e*e goto 7
+:x=x :y=y :z=z :s=v :pos=f+x/e*e+g+y/e*e+h+z/e*e+p+v/e*e goto 7
 
 // SETUP - 4x receiver, SignalStrength> s1,s2,s3,s4
 // TargetMessage> tm1,tm2,tm3,tm4 ReceiverAngle> 180

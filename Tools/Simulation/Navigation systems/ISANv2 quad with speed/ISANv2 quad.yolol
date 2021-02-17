@@ -1,0 +1,11 @@
+:td="station_" :ta=:td+"hq_imperial_a" :tb=:td+"proving_grounds"
+:tc=:td+"kingdom_outpost_b" :td+="kingdom_outpost_b_2" t=999999
+e= 207744.954 f=-1550111.534 g=486779.292 h=-160699.392 i=-46169.175
+j=-140483.070 k=  103669.797 l=799664.698 m=-264673.522 n= -4718.935
+o=-230400.908 p=  345153.593 q= 41051.448 r= -43636.344 s= -1606.533
+a=(t-:A)^2 b=(t-:B)^2 c=(t-:C)^2 d=(t-:D)^2 x=a/e+b/f+c/g+d/h y=a/j
+:S=sqrt((:X-lx)^2+(:Y-ly)^2+(:Z-lz)^2)/0.6 lx=:X ly=:Y lz=:Z
+y+=b/k+c/l+d/m z=a/o+b/p+c/q+d/r :X=x*2-u-i :Y=2*y-v-n :Z=2*z-w-s z+=s
+a=(t-:A)^2 b=(t-:B)^2 c=(t-:C)^2 d=(t-:D)^2 u=a/e+b/f+c/g+d/h v=a/j
+:S=sqrt((:X-lx)^2+(:Y-ly)^2+(:Z-lz)^2)/0.6 lx=:X ly=:Y lz=:Z
+v+=b/k+c/l+d/m w=a/o+b/p+c/q+d/r :X=u*2-x-i :Y=2*v-y-n :Z=2*w-z goto 6

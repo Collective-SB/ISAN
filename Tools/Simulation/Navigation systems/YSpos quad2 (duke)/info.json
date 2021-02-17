@@ -1,6 +1,6 @@
 {
-    "id":"ysposquad",
-    "desc":"YS.pos v1.0.0.2 (quad, duke)",
+    "id":"ysposquad2",
+    "desc":"YS.pos (quad2, duke)",
     "receivers":[
         {"targetMessage":"tm1", "signalStrength":"s1", "message":"N1", "initialTarget":""},
         {"targetMessage":"tm2", "signalStrength":"s2", "message":"N1", "initialTarget":""},
@@ -8,11 +8,9 @@
         {"targetMessage":"tm4", "signalStrength":"s4", "message":"N1", "initialTarget":""}
     ],
     "position":[
-        "x","y","z","s"
+        "x","y","z"
     ],
-    "fields":[
-        "Pos"
-    ],
+    "fields":[],
     "chips":[
         "YSpos quad.yolol"
     ],

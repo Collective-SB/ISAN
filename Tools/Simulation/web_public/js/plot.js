@@ -2,10 +2,13 @@
 window.addEventListener('load',()=>{
     var traces = [];
     loadJSON('./simdata.json',data=>{
+        console.log(data);
         data.simsInfo.forEach(info=>{
 
             var trace=traceTemplate_line();
+            var vtrace=traceTemplate_line();
             trace.name = info.desc;
+            vtrace.name = info.desc + " speed";
             data.simdata.forEach(dp=>{
                 var output=dp.outputs[info.id];
                 trace.x.push(dp.tick);
@@ -14,8 +17,14 @@ window.addEventListener('load',()=>{
                     Math.pow(dp.craft.y-output[1],2)+
                     Math.pow(dp.craft.z-output[2],2)
                 ));
+                if(output.length>3){
+                    vtrace.x.push(dp.tick);
+                    vtrace.y.push(output[3]);
+                    console.log(output);
+                }
             });
             traces.push(trace);
+            if(vtrace.x.length>0) traces.push(vtrace);
 
         });
 
@@ -38,8 +47,6 @@ window.addEventListener('load',()=>{
             shapes: [],
             annotations:[]
         };
-
-        console.log(data.craftInfo);
 
         data.craftInfo.states.forEach((craft,i)=>{
             if(i==0) return;
@@ -71,7 +78,21 @@ window.addEventListener('load',()=>{
             );
         });
 
-        console.log(layout.annotations);
+        data.cellbounds.forEach(bound=>{
+            layout.shapes.push({
+                type: 'line',
+                x0: bound,
+                y0: 0,
+                x1: bound,
+                yref: 'paper',
+                y1: 1,
+                line: {
+                  color: 'red',
+                  width: 1.5,
+                  dash: 'dot'
+                },
+            });
+        });
 
         Plotly.newPlot('chart', traces, layout,{editable: false});
     });

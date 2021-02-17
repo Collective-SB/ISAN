@@ -1,6 +1,6 @@
 {
     "id":"ISANv2mono",
-    "desc":"ISAN Version 2.0 (mono)",
+    "desc":"ISAN Version 2 (mono)",
     "receivers":[
         {"targetMessage":"t", "signalStrength":"a", "message":"message", "initialTarget":""}
     ],

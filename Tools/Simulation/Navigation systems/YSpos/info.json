@@ -5,7 +5,7 @@
         {"targetMessage":"tm", "signalStrength":"s", "message":"N1", "initialTarget":""}
     ],
     "position":[
-        "sx","sy","sz"
+        "sx","sy","sz", "ss"
     ],
     "fields":[],
     "chips":[

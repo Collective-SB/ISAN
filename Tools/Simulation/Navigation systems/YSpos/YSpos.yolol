@@ -12,4 +12,4 @@ x=x+ox y=y+oy z=z+oz
 cb=mb mb=h-:s :tm=m3 b=mb+(mb-cb)/2
 i=((x-xo)^2+(y-yo)^2+(z-zo)^2)^0.5/1.6 xo=x yo=y zo=z
 cc=mc mc=h-:s :tm=m4 c=mc+(mc-cc)/4
-:sx=x :sy=y :sz=z goto 8
+:sx=x :sy=y :sz=z :ss=i goto 8

@@ -1,18 +1,15 @@
 {
-    "id":"ISANv2quad",
-    "desc":"ISAN Version 2 (quad)",
+    "id":"ISANv2monospeed",
+    "desc":"ISAN Version 2 (mono) [with speed]",
     "receivers":[
-        {"targetMessage":"ta", "signalStrength":"a", "message":"message", "initialTarget":""},
-        {"targetMessage":"tb", "signalStrength":"b", "message":"message", "initialTarget":""},
-        {"targetMessage":"tc", "signalStrength":"c", "message":"message", "initialTarget":""},
-        {"targetMessage":"td", "signalStrength":"d", "message":"message", "initialTarget":""}
+        {"targetMessage":"t", "signalStrength":"a", "message":"message", "initialTarget":""}
     ],
     "position":[
-        "x","y","z"
+        "x","y","z","s"
     ],
     "fields":[],
     "chips":[
-        "ISANv2 quad.yolol"
+        "ISANv2 Mono ISO SC.yolol"
     ],
     "transmitterSet":{
         "station_hq_imperial_a":{"x": -10036.953784902755, "y": 4701.85221684801, "z": -20.330119578438865},

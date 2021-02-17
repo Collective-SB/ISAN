@@ -1,6 +1,6 @@
 {
-    "id":"ISANv2quad",
-    "desc":"ISAN Version 2 (quad)",
+    "id":"ISANv2quadnp",
+    "desc":"ISAN Version 2 (quad) [prediction off]",
     "receivers":[
         {"targetMessage":"ta", "signalStrength":"a", "message":"message", "initialTarget":""},
         {"targetMessage":"tb", "signalStrength":"b", "message":"message", "initialTarget":""},

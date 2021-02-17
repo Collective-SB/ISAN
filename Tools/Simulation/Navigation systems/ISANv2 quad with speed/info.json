@@ -1,6 +1,6 @@
 {
-    "id":"ISANv2quad",
-    "desc":"ISAN Version 2 (quad)",
+    "id":"ISANv2quadspeed",
+    "desc":"ISAN Version 2 (quad) with speed",
     "receivers":[
         {"targetMessage":"ta", "signalStrength":"a", "message":"message", "initialTarget":""},
         {"targetMessage":"tb", "signalStrength":"b", "message":"message", "initialTarget":""},
@@ -8,7 +8,7 @@
         {"targetMessage":"td", "signalStrength":"d", "message":"message", "initialTarget":""}
     ],
     "position":[
-        "x","y","z"
+        "x","y","z","s"
     ],
     "fields":[],
     "chips":[

@@ -1,0 +1,15 @@
+e= 207744.954 f=-1550111.534 g=486779.292 h=-160699.392 i=-46169.175
+j=-140483.070 k=  103669.797 l=799664.698 m=-264673.522 n= -4718.935
+o=-230400.908 p=  345153.593 q= 41051.448 r= -43636.344 s= -1606.533
+dt="station_" at=dt+"hq_imperial_a" bt=dt+"proving_grounds" ga=7 gb=13
+ct=dt+"kingdom_outpost_b" dt+="kingdom_outpost_b_2" t=999999 :T=at
+ad=1000 bd="\nX:" cd="\nY:" dd="\nZ:" ed="\n\nS:"
+:T=bt a=t-:A a*=a ar=(a-la)/4 arr=(ar-lar)/4 la=a lar=ar ga++ goto 11
+:T=ct b=t-:A b*=b br=(b-lb)/4 brr=(br-lbr)/4 lb=b lbr=br ga++ goto 11
+:T=dt c=t-:A c*=c cr=(c-lc)/4 crr=(cr-lcr)/4 lc=c lcr=cr ga++ goto 11
+:T=at d=t-:A d*=d dr=(d-ld)/4 drr=(dr-ldr)/4 ld=d ldr=dr ga=7 goto 11
+a+=ar b+=br c+=cr d+=dr
+XX=a/e+b/f+c/g+d/h-i YY=a/j+b/k+c/l+d/m-n ZZ=a/o+b/p+c/q+d/r-s goto gb
+x+=XX y+=YY z+=ZZ gb+=++ii>2 ii*=ii<3 goto 15
+SS=sqrt((x-u)^2+(y-v)^2+(z-w)^2)/12 gb=13 u=x v=y w=z x=0 y=0 z=0   //div = 5[lines total loop] * 0.2[ticks>seconds] * 3[samples] * 4[samples+1(a half loop)]
+:X=XX :Y=YY :Z=ZZ :S=SS goto ga
