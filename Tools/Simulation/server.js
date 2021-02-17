@@ -1,18 +1,26 @@
 //----Simulation setup----
 //------------------------------------------------------------------Modify from here
 
-var totalTicks=200; //Total number of yolol ticks to run
+var totalTicks=400; //Total number of yolol ticks to run
 
 //Craft state updates (all in meters(^2/3) per second)
 
 var craft=[
     {x:0, y:0, z:0, vx:0, vy:0, vz:0, ax:0, ay:0, az:0},    //initial state
     {ax:20, ay:20, az:20},                                  //update acceleration to (20,20,20)
-    {ax:0, ay:0, az:0}                                      //stop accelerating
+    {ax:0, ay:0, az:0},                                     //stop accelerating
+    {ax:-20, ay:-20, az:-20},
+    {ax:0, ay:0, az:0}
 ]
 
 //What ticks to update the ships state at
-var switchAt=[0, 50, 70];                                   //Start accelerating at tick 50, stop at tick 70
+var switchAt=[0, 50, 75, 320, 345];                                   //Start accelerating at tick 50, stop at tick 70
+
+var cellhits=[100, 200, 300];
+var cellbounds=[];
+cellhits.forEach(ch=>{
+    for(var i=0; i<10; i++) cellbounds.push(ch+i);
+});
 
 //------------------------------------------------------------------Dont Modify from here
 
@@ -21,10 +29,12 @@ console.log("ISAN TOOLS:: Simulation.");
 console.log("This tool simulates all navigation implementations placed in /Tools/Simulation/Navigation systems");
 
 const fs = require('fs');
+const path = require('path');
 const Yazur = require('./Yazur/yazur');
 
+
 console.log("\nLoading Navigation systems:");
-var navsystems=fs.readdirSync(`${__dirname}\\Navigation Systems`);
+var navsystems=fs.readdirSync(path.join(__dirname,"Navigation Systems"));
 
 var sims = [];
 var simsInfo = [];
@@ -35,7 +45,7 @@ navsystems.forEach(sys=>{
         console.log(`\tSkipping ${sys}`);
         return;
     }
-    var info=require(`${__dirname}\\Navigation Systems\\${sys}\\info.json`);
+    var info=require(path.join(__dirname,"Navigation Systems",sys,"info.json"));
     console.log(`\tLoading ${info.desc}`);
 
     var network = new Yazur.netmgr();
@@ -44,7 +54,7 @@ navsystems.forEach(sys=>{
     info.chips.forEach(chipCode=>{
         console.log(`\t\t\tfrom ${chipCode}`);
         new Yazur.yChip(
-            getCode(`${__dirname}\\Navigation Systems\\${sys}\\${chipCode}`),
+            getCode(path.join(__dirname,"Navigation Systems",sys,chipCode)),
             "root",
             network
         )
@@ -96,6 +106,7 @@ navsystems.forEach(sys=>{
 var curcraft=craft[0];
 var cstate=0;
 var simdata=[];
+var ccb=0;
 
 console.log(`\nStarting Simulation of ${sims.length} systems for ${totalTicks} yolol ticks`);
 for(var tick=0; tick<totalTicks; tick++){
@@ -114,13 +125,15 @@ for(var tick=0; tick<totalTicks; tick++){
     sims.forEach(sim=>{
 
         //update receiver positions
-        if(sim.receivers[0]) sim.receivers[0].setPosition(curcraft.x, curcraft.y, curcraft.z);
-        if(sim.receivers[1]) sim.receivers[1].setPosition(curcraft.x, curcraft.y+0.96, curcraft.z);
-        if(sim.receivers[2]) sim.receivers[2].setPosition(curcraft.x, curcraft.y, curcraft.z+1.08);
-        if(sim.receivers[3]) sim.receivers[3].setPosition(curcraft.x, curcraft.y+0.96, curcraft.z+1.08);
-        if(sim.receivers.length>4){
-            for(var i=4; i<sim.receivers.length; i++){
-                sim.receivers[i].setPosition(curcraft.x, curcraft.y, curcraft.z+1.08*i);
+        if(cellbounds[ccb]!=tick){
+            if(sim.receivers[0]) sim.receivers[0].setPosition(curcraft.x, curcraft.y, curcraft.z);
+            if(sim.receivers[1]) sim.receivers[1].setPosition(curcraft.x, curcraft.y+0.96, curcraft.z);
+            if(sim.receivers[2]) sim.receivers[2].setPosition(curcraft.x, curcraft.y, curcraft.z+1.08);
+            if(sim.receivers[3]) sim.receivers[3].setPosition(curcraft.x, curcraft.y+0.96, curcraft.z+1.08);
+            if(sim.receivers.length>4){
+                for(var i=4; i<sim.receivers.length; i++){
+                    sim.receivers[i].setPosition(curcraft.x, curcraft.y, curcraft.z+1.08*i);
+                }
             }
         }
 
@@ -136,7 +149,7 @@ for(var tick=0; tick<totalTicks; tick++){
             );
         });
     });
-
+    if(cellbounds[ccb]==tick && cellbounds[ccb+1])ccb++
     //actually push datapoint to list
     simdata.push(datapoint);
 
@@ -149,12 +162,12 @@ for(var tick=0; tick<totalTicks; tick++){
 
 //write sim data to file in web_public
 console.log("Simulation complete, writing data to public file");
-fs.writeFileSync(`${__dirname}\\web_public\\simdata.json`,JSON.stringify({simsInfo,simdata, craftInfo:{states:craft, updates:switchAt}}));
+fs.writeFileSync(path.join(__dirname,"web_public","simdata.json"),JSON.stringify({simsInfo,simdata, craftInfo:{states:craft, updates:switchAt}, cellbounds}));
 
 //Launch simple express server to serve web files in web_public
 var express = require('express');
 app = express();
-app.use('/',express.static(`${__dirname}\\web_public`));
+app.use('/',express.static(path.join(__dirname,"web_public")));
 app.listen(80);
 
 console.log("Listening at http://localhost");
