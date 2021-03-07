@@ -1,0 +1,42 @@
+lx=cx ly=cy lz=cz cx=:X cy=:Y cz=:Z x2=:x-:i y2=:y-:j z2=:z-:k 
+m=:DX-cx n=:DY-cy o=:DZ-cz x=cx-lx y=cy-ly z=cz-lz a=y*z2-z*y2
+b=z*x2-x*z2 c=x*y2-y*x2 v=sqrt(a^2+b^2+c^2) a/=v b/=v c/=v
+v=sqrt(x^2+y^2+z^2) x/=v y/=v z/=v v=sqrt(m^2+n^2+o^2) m/=v n/=v o/=v
+u=m*((x*c-z*a)*c-b*(y*a-x*b))+n*(a*(y*a-x*b)-(z*b-y*c)*c)
+v=m*(b*z-y*c)+n*(x*c-a*z)+o*(a*y-x*b) u+=o*((z*b-y*c)*b-a*(x*c-z*a))
+w=m*(y*(y*a-x*b)-(x*c-z*a)*z)+n*((z*b-y*c)*z-x*(y*a-x*b))
+w+=o*(x*(x*c-z*a)-(z*b-y*c)*y) :u=u :v=v :w=w goto 1
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+x=-:X y=-:Y z=-:Z x2=:x-:i y2=:y-:j z2=:z-:k m=:DX+x n=:DY+y o=:DZ+z
+
+x+=:X y+=:Y z+=:Z x2-=:i-:x y2-=:j-:y z2-=:k-:z
+a=y*z2-z*y2 b=z*x2-x*z2 c=x*y2-y*x2 v=sqrt(a^2+b^2+c^2) a/=v b/=v c/=v
+v=sqrt(x^2+y^2+z^2) x/=v y/=v z/=v  v=sqrt(m^2+n^2+o^2) m/=v n/=v o/=v
+u=m*((x*c-z*a)*c-b*(y*a-x*b))+n*(a*(y*a-x*b)-(z*b-y*c)*c)
+v=m*(b*z-y*c)+n*(x*c-a*z)+o*(a*y-x*b) u+=o*((z*b-y*c)*b-a*(x*c-z*a))
+w=m*(y*(y*a-x*b)-(x*c-z*a)*z)+n*((z*b-y*c)*z-x*(y*a-x*b))
+w+=o*(x*(x*c-z*a)-(z*b-y*c)*y) :u=u :v=v :w=w goto 1
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+x=0 y=0 z=0 i=5 x2=0 y2=0 z2=0
+x-=:X y-=:Y z-=:Z x2-=:i-:x y2-=:j-:y z2-=:k-:z goto 2+(i--==0)
+i=5 m=:DX+x/i n=:DY+y/i o=:DZ+z/i
+x+=:X y+=:Y z+=:Z x2-=:i-:x y2-=:j-:y z2-=:k-:z goto 4+(i--==0)
+a=y*z2-z*y2 b=z*x2-x*z2 c=x*y2-y*x2 v=sqrt(a^2+b^2+c^2) a/=v b/=v c/=v
+v=sqrt(x^2+y^2+z^2) x/=v y/=v z/=v  v=sqrt(m^2+n^2+o^2) m/=v n/=v o/=v
+u=m*((x*c-z*a)*c-b*(y*a-x*b))+n*(a*(y*a-x*b)-(z*b-y*c)*c)
+v=m*(b*z-y*c)+n*(x*c-a*z)+o*(a*y-x*b) u+=o*((z*b-y*c)*b-a*(x*c-z*a))
+w=m*(y*(y*a-x*b)-(x*c-z*a)*z)+n*((z*b-y*c)*z-x*(y*a-x*b))
+w+=o*(x*(x*c-z*a)-(z*b-y*c)*y) :u=u :v=v :w=w goto 1
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+
+// /-----------\       [ COMPASS\n]
+// |_:  COMPASS|    8
+// |           |   11   0
+// |           |   11   1
+// |      .    |   11   2
+// |           |   11   3
+// |           |   11   4
+// |           |   11   
+// \-----------/

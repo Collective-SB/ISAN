@@ -6,3 +6,7 @@
 
 #any node modules
 /Tools/Simulation/node_modules/
+
+#simulation output
+/Tools/Simulation/web_public/simdata.json
+

@@ -1,0 +1,20 @@
+:e_dest=0 :ent=0 xx="\n1X:" yy="\n2Y:" zz="\n3Z:"
+M="\n\n 4) parse\n 0) back" goto 2+:e_dest
+:_="    DEST"+xx+:DX+yy+:DY+zz+:DZ+M goto 3-2*:0+:1+3*:2+5*:3+8*:4     //X:1, Y:2, Z:3, 0 :return
+:1=0 :DX=0 r=5 :_="    DEST"+xx+"_____"+yy+:DY+zz+:DZ goto 18
+:DX*=10 :DX+=a  :_="    DEST"+xx+:DX+yy+:DY+zz+:DZ goto 18
+:2=0 :DY=0 r=7 :_="    DEST"+xx+:DX+yy+"_____"+zz+:DZ goto 18
+:DY*=10 :DY+=a :_="    DEST"+xx+:DX+yy+:DY+zz+:DZ goto 18
+:3=0 :DZ=0 r=9 :_="    DEST"+xx+:DX+yy+:DY+zz+"_____" goto 18
+:DZ*=10 :DZ+=a :_="    DEST"+xx+:DX+yy+:DY+zz+:DZ goto 18
+:DX*=1-2*(r==5) :DY*=1-2*(r==7) :DZ*=1-2*(r==9) goto 3
+:4=0 N="    DEST\nPaste your coords here!" :_=N s="98743"
+t=0 o=0 j=-1 b=10 goto 12+(:_!=N)
+c=:_ c-=:_-- d=5*(c>4)+2*(s>(s-c)) d+=c>d d+=c>d o+=d*b^j++ goto13+c<0  //9876 -6543 3210
+v=1 if c=="-" then v=-1 :_-- end
+t++ :DX+=(o*v-:DX)*(t==3) :DY+=(o*v-:DY)*(t==2) :DZ+=(o*v-:DZ)*(t==1)
+o=0 j=-1 goto 3+10*(t<3)
+
+a=-1+:0+2*:1+3*:2+4*:3+5*:4+6*:5+7*:6+8*:7+9*:8+10*:9+11*:ent+12*:nve
+:nve=0 :ent=0 goto 18+2*(a>-1)-10*(a>10)
+:0=0 :1=0 :2=0 :3=0 :4=0 :5=0 :6=0 :7=0 :8=0 :9=0 goto r-(r-3)*(a==10)

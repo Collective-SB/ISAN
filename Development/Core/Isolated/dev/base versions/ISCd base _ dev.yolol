@@ -1,0 +1,57 @@
+
+:AT=bt :BT=ct aa=a-va va=a a=(t-:A)^2 w=a ab=vb vb=b b=(t-:B)^2 x=b
+
+
+
+w+= (a-va)/2 + (a-va-aa)/4*u
+
+
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+e= 207744.954 f=-1550111.534 g=486779.292 h=-160699.392 i=-46169.175
+j=-140483.070 k=  103669.797 l=799664.698 m=-264673.522 n= -4718.935
+o=-230400.908 p=  345153.593 q= 41051.448 r= -43636.344 s= -1606.533
+dt="station_" at=dt+"hq_imperial_a" bt=dt+"proving_grounds"
+ct=dt+"kingdom_outpost_b" dt+="kingdom_outpost_b_2" t=999999
+
+:AT=bt :BT=ct aa=va va=a a=(t-:A)^2 ab=vb vb=b b=(t-:B)^2 k=1+u+u*u j=u+2*u*u u+=v
+w=a*k+va*j+aa*u*u x=b*k+vb*j+ab*u*u y=c*k+vc*j+ac*u*u z=d*k+vd*j+ad*u*u 
+:X=a/e+b/f+c/g+d/h-i :Y=a/j+b/k+c/l+d/m-n :Z=a/o+b/p+c/q+d/r-s 
+:AT=dt :BT=at ac=vc vc=c c=(t-:A)^2 ad=vd vd=d d=(t-:B)^2 k=1+u+u*u j=u+2*u*u u+=v 
+w=a*k+va*j+aa*u*u x=b*k+vb*j+ab*u*u y=c*k+vc*j+ac*u*u z=d*k+vd*j+ad*u*u 
+:X=a/e+b/f+c/g+d/h-i :Y=a/j+b/k+c/l+d/m-n :Z=a/o+b/p+c/q+d/r-s goto7
+v=0.5
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+
+
+AA=a + (a-la)*u + (a-la-la+lla)*u*u
+
+AA=a*k+la*j+lla*i
+
+i=u*u
+j=u+2*i
+k=1+u+i
+u+=0.5
+
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+:AT=ct :BT=h a=(t-:A)^2/v b=(t-:B)^2 q=w l=x w=a-i x=b-n i=a n=b goto8
+e= 207744.954 f=-1550111.534 g=486779.292 hh=-160699.392 ii=-46169.175
+j=-140483.070 k=  103669.797 ll=799664.698 mm=-264673.522 nn= -4718.935
+o=-230400.908 p=  345153.593 qq= 41051.448 rr= -43636.344 ss= -1606.533
+h="station_" at=h+"hq_imperial_a" m=h+"proving_grounds" u=20 v=1
+ct=h+"kingdom_outpost_b" h+="kingdom_outpost_b_2" t=999999
+
+:X=a/e+b/f+c/g+d/hh-ii :Y=a/j+b/k+c/ll+d/mm-nn :Z=a/o+b/p+c/qq+d/rr-ss
+#+=w-q a+=#/2 #+=w-q a+=#/2 #+=w-q a+=#/2 #+=w-q a+=#/2 u*=-1 gotou
+
+
+a
+a + ar + arr
+a + ar + arr    + ar + arr + arr
+
+
+
+:AT=at :BT=m c=(t-:A)^2 d=(t-:B)^2 ly=y lz=z y=c-s z=d-r s=c r=d goto8
+
+
+

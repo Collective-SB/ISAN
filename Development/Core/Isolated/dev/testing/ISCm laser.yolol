@@ -1,0 +1,30 @@
+e=88 f=10^10 g=-88 h=f   i=0
+j=f  k=60    l=60  m=f   n=0
+o=f  p=-128  q=f   r=128 s=0
+:T=1 ga=7
+
+:T=2 a=:A a*=a ar=(a-la)/4 arr=(ar-lar)/4 la=a lar=ar ga++ goto10
+:T=3 b=:A b*=b br=(b-lb)/4 brr=(br-lbr)/4 lb=b lbr=br ga++ goto10
+:T=4 c=:A c*=c cr=(c-lc)/4 crr=(cr-lcr)/4 lc=c lcr=cr ga++ goto10
+:T=1 d=:A d*=d dr=(d-ld)/4 drr=(dr-ldr)/4 ld=d ldr=dr ga=7 goto10
+:X=a/e+b/f+c/g+d/h-i :Y=a/j+b/k+c/l+d/m-n :Z=a/o+b/p+c/q+d/r-s
+ar+=arr br+=brr cr+=crr dr+=drr a+=ar b+=br c+=cr d+=dr gotoga
+
+
+//Refs
+//1 (-22, 15, 32)
+//2 ( 22,-15, 32)
+//3 ( 22, 15, 32)
+//4 ( 22,-15,-32)
+
+//[
+//[88,null,-88,null],
+//[null,59.999999999999986,-59.999999999999986,null],
+//[null,-127.99999999999997,1080863910568918800,128]
+//]
+
+
+//0.433
+//0.635
+//0.594
+

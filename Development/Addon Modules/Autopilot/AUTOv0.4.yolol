@@ -1,0 +1,20 @@
+x=0 y=0 z=0 i=5 //+:AUTO
+x-=:X y-=:Y z-=:Z goto 2+(i--==0)               //maybe not every tick (can check global inc)
+j=10 i=5 m=:DX+x/5 n=:DY+y/5 o=:DZ+z/5
+goto 4+(j--==0)
+x+=:X y+=:Y z+=:Z goto 5+(i--==0)               //maybe not every tick
+a=-x*z b=-y*z c=x^2+y^2            v=sqrt(a^2+b^2+c^2) a/=v b/=v c/=v       //fucked if straight up or down
+v=sqrt(x^2+y^2+z^2) x/=v y/=v z/=v v=sqrt(m^2+n^2+o^2) m/=v n/=v o/=v
+p=cos(:r) s=sin(:r) q=1-p at=(p+x*x*q)*a+(x*y*q-z*s)*b+(x*z*q+y*s)*c
+bt=(y*x*q+z*s)*a+(p+y*y*q)*b+(y*z*q-x*s)*c
+ct=(z*x*q-y*s)*a+(z*y*q+x*s)*b+(p+z*z*q)*c a=at b=bt c=ct
+u=m*((x*c-z*a)*c-b*(y*a-x*b))+n*(a*(y*a-x*b)-(z*b-y*c)*c)+o*((z*b-y*c)*b-a*(x*c-z*a))   //assuming 0 roll
+v=m*(b*z-y*c)+n*(x*c-a*z)+o*(a*y-x*b)
+w=m*(y*(y*a-x*b)-(x*c-z*a)*z)+n*((z*b-y*c)*z-x*(y*a-x*b))+o*(x*(x*c-z*a)-(z*b-y*c)*y)   
+du=u-lu dv=v-lv dw=w-lw lu=u lv=v lw=w
+err=180-atan(dv/dw)-(dw<0)*360 :r-=(err-(ly<0)*180+(lp>0)*90-(lp<0)*90)*((lp+ly)!=0)    //initial atan2 for yaw right
+
+j=20 i=50 ly=0 lp=0 goto 20-2*(u<0.99)
+if v*v>w*w then ly=i*(v+2*(1-v)*(u<0)) else lp=i*(w+2*(1-w)*(u<0)) end                  //need to store calibration shit
+:yaw=ly :pitch=lp
+goto 20-19*(j--==0)

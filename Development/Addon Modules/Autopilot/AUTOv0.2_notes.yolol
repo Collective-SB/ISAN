@@ -7,7 +7,7 @@
 :destSO="\n["+u+", "+v+", "+w+"]"
 
 
-//--+----|----+----|----+----|----+----|----+----|----+----|----+----|      AUTO v1 
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|      AUTO v0.2
 x=0 y=0 z=0 i=5 goto 1+:AUTO
 x-=:X y-=:Y z-=:Z goto 2+(i--==0)
 j=10 i=5 m=:DX+x/5 n=:DY+y/5 o=:DZ+z/5
@@ -29,7 +29,7 @@ if v>w then ly=i-2*i*(v<0) else lp=i-2*i*(w<0) end
 :yaw=ly :pitch=lp goto 18+(j--==0)
 //--+----|----+----|----+----|----+----|----+----|----+----|----+----|
 
-//--+----|----+----|----+----|----+----|----+----|----+----|----+----|      AUTO v1 
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|      AUTO v0.2
 x=0 y=0 z=0 i=5 div=0                                                       //initialise dir [x, y, z], avg cycles (i) & divider
 x-=:X y-=:Y z-=:Z div++ goto LINE+(i--==0)                                  //accumulate position (negated) i times
 j=10 i=5 m=:DX+x/5 n=:DY+y/5 o=:DZ+z/5                                      //set wait (j), reset avg cycles (i), initialise (dest[RS]) [m, n, o]

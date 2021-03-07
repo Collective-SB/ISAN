@@ -1,0 +1,71 @@
+
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+//Tick 1
+//chip          x=1 
+//Recv
+
+//tick 2
+//chip          UD1 x=0
+
+//tick 3
+//chip          no. x=1
+//recv
+
+//tick 4
+//chip          UD1 x=0
+
+//tick 5
+//recv
+//chip          UD0 x=0
+
+//tick 6
+//chip          no. x=1
+
+//tick 7
+//chip          no. x=2
+//recv
+
+//tick 8
+//chip          UD2 x=0
+
+//------------------------------
+
+//tick 9
+//recv
+//chip      UD! x=0
+
+//tick 10
+//recv
+//chip
+
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+//                       \/ Updated this tick after us, or before us in previous tick
+
+w=a x=b y=c z=d a=:A b=:B c=:C d=:D goto 1+(w!=a)*(x!=b)*(y!=c)*(z!=d)
+:m=a :n=b :o=c :p=d goto 1
+//            /\ A updated either this tick before us, or previous tick after us
+//                  x - ticks since update
+//                  x = 0   - updated this tick, before us (and last tick after us)    //store
+//                  x = 1   - updated last tick, after us   //output                   //
+//                  x = 2   -           =                   //output                   //
+
+//recvs A B C D
+//buff  M N O P
+
+//if updated last tick, output for pos core. else hold onto until next tick
+
+
+
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+:DT="s10tion_" :AT=:DT+"hq_imperial_a" :BT=:DT+"proving_grounds"            //Not final values
+:CT=:DT+"kingdom_outpost_b" :DT+="kingdom_outpost_b_2" t=999999             //Not final values
+e= 207744.954 f=-1550111.534 g=486779.292 h=-160699.392 i=-46169.175        //Not final values
+j=-140483.070 k=  103669.797 l=799664.698 m=-264673.522 n= -4718.935        //Not final values
+o=-230400.908 p=  345153.593 q= 41051.448 r= -43636.344 s= -1606.533        //Not final values
+a=(t-:A)^2 b=(t-:B)^2 c=(t-:C)^2 d=(t-:D)^2
+:X=a/e+b/f+c/g+d/h-i :Y=a/j+b/k+c/l+d/m-n :Z=a/o+b/p+c/q+d/r-s goto 6
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+w=1000 x="\nX:" y="\nY:" z="\nZ:"
+:DISP=x+:X/w*w+y+:Y/w*w+z+:Z/w*w goto 2
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|

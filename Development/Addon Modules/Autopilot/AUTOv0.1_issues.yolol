@@ -1,4 +1,4 @@
-//--+----|----+----|----+----|----+----|----+----|----+----|----+----|      AUTO v1 
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|      AUTO v0.1 
 x=0 y=0 z=0 i=5 div=0                                                       //initialise dir [x, y, z], avg cycles (i) & divider
 x-=:X y-=:Y z-=:Z div++ goto LINE+(i--==0)                                  //accumulate position (negated) i times
 j=10 i=5 m=:DX-x/5 n=:DY-y/5 o=:DZ-z/5                                      //set wait (j), reset avg cycles (i), initialise (dest[RS]) [m, n, o]

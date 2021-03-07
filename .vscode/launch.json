@@ -4,6 +4,7 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
             "type": "pwa-node",
             "request": "launch",
@@ -12,6 +13,17 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}\\Tools\\Simulation\\server.js",
+            "outFiles": [
+                "${workspaceFolder}\\Tools\\Simulation"
+            ]
+        }, {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "Tools: Simulation_auto",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}\\Tools\\Simulation\\server_autopilot.js",
             "outFiles": [
                 "${workspaceFolder}\\Tools\\Simulation"
             ]

@@ -38,7 +38,8 @@ feature | description | cost (extra chips) | available for
 -|-|-|-
 Display driver | Shows ISAN X,Y,Z (,S) on a 24x24 text panel | 1 basic | any
 Speed calculator | Calculates craft speed, now **much** more accurate | 1 advanced | any
-ORN vector calculator | Calculates by how much your heading must change in order to point to a specified destination | 1 advanced | any
+ORN | Direction heading / pitch | TBC | any
+WNS vector calculator | Calculates by how much your heading must change in order to point to a specified destination | 1 advanced | any
 Autopilot (single core)* | Flies your ship for you, this version runs using one ISAN core (mono or quad) | 1 advanced | any
 Autopilot (dual core)* | Adding an extra ISAN core to your ship gives this version of autopilot enough information to fly your ship without guesses, making it more stable. Any combination of quad(s)/mono(s) will work. | 1 advanced + extra core. | dual core
 

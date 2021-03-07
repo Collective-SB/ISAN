@@ -69,9 +69,10 @@ a=t-:A b=t-:B c=t-:C d=t-:D a*=a b*=b c*=c d*=d X=a/e+b/f+c/g+d/h-i
 t="\nX:"
 u="\nY:"
 v="\nZ:"
-
-a=(t-:A)^2 b=(t-:B)^2 c=(t-:C)^2 d=(t-:D)^2 :ISAN=t+:X+u+:Y+v+:Z
-:X=a/e+b/f+c/g+d/h-i :Y=a/j+b/k+c/l+d/m-n :Z=a/o+b/p+c/q+d/r-s goto4
+w=4//whatever line a=(t-:A)... is on
+a=(t-:A)^2 b=(t-:B)^2 c=(t-:C)^2 d=(t-:D)^2 w+=(a>x+b>x+c>x+d>x>0)*2      //:ISAN=t+:X+u+:Y+v+:Z
+:X=a/e+b/f+c/g+d/h-i :Y=a/j+b/k+c/l+d/m-n :Z=a/o+b/p+c/q+d/r-s goto w
+    //Loss of signal!
 //--+----|----+----|----+----|----+----|----+----|----+----|----+----|
 a=(t-:A)^2 b=(t-:B)^2 c=(t-:C)^2 d=(t-:D)^2 :ISAN=t+:X*w+u+:Y*w+v+:Z*w
 :X=a/e+b/f+c/g+d/h-i :Y=a/j+b/k+c/l+d/m-n :Z=a/o+b/p+c/q+d/r-s goto4
