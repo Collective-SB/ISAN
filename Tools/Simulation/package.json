@@ -9,6 +9,7 @@
   "author": "Azurethi",
   "license": "GPL-3.0",
   "dependencies": {
-    "express.js": "^1.0.0"
+    "express.js": "^1.0.0",
+    "socket.io": "^3.1.1"
   }
 }

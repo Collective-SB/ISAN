@@ -1,0 +1,32 @@
+m="current pos" goto 1+(:WPCMD!="")                                         //wait for waypoint command
+a=:WPCMD :WPCMD="parsing" s=9843 b=1 i=0 x=0 goto 3+3*((a-" ")==a)          //store current, do parser setup, if has space, waypoint -> parser
+c=a c-=a-- d=5*(c>4)+2*(s>(s-c)) d+=c>d x+=(d+c>d)*b b*=10 goto 4+c<0       //parser
+x*=1-2*(c>" ") a-=" "-c b=1 z=y/(i++<3) y=x x=0 goto 3                      //parser
+:DL=l :DX=x :DY=y :DZ=z :WPCMD="parsed" :WPcw=10 goto 20                    //parser
+goto 7+?*(a=="cur")+?*(a=="zero")+?*((a-"save_")!=a)+?((a-"del_")!=a)       //command or waypoint name?
+//waypoint, need to load & parser
+
+w=1000 :DL=m :DX=:X/w*w :DY=:Y/w*w :DZ=:Z/w*w :WPCMD=m :WPcw=10 goto w      //CMD: cur
+:DL="" :DX=0 :DY=0 :DZ=0 :WPCMD="zero" :WPcw=10 goto 20                     //CMD: zero
+
+//CMD: save_, need to know where to save (search for name or -not saved-)
+//CMD: del_, need to know what to delete (search & delete)
+
+
+:HSm=hsm :HSr=0 :HSO=""                                                     //call HSmgr
+a=:HSo b=:HSi goto thisline+(return-thisline)*(a!="")+(return-thisline)*:HSr//wait for HSmgr
+
+
+:WPCMD="" goto 1
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+//TODO add del command & search for where to save next waypoint
+//TODO system messages 
+
+//don't go straight to 1, set message, chipwait & jump to last line to clear
+
+//WARN might need delay between lines 7 and 8, incase HSmgr immediately overwrites :HSr with 1 (or change how HSmgr works) (can just used chipwait)
+//          may also want to wait if hsr!=1 (HSmgr not ready)?
+//                   want to combine hsr & hsm (hsmgr can store it's call value)
+
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|

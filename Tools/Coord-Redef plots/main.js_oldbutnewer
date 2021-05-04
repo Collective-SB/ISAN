@@ -1,0 +1,499 @@
+var datapoints = [];
+var traces = [];
+
+var allshifted = {}
+window.addEventListener('load',()=>{
+
+    prepdatapoints();
+    //Now have:
+    // datapoints []    from flights
+    // GDPTS            from main.js_old
+
+    var keys = Object.keys(GDPTS)
+    var cmspace = {};   //not xp m-space, now c m-space
+    keys.forEach(key=>{
+        var offset = OFFS[key.substring(0,2)];
+        //var tid = key.substring(2,2);
+        var pos = GDPTS[key].pos;
+        for(var i=0; i<3;i++){
+            pos[i]-=offset[i];
+        }
+        cmspace[key] = pos;
+    });
+
+    //var allshifted = {};  //T0:[{x,y,z, m, from:"xpT0"}]
+    datapoints.forEach(dp=>{    //{x,y,z,data:{xpT0:1231, xnT0:12313}}
+        var dpkeys = Object.keys(dp.data);
+        dpkeys.forEach(dpk=>{
+            var offset = OFFS[dpk.substr(0,2)];
+            var tid = dpk.substr(2,2);
+            if(!allshifted[tid]) allshifted[tid] = [];
+            allshifted[tid].push({
+                x:dp.X - offset[0],
+                y:dp.Y - offset[1],
+                z:dp.Z - offset[2],
+                m: dp.data[dpk],
+                from: dpk
+            })
+        });
+    });
+
+
+    // T0 in avg m-space (from GD points)
+    //var t0ms=[-443.40763239392095, 808.6384835518546, 132.2363549614864];
+
+
+    //Match T0's
+        /*
+        var t0ms = [...xpSpace[0]]; //should replace this with a loop through all to get average space offset
+        
+        //turn into a translation offset
+        t0ms[0] -= CUR.x[0];
+        t0ms[1] -= -CUR.z[0];
+        t0ms[2] -= CUR.y[0];
+        */
+    //Match space averages
+        /*
+        var t0ms = [0,0,0];
+        for(var i=0; i<8; i++){
+            if(i!=5 && i!=6){
+                t0ms[0]+= xpSpace[i][0] - CUR.x[i];
+                t0ms[1]+= xpSpace[i][1] + CUR.z[i];
+                t0ms[2]+= xpSpace[i][2] - CUR.y[i];
+            }
+        }
+
+        for(var i=0; i<3; i++){
+            t0ms[i]/=6;
+        }
+        
+        t0ms = doSTSgd(t0ms)
+        console.log(t0ms);
+        */
+    //Min error transfor (t0ms = doSTSgd(t0ms));
+        //var t0ms = [10082.653933457694, -978.5522398104063, -12992.159728718967]; (switched 4&6?)
+        var t0ms =[32.500792196548765, 13.254878494378723, 143.87067054613053];
+    
+    //Should maybe find a min error transform that only carese about isanv1 transmitters
+    
+
+    var ntrace = traceTemplate_markers();
+    ntrace.name = "c m-space";
+    ntrace.text = [];
+
+    var target="T0";
+    var pts = [];
+    
+    Object.keys(cmspace).forEach(k=>{
+        if(k.includes(target)){
+            pts.push(cmspace[k]);
+            ntrace.x.push(cmspace[k][0]);
+            ntrace.y.push(cmspace[k][1]);
+            ntrace.z.push(cmspace[k][2]);
+            var err=get_all_error(cmspace[k],k.substr(2,2));
+            ntrace.text.push(`${k} err: ${absSum(err)}`);
+        }
+    });
+    traces.push(ntrace);
+
+    pts.forEach(pt=>{
+        doASGD(pt, target);
+    });
+
+    /*
+    var ntrace = traceTemplate_markers();
+    ntrace.name = "currently accepted (y<->z), (y->-y) [TRANSL]";
+    ntrace.text = [];
+
+    var ntrace1 = traceTemplate_markers();
+    ntrace1.name = "XP m-space";
+    ntrace1.text = [];
+    var errs= [];
+    for(var i=0; i<8; i++){
+        //var i=0;
+        ntrace.x.push(CUR.x[i] + t0ms[0]);
+        ntrace.y.push(-CUR.z[i]+ t0ms[1]);
+        ntrace.z.push(CUR.y[i]+ t0ms[2]);
+        errs=get_error([CUR.x[i] + t0ms[0],-CUR.z[i]+ t0ms[1],CUR.y[i]+ t0ms[2]],`xpT${i}`);
+        ntrace.text.push(`T${i}, ${CUR.lbl[i]}, err: ${absSum(errs)/errs.length}`);
+    
+        
+        if(i!=5 && i!=6){
+            ntrace1.x.push(xpSpace[i][0]);
+            ntrace1.y.push(xpSpace[i][1]);
+            ntrace1.z.push(xpSpace[i][2]);
+            errs=get_error(xpSpace[i],`xpT${i}`);
+            ntrace1.text.push(`T${i}, err: ${absSum(errs)/errs.length}`);
+
+            var ntrace2 = traceTemplate_markers();
+            ntrace2.name = "dist";
+            ntrace2.mode = 'lines';
+            ntrace2.x.push(CUR.x[i] + t0ms[0]);
+            ntrace2.y.push(-CUR.z[i]+ t0ms[1]);
+            ntrace2.z.push(CUR.y[i]+ t0ms[2]);
+
+            ntrace2.x.push(xpSpace[i][0]);
+            ntrace2.y.push(xpSpace[i][1]);
+            ntrace2.z.push(xpSpace[i][2]);
+
+            ntrace2.name = `T${i} offset: ${Math.sqrt(
+                Math.pow(CUR.x[i] + t0ms[0]-xpSpace[i][0],2)+
+                Math.pow(-CUR.z[i]+ t0ms[1]-xpSpace[i][1],2)+
+                Math.pow(CUR.y[i]+ t0ms[2]-xpSpace[i][2],2)
+            )}m`;
+
+            traces.push(ntrace2);
+        }
+    }
+    
+    traces.push(ntrace);
+    traces.push(ntrace1);
+    */
+    var layout = {margin: {
+        l: 0,
+        r: 0,
+        b: 0,
+        t: 0
+    }};
+
+    Plotly.newPlot('chart', traces, layout,{editable: true});
+});
+
+
+function doASGD(pt, tid){
+
+    var ntrace = traceTemplate_markers();
+    ntrace.name = "c m-space";
+    ntrace.mode = 'lines'
+    ntrace.text = [];
+
+    var curpt = [...pt];
+    var step = 0.01;
+    var samples = 100;
+    var gettingBetter, err=absSum(get_all_error(curpt, tid));
+    var numReduce = 0;
+
+    ntrace.x.push(curpt[0]);
+    ntrace.y.push(curpt[1]);
+    ntrace.z.push(curpt[2]);
+    ntrace.text.push(`init, err:${err}`);
+
+    do{
+        gettingBetter = false;
+        
+        var minpt=[];
+        var cerr = err;
+        for(var itheta=0; itheta<samples; itheta++){
+            for(var iphi=0; iphi<samples; iphi++){
+                var tsp = [...curpt];
+                tsp[0] += step*Math.sin(Math.PI*itheta/samples)*Math.cos(Math.PI*2*iphi/samples);
+                tsp[1] += step*Math.sin(Math.PI*itheta/samples)*Math.sin(Math.PI*2*iphi/samples);
+                tsp[2] += step*Math.cos(Math.PI*itheta/samples);
+
+                var nerr = absSum(get_all_error(tsp, tid));
+                if(nerr<cerr){
+                    cerr = nerr;
+                    minpt = [...tsp];
+                }
+            }
+        }
+
+        if(cerr<err){
+            console.log(`Min error is at: ${err}, step: ${step}`);
+            err=cerr;
+            curpt=[...minpt];
+            gettingBetter=true;
+        } 
+
+        if(gettingBetter==false && numReduce<100){
+            gettingBetter=true;
+            step/=2;
+
+            numReduce++;
+        } else {
+            ntrace.x.push(curpt[0]);
+            ntrace.y.push(curpt[1]);
+            ntrace.z.push(curpt[2]);
+            ntrace.text.push(`err: ${cerr}, step: ${step}`);
+        }
+
+    }while(gettingBetter);
+    traces.push(ntrace);
+    return curpt;
+}
+
+function get_all_error(point, tid){
+    var err = [];
+    /*
+    datapoints.forEach(dp=>{
+        err.push(
+            (999999-dp.data[S_T_id]) - 
+            Math.floor(1000*Math.sqrt(Math.pow(point[0]-dp.X,2)+Math.pow(point[1]-dp.Y,2)+Math.pow(point[2]-dp.Z,2)))/1000
+        );
+    });*/
+    allshifted[tid].forEach(p=>{
+        err.push(
+            (999999-p.m) - 
+            Math.floor(1000*Math.sqrt(Math.pow(point[0]-p.x,2)+Math.pow(point[1]-p.y,2)+Math.pow(point[2]-p.z,2)))/1000
+        );
+    });
+    return err;
+}
+
+
+//takes an initial offset & walks down error (getTotalSTSError)
+function doSTSgd(init){
+
+    var curpt = [...init];
+    var step = 5;
+    var samples = 10;
+    var gettingBetter, err=getTotalSTSError(curpt);
+    var numReduce = 0;
+
+    do{
+        gettingBetter = false;
+        
+        var minpt=[];
+        var cerr = err;
+        for(var itheta=0; itheta<samples; itheta++){
+            for(var iphi=0; iphi<samples; iphi++){
+                var tsp = [...curpt];
+                tsp[0] += step*Math.sin(Math.PI*itheta/samples)*Math.cos(Math.PI*2*iphi/samples);
+                tsp[1] += step*Math.sin(Math.PI*itheta/samples)*Math.sin(Math.PI*2*iphi/samples);
+                tsp[2] += step*Math.cos(Math.PI*itheta/samples);
+
+                var nerr = getTotalSTSError(tsp);
+                if(nerr<cerr){
+                    cerr = nerr;
+                    minpt = [...tsp];
+                }
+            }
+        }
+
+        if(cerr<err){
+            console.log(`Min error is at: ${err}, step: ${step}`);
+            err=cerr;
+            curpt=[...minpt];
+            gettingBetter=true;
+        } 
+
+        if(gettingBetter==false && numReduce<100){
+            gettingBetter=true;
+            step/=2;
+
+            numReduce++;
+        }
+
+    }while(gettingBetter);
+
+    console.log("min error transform:", curpt);
+    return curpt;
+}
+
+//Takes an offset from curspace into XPm-space & returns total error for that offset
+function getTotalSTSError(offset){
+    var errs=[];
+    for(var i=0; i<8; i++){
+        if(i!=5 && i!=6){
+            errs.push(absSum(get_error([CUR.x[i] + offset[0],-CUR.z[i]+ offset[1],CUR.y[i]+ offset[2]],`xpT${i}`)));
+        }
+    }
+    return absSum(errs);
+}
+
+
+function prepdatapoints(){
+    var datasets = [XP,XN, YP,YN, ZP,ZN];
+    var datasetNames = ["XP", "XN", "YP", "YN", "ZP", "ZN"];
+
+    var pushed0=false;  //Only push one 0 value
+    datasets.forEach((set,setid)=>{
+        set.X = [];
+        set.Y = [];
+        set.Z = [];
+        var dataKeys = Object.keys(set.data);
+        for(var i=0; i<set.pos[0].length; i++){
+
+            set.X[i] = 0;
+            set.Y[i] = 0;
+            set.Z[i] = 0;
+
+            for(var j=0; j<set.pos.length; j++){
+                set[set.axis][i] += set.pos[j][i] - set.off[j][i];
+            }
+            set[set.axis][i] /=set.pos.length;
+            if(set.neg) set[set.axis][i] = - set[set.axis][i];
+            if(i!=0) set[set.axis][i]+=set[set.axis][i-1];
+
+            var datapoint = {X:set.X[i], Y:set.Y[i], Z:set.Z[i], data:{}};
+            dataKeys.forEach(dkey=>{
+                datapoint.data[dkey] = set.data[dkey][i];
+            });
+
+            if(datapoint.X == 0 && datapoint.Y==0 && datapoint.Z==0){
+                if(pushed0){
+                    datapoints.push(datapoint);
+                    pushed0=true;
+                }
+            } else {
+                datapoints.push(datapoint);
+            }
+        }
+
+        /*
+        var ntrace = traceTemplate_markers();
+        ntrace['x'] = set.X;
+        ntrace['y'] = set.Y;
+        ntrace['z'] = set.Z;
+        ntrace.name = datasetNames[setid];
+        traces.push(ntrace);
+        */
+
+    });
+}
+
+function doGradientDescent(pt, target, graph = true){
+    ntrace = traceTemplate_markers();
+    ntrace.mode='lines';
+    ntrace.name="gradient descent";
+
+    var curpt = [...pt];
+    var laspt = [...pt];
+    var step = 5;
+    var samples = 10;
+    var gettingBetter, err=absSum(get_error(curpt,target));
+    var numReduce = 0;
+    ntrace.x.push(curpt[0]);
+    ntrace.y.push(curpt[1]);
+    ntrace.z.push(curpt[2]);
+    ntrace.text=["init"];
+    do{
+        gettingBetter = false;
+        //console.log(`Min error is at: ${err}, step: ${step}`);
+        var minpt=[];
+        var cerr = err;
+        for(var itheta=0; itheta<samples; itheta++){
+            for(var iphi=0; iphi<samples; iphi++){
+                var tsp = [...curpt];
+                tsp[0] += step*Math.sin(Math.PI*itheta/samples)*Math.cos(Math.PI*2*iphi/samples);
+                tsp[1] += step*Math.sin(Math.PI*itheta/samples)*Math.sin(Math.PI*2*iphi/samples);
+                tsp[2] += step*Math.cos(Math.PI*itheta/samples);
+
+                var nerr = absSum(get_error(tsp,target));
+                if(nerr<cerr){
+                    cerr = nerr;
+                    minpt = [...tsp];
+                }
+            }
+        }
+
+        if(cerr<err){
+            err=cerr;
+            curpt=[...minpt];
+            gettingBetter=true;
+            ntrace.x.push(curpt[0]);
+            ntrace.y.push(curpt[1]);
+            ntrace.z.push(curpt[2]);
+            ntrace.text.push(`err: ${err}, step: ${step}`);
+        } 
+
+        //gettingBetter = !(laspt[0]==curpt[0] && laspt[1]==curpt[1] && laspt[1]==curpt[1])
+        //laspt=[...curpt];
+
+        if(gettingBetter==false && numReduce<100){
+            gettingBetter=true;
+            step/=2;
+
+            numReduce++;
+        }
+
+    }while(gettingBetter);
+
+    if(graph)traces.push(ntrace);
+    //console.log("gdf: ", curpt);
+    /*
+    ntrace = traceTemplate_markers();
+    ntrace.name = `final ${target}`;
+    ntrace.x[0] = curpt[0];
+    ntrace.y[0] = curpt[1];
+    ntrace.z[0] = curpt[2];
+    traces.push(ntrace);*/
+
+    return curpt;
+}
+
+
+function traceTemplate_markers(){
+    return {
+        x: [], 
+        y: [], 
+        z: [],
+        mode: 'markers',
+        marker: {
+            size: 10,
+            line: {
+                color: 'rgba(217, 217, 217, 0.14)',
+                width: 0.5
+            },
+            opacity: 0.8
+        },
+        type: 'scatter3d'
+    }
+}
+
+/*Expects references = [
+    {x,y,z, m},
+    {x,y,z, m}
+]
+*/
+function ISANv2(references){
+    var A = [];
+    var B = [];
+
+    //Build A&B from references
+    references.forEach(r=>{
+        A.push(
+            [1, -2*r.x, -2*r.y, -2*r.z]
+        );
+        B.push(
+            Math.pow(r.m,2) - Math.pow(r.x,2) - Math.pow(r.y,2) - Math.pow(r.z,2)
+        );
+    });
+
+    //from cpp
+    ////nieve solution   (for exactly 4 references)
+    ////x = inv(A) . b
+    ////cout<<"nieve x: \n";
+    ////vector<double> pos = mult(inv(A),b);
+
+    ////least squares solution
+    ////x = inv(trans(A) . A) . trans(A) . b
+
+    m = math.multiply;
+    t = math.transpose;
+    i = math.inv;
+
+    x  =  m(i(m(t(A),A)) , m(t(A),B));
+    //console.log(x);
+    return x;   //[agree, x, y, z]
+}
+
+//Expects a point [x,y,z] & space-transmitter id (eg, "xpT0")
+function get_error(point, S_T_id){
+    var err = [];
+    datapoints.forEach(dp=>{
+        err.push(
+            (999999-dp.data[S_T_id]) - 
+            Math.floor(1000*Math.sqrt(Math.pow(point[0]-dp.X,2)+Math.pow(point[1]-dp.Y,2)+Math.pow(point[2]-dp.Z,2)))/1000
+        );
+    });
+    return err;
+}
+
+function absSum(arr){
+    var s = 0;
+    arr.forEach(a=>{
+        s+=Math.pow(a,2);
+    });
+    return s;
+}

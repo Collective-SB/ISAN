@@ -1,0 +1,21 @@
+:e_waypt=0 ll="] L: " xx="\nX: " w1="\n 1)ld 2)or"
+w2=w1+"\n 0) back" j=1 w=:e_waypt>2 goto 2+:e_waypt
+:0=0 :_ ="   WayPTS  Enter\n 1 - 9\n\n\n 0) back"
+w=0 j=14 n=:1+2*:2+3*:3+4*:4+5*:5+6*:6+7*:7+8*:8+9*:9-3*:0 goto 4+n
+if w then A=:L x1=:DX y1=:DY z1=:DZ end l=A x=x1 y=y1 z=z1 goto j
+if w then B=:L x2=:DX y2=:DY z2=:DZ end l=B x=x2 y=y2 z=z2 goto j
+if w then C=:L x3=:DX y3=:DY z3=:DZ end l=C x=x3 y=y3 z=z3 goto j
+if w then D=:L x4=:DX y4=:DY z4=:DZ end l=D x=x4 y=y4 z=z4 goto j
+if w then E=:L x5=:DX y5=:DY z5=:DZ end l=E x=x5 y=y5 z=z5 goto j
+if w then F=:L x6=:DX y6=:DY z6=:DZ end l=F x=x6 y=y6 z=z6 goto j
+if w then G=:L x7=:DX y7=:DY z7=:DZ end l=G x=x7 y=y7 z=z7 goto j
+if w then H=:L x8=:DX y8=:DY z8=:DZ end l=H x=x8 y=y8 z=z8 goto j
+if w then I=:L x9=:DX y9=:DY z9=:DZ end l=I x=x9 y=y9 z=z9 goto j
+w=0 :0=0 :1=0 :2=0 :3=0 :4=0 :5=0 :6=0 :7=0 :8=0 :9=0 :nve=0 :ent=0
+:_="WayPT["+n+ll+l+xx+x+"\nY: "+y+"\nZ: "+z+w2 goto 15-12*:0+:1+2*:2
+:1=0 :L=l :DX=x :DY=y :DZ=z goto 1    //load
+:2=0 w=1 goto 4+n //overwrite
+
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+:L="Demo1" :DX=1000 :DY=2000 :DZ=3000 :e_waypt=3    //3 -> waypoint 1 (because api)
+goto 2+:e_waypt>0

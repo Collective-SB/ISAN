@@ -1,0 +1,85 @@
+//:DBx :DBy :DBz   
+//:DBs
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----| waypoint db
+goto 1+(:DBs!="")
+
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----| waypoint manager
+xx="\nDX:" yy="\nDY:" zz="\nDZ:" goto 1+(:WP!="")
+a=:WP k=a c=k c-=k-- goto 3+5*(c>9) //:WP   =  X Y Z    |   waypointName
+s="98743" :WP="   parsing" i=0 o=0 j=-1 //X Y Z
+c=a c-=a-- d=5*(c>4)+2*(s>(s-c)) d+=c>d d+=c>d o+=d*10^j++ goto4+c<0  //9876 -6543 3210
+v=1 if c=="-" then v=-1 a-- end 
+i++ z=y y=x x=o*v o=0 j=-1 goto 4+3*(i>2)
+:WP="   Loaded" :DX=x :DY=y :DZ=z :compass=xx+x+yy+y+zz+z goto 15   //have x,y,z parsed
+x=(:X+:I)/2 y=(:Y+:J)/2 z=(:Z+:K)/2 goto 9+2*(a=="save")-2*(a=="cur")    //waypoint name (or cmd)  (TODO: cur pos command)
+:WP=" Searching" :DBs=a //search for waypoint   (TODO: interface with DB)
+x=:DBx y=:DBy z=:DBz goto 11-2*(:WP=="")+4*(:WP=="not found")
+:WP="" :ovr=1 ww=" -----------\n Enter name" 
+:V="Saving"+xx+:DX+yy+:DY+zz+:DZ+ww goto 12+(:WP!="")+(:WP=="no")
+:WP="   Saved!" :ovr=0 goto 15 //(TODO: interface with DB)
+:WP="  Canceled" :ovr=0
+
+
+
+
+
+:WP="" goto 1
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|  Compass (TODO)
+s="\n\n\n     o \n\n\nNo Velocity" :compass=s
+goto 2+(:compass!=s)
+
+
+
+
+goto 1
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|  Main Display Driver (DD)
+s="" t="\n\n --ISANv2--\n " u=" Where to?"
+v=2000 w=1000 x="\n X:" y="\n Y:" z="\n Z:"
+:V=x+(:X+:I)/v*w+y+(:Y+:J)/v*w+z+(:Z+:K)/v*w+t+u goto3+2*:ovr+(:WP!=s)
+:V=x+(:X+:I)/v*w+y+(:Y+:J)/v*w+z+(:Z+:K)/v*w+t+:WP goto4+:ovr+(:WP==s)  //todo fix issue with this getting stuck here when :ovr & :WP=""
+goto 3+2*:ovr
+goto 3+2*:ovr
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|  Endo Interface Device (EID)
+s=:_
+c=:_ if s!=c then cc=c v=1 else s=:V :_=s end goto 2+v
+v=0 m=c m-=c-- if m=="_" then :W=cc else :WP=cc end s=:_ goto 2
+:W="" :WP="" goto 1
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+//global space
+// A B C D E F G H I J K L M N O P Q R S T U V W X Y Z  _
+// |recvs| |recvs| |pos|                     | | |pos|  |
+//                                           | |        |
+//                                           |cur       interface
+//                                           |cmd
+//                                           |
+//                                          disp
+//                                          req
+//
+// WP   waypoint system interface    (set to a label or "X Y Z")
+// OVR  override main display driver (set to 1, reset to 0)
+
+
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+
+
+
+
+
+
+
+
+
+
+
+
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|

@@ -1,0 +1,46 @@
+x=0 y=0 z=0 i=:AUTOs x2=0 y2=0 z2=0 :CTRM=i*2 :CTR=0 goto 1+:AUTO
+x-=:X y-=:Y z-=:Z x2-=:i-:x y2-=:j-:y z2-=:k-:z :CTR++ goto 2+(i--==0)
+i=:AUTOs m=:DX+x/i n=:DY+y/i o=:DZ+z/i
+x+=:X y+=:Y z+=:Z x2-=:i-:x y2-=:j-:y z2-=:k-:z :CTR++ goto 4+(i--==0)
+a=y*z2-z*y2 b=z*x2-x*z2 c=x*y2-y*x2 v=sqrt(a^2+b^2+c^2) a/=v b/=v c/=v
+v=sqrt(x^2+y^2+z^2) x/=v y/=v z/=v  v=sqrt(m^2+n^2+o^2) m/=v n/=v o/=v
+i=x*c-z*a j=y*a-x*b k=z*b-y*c u=m*i*c-m*b*j+n*a*j-n*k*c+o*k*b-o*a*i
+v=m*k+n*i+o*j w=m*y*j-m*i*z+n*k*z-n*x*j+o*x*i-o*k*y 
+xx="\nX:" yy="\nY:" zz="\nZ:" :dir=xx+x+yy+y+zz+z :up=xx+a+yy+b+zz+c
+:dest=xx+u+yy+v+zz+w :left=xx+x2/:CTRM+yy+y2/:CTRM+zz+z2/:CTRM
+i=:AUTOi b=1-2*(u<0)  //ly=0 lp=0 goto 17-5*(u<0.999)
+:lwty=:wty :wty=i*((2-4*(v<0))*(u<0)+b*v-(0.6-(0.26*b*u))*u*v)
+:centering=1 :irange=1 :dwy=:wty-:lwty
+
+
+:FcuRotationalYaw=100 :burns++ //100 lever tick burn at 100%
+
+goto 1
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+//set irange=1  (if lever>0, burn 100%) (can then use fcu general mult to control power)
+
+
+//lticks    dy
+//   100    -98.64
+//   100    -101.34
+//   50     -63.54
+//   50     -77.49
+//   50     -60.39
+
+
+
+
+-6.570
+
+
+
+//spawn -18 -142 8
+//left -x
+
+
+
+//new new new new new
+b=u<0 d=0.294 d-=2*d*(u<0) //+ve if u +ve, -ve if u -ve
+:wty=i*(v+2*((1-2*(v<0))-v)*(u<0)-(d*u+0.72)*u*v)
+:wtp=i*(w+2*((1-2*(w<0))-w)*(u<0)-(d*u+0.72)*u*w)

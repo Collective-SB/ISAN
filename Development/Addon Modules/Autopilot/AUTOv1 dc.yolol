@@ -8,7 +8,7 @@ u=m*((x*c-z*a)*c-b*(y*a-x*b))+n*(a*(y*a-x*b)-(z*b-y*c)*c)
 v=m*(b*z-y*c)+n*(x*c-a*z)+o*(a*y-x*b) u+=o*((z*b-y*c)*b-a*(x*c-z*a))
 w=m*(y*(y*a-x*b)-(x*c-z*a)*z)+n*((z*b-y*c)*z-x*(y*a-x*b))
 w+=o*(x*(x*c-z*a)-(z*b-y*c)*y) :u=u :v=v :w=w
-xx="\nX:" yy="\nY:" zz="\nZ:" :dir=xx+x+yy+z+zz+y :up=xx+a+yy+b+zz+c
+xx="\nX:" yy="\nY:" zz="\nZ:" :dir=xx+x+yy+y+zz+z :up=xx+a+yy+b+zz+c
 :dest=xx+u+yy+v+zz+w :left=xx+x2/:CTRM+yy+y2/:CTRM+zz+z2/:CTRM
 :CTR=30 :CTRM=30 i=:AUTOi :ly=0 :lp=0 goto 17-3*(u<0.999)
 :wty=i*(v+2*((1-2*(v<0))-v)*(u<0))  :wtp=i*(w+2*((1-2*(w<0))-w)*(u<0))

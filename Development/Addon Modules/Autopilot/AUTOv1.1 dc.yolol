@@ -29,7 +29,14 @@ if :out then :yaw=0 :pitch=0 end goto 1
 
 
 //----------------------CORRECTION MAPS-------------------------------
-//new new new new
+
+
+//new new new new new
+b=u<0 d=0.294 d-=2*d*(u<0) //+ve if u +ve, -ve if u -ve
+:wty=i*(v+2*((1-2*(v<0))-v)*(u<0)-(d*u+0.72)*u*v)
+:wtp=i*(w+2*((1-2*(w<0))-w)*(u<0)-(d*u+0.72)*u*w)
+
+//new new new new       [wrong perfect function]
 :wty=i*(v+2*((1-2*(v<0))-v)*(u<0)-0.83*u*v)
 :wtp=i*(w+2*((1-2*(w<0))-w)*(u<0)-0.83*u*w)
 

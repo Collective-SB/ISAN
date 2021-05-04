@@ -1,0 +1,27 @@
+:HSr=1 goto 1+(:HSm!="")
+:HSo="" :HSr=0 a=:HSm :HSm="" s=" " in=:DL+s+:DX+s+:DY+s+:DZ                   //Could jump if number to speed up storing?
+b=:WP1 if (b-a)!=b then :HSo=b :HSi=1 end if a==1 then :WP1=in end
+b=:WP2 if (b-a)!=b then :HSo=b :HSi=2 end if a==2 then :WP2=in end
+b=:WP3 if (b-a)!=b then :HSo=b :HSi=3 end if a==3 then :WP3=in end
+b=:WP4 if (b-a)!=b then :HSo=b :HSi=4 end if a==4 then :WP4=in end
+b=:WP5 if (b-a)!=b then :HSo=b :HSi=5 end if a==5 then :WP5=in end
+b=:WP6 if (b-a)!=b then :HSo=b :HSi=6 end if a==6 then :WP6=in end
+b=:WP7 if (b-a)!=b then :HSo=b :HSi=7 end if a==7 then :WP7=in end
+b=:WP8 if (b-a)!=b then :HSo=b :HSi=8 end if a==8 then :WP8=in end
+b=:WP9 if (b-a)!=b then :HSo=b :HSi=9 end if a==9 then :WP9=in end
+b=:WP10 if (b-a)!=b then :HSo=b :HSi=10 end if a==10 then :WP10=in end
+b=:WP11 if (b-a)!=b then :HSo=b :HSi=11 end if a==11 then :WP11=in end
+b=:WP12 if (b-a)!=b then :HSo=b :HSi=12 end if a==12 then :WP12=in end
+b=:WP13 if (b-a)!=b then :HSo=b :HSi=13 end if a==13 then :WP13=in end
+b=:WP14 if (b-a)!=b then :HSo=b :HSi=14 end if a==14 then :WP14=in end
+b=:WP15 if (b-a)!=b then :HSo=b :HSi=15 end if a==15 then :WP15=in end
+b=:WP16 if (b-a)!=b then :HSo=b :HSi=16 end if a==16 then :WP16=in end
+b=:WP17 if (b-a)!=b then :HSo=b :HSi=17 end if a==17 then :WP17=in end
+b=:WP18 if (b-a)!=b then :HSo=b :HSi=18 end if a==18 then :WP18=in end
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+:HSm = "lbl" //load waypoint str with lbl -> :HSo
+:HSm = n     //save "DL DX DY DZ" in slot n (n∈{1..18})
+
+
+

@@ -1,0 +1,24 @@
+{
+    "id":"ISANv2quadnp",
+    "desc":"ISAN Version 2 (quad) [prediction off]",
+    "receivers":[
+        {"targetMessage":"ta2", "signalStrength":"a2", "message":"ma2", "initialTarget":""},
+        {"targetMessage":"tb2", "signalStrength":"b2", "message":"mb2", "initialTarget":""},
+        {"targetMessage":"tc2", "signalStrength":"c2", "message":"mc2", "initialTarget":""},
+        {"targetMessage":"td2", "signalStrength":"d2", "message":"md2", "initialTarget":""}
+    ],
+    "position":[
+        "x2","y2","z2"
+    ],
+    "fields":[],
+    "chips":[
+        "ISANv2 quad.yolol"
+    ],
+    "transmitterSet":{
+        "station_hq_imperial_a":{"x": -10036.953784902755, "y": 4701.85221684801, "z": -20.330119578438865},
+        "station_proving_grounds":{"x": 20174.919240405558, "y": -45115.3792706632, "z": -10.772440643325975},
+        "station_kingdom_outpost_b":{"x": 90118.79862917041, "y": 20343.36618227681, "z": -29795.436421908187},
+        "station_kingdom_outpost_b_2":{"x": 100244.89185008297, "y": 15030.082143367526, "z": -9850.912244082307}
+    },
+    "offsets":[0,0,0]
+}
