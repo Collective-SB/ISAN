@@ -1,7 +1,0 @@
-:td2="station_" :ta2=:td2+"hq_imperial_a" :tb2=:td2+"proving_grounds"
-:tc2=:td2+"kingdom_outpost_b" :td2+="kingdom_outpost_b_2" t=999999
-e= 207744.954 f=-1550111.534 g=486779.292 h=-160699.392 i=-46169.175
-j=-140483.070 k=  103669.797 l=799664.698 m=-264673.522 n= -4718.935
-o=-230400.908 p=  345153.593 q= 41051.448 r= -43636.344 s= -1606.533
-a=(t-:A2)^2 b=(t-:B2)^2 c=(t-:C2)^2 d=(t-:D2)^2
-:x2=a/e+b/f+c/g+d/h-i :y2=a/j+b/k+c/l+d/m-n :z2=a/o+b/p+c/q+d/r-s goto 6
