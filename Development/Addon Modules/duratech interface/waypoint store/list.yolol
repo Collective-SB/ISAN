@@ -1,0 +1,23 @@
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+if jd then a=s end s=:a  ret=1  jd=0 goto 2 +((s-a)==s)*18
+if jd then b=s end s=:b  ret=2  jd=0 goto 3 +((s-b)==s)*17
+if jd then c=s end s=:c  ret=3  jd=0 goto 4 +((s-c)==s)*16
+if jd then d=s end s=:d  ret=4  jd=0 goto 5 +((s-d)==s)*15
+if jd then e=s end s=:e  ret=5  jd=0 goto 6 +((s-e)==s)*14
+if jd then f=s end s=:f  ret=6  jd=0 goto 7 +((s-f)==s)*13
+if jd then g=s end s=:g  ret=7  jd=0 goto 8 +((s-g)==s)*12
+if jd then h=s end s=:h  ret=8  jd=0 goto 9 +((s-h)==s)*11
+if jd then i=s end s=:i  ret=9  jd=0 goto 10+((s-i)==s)*10
+if jd then j=s end s=:j  ret=10 jd=0 goto 11+((s-j)==s)*9
+if jd then k=s end s=:k  ret=11 jd=0 goto 12+((s-k)==s)*8
+if jd then l=s end s=:l  ret=12 jd=0 goto 13+((s-l)==s)*7
+if jd then m=s end s=:m  ret=13 jd=0 goto 14+((s-m)==s)*6
+if jd then n=s end s=:n  ret=14 jd=0 goto 15+((s-n)==s)*5
+if jd then o=s end s=:o  ret=15 jd=0 goto 16+((s-o)==s)*4
+if jd then p=s end s=:p  ret=16 jd=0 goto 17+((s-p)==s)*3
+if jd then q=s end s=:q  ret=17 jd=0 goto 18+((s-q)==s)*2
+if jd then r=s end s=:r  ret=18 jd=0 goto 19+((s-r)==s)*1
+:LIST1=a+b+c+d+e+f :LIST2=g+h+i+j+k+l :LIST3=m+n+o+p+q+r jd=0 goto 1
+t=(s-" ")!=s if t then s-- else s+="\n" end jd=1 goto ret-(ret+20)*t
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+

@@ -138,7 +138,56 @@ const ISAN = {
                 }
             }
         })
+    },
+    logMagics:(precalc)=>{
+        var magicRefs = [[],
+            [..."efghi"],
+            [..."jklmn"],
+            [..."opqrs"]
+        ]
+
+        for(var i=1; i<4; i++){
+            var str = "";
+            for(var j=0; j<4; j++){
+                str+= magicRefs[i][j]+"="+Math.round(1000/precalc.A[i][j])/1000 + " ";
+            }
+            var tot = 0;
+            for(var j=0; j<4; j++){
+                tot+=precalc.B[j]*precalc.A[i][j];
+            }
+            str+= magicRefs[i][4]+"="+Math.round(tot*1000)/1000;
+            console.log(str);
+        }
     }
 }
 
-ISAN.test();
+//cylon test
+/*
+e=455274.298 f=182188.885 g=-626597.518 h=-164220.701 i=-54729.984
+j=304130.95 k=-215796.666 l=-208635.978 m=162893.729 n=-65910.885
+o=-173560.932 p=251862.592 q=-383695.045 r=227402.822 s=-73056.663
+a=:d0*:d0 b=:d1*:d1 c=:d2*:d2 d=:d3*:d3 zz=a/o+b/p+c/q+d/r
+:x=a/e+b/f+c/g+d/h-i :y=a/j+b/k+c/l+d/m-n :z=zz-s :done=1 goto 4
+*/
+
+var refs = [
+    {x:28315.983, y:14274.694, z:92145.269},
+    {x:19522.454, y:53912.719, z:24633.070},
+    {x:5817.744,  y:97945.275, z:82659.224},
+    {x:82188.145, y:28074.805, z:33777.522}
+]
+
+var point = {x:74999.741, y:52471.069 , z:45148.905};
+
+for(var i=0; i<4; i++){
+    var dist = ISAN.math.dist(refs[i], point);
+    console.log(`:d${i}=${dist}`);
+    refs[i]["d"]=dist;
+}
+
+console.log()
+console.log(ISAN.math.dist(ISAN.getPoint(refs), point));
+
+ISAN.logMagics(ISAN.preCalc(refs));
+
+console.log();

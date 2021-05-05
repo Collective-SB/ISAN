@@ -5,6 +5,7 @@
     "version": "0.2.0",
     "configurations": [
 
+
         {
             "type": "pwa-node",
             "request": "launch",
@@ -13,6 +14,17 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}\\Tools\\Simulation\\server.js",
+            "outFiles": [
+                "${workspaceFolder}\\Tools\\Simulation"
+            ]
+        },{
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "Tools: ISANjs",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}\\Tools\\ISANjs\\ISAN.js",
             "outFiles": [
                 "${workspaceFolder}\\Tools\\Simulation"
             ]

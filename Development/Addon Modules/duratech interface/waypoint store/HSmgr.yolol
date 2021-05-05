@@ -1,0 +1,38 @@
+q=9843 t=:r+:q+:p+:o+:n+:m+:l+:k+:j+:i+:h+:g+:f+:e+:d+:c+:b+:a :HSi=0          //update quick search string after store
+l=:HSl o=:HSc s=" " in=l+s+:DX+s+:DY+s+:DZ+s goto 2+(o>0)        //wait line
+:HSi=1 :HSc=0 if t-l==t and o==2 then l="-not_saved-" end               //if store needs to find a new spot
+f=t-l-:a-:b-:c-:d-:e-:f-:g-:h-:i-:j-:k-:l-:m-:n-:o-:p-:q-:r e=f==""     //find appropriate entry
+c=f c-=f-- d=5*(c>4)+2*(q>(q-c)) d+=c>d x+=(d+c>d)*b b*=10 goto 5+c<0   //decode index - 0 based
+if o==3 then in="-not_saved-" end
+in+=d f=d%3<2 s=d%3<1 if e then :HSi=0 :Z="" goto 1 end goto 5+d/3+o    //set addressing variables, handle searched wpt not found
+if f then if s then :Z=:a else :Z=:b end else :Z=:c end :HSi=0 goto 2   //load line
+if f then if s then :a=in else :b=in end else :c=in end goto 1          //store line
+if f then if s then :Z=:d else :Z=:e end else :Z=:f end :HSi=0 goto 2
+if f then if s then :d=in else :e=in end else :f=in end goto 1
+if f then if s then :Z=:g else :Z=:h end else :Z=:i end :HSi=0 goto 2
+if f then if s then :g=in else :h=in end else :i=in end goto 1
+if f then if s then :Z=:j else :Z=:k end else :Z=:l end :HSi=0 goto 2
+if f then if s then :j=in else :k=in end else :l=in end goto 1
+if f then if s then :Z=:m else :Z=:n end else :Z=:o end :HSi=0 goto 2
+if f then if s then :m=in else :n=in end else :o=in end goto 1
+if f then if s then :Z=:p else :Z=:q end else :Z=:r end :HSi=0 goto 2
+if f then if s then :p=in else :q=in end else :r=in end goto 1
+
+
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+
+//NOTE: expects :A->:R to contain initial indices (0 based)
+
+
+
+//:HSc -> NOT RENAMED
+//:HSo -> :Z
+           :HSc=0   //idle - set to idle when op finished
+:HSl="lbl" :HSc=1                                   //set HSo = waypoint string from "lbl"
+:HSl="lbl" :HSc=2 s=" " in=:HSl+s+:DX+s+:DY+s+:DZ    //search for "lbl", overwrite with in, or save to empty spot
+:Hsl="lbl" :HSc=3                                   //delete
+
+//HSi=1 : busy
+//HSi=0 : idle  
+

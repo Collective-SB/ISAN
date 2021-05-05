@@ -9,6 +9,7 @@ Display setup:
 |###########|   11
 \-----------/
 
+
 Spaces work the same as \n when line full (and wont render!)
 
 //Default display: WNS compass

@@ -1,0 +1,10 @@
+:I=:I+:UP-:DWN :UP=0 :DWN=0 IF :I<2 THEN :I=8 END goto :I
+:HELP="Press UP and DWN to tab through a list of all commands!" goto1
+:HELP="\n<LOAD WAYPNT by NAME>\n\nSyntax: name" goto1
+:HELP="\n<LOAD WAYPNT by XYZ>\n\nSyntax:\nDL DX DY DZ" goto1
+:HELP="\n<SAVING a WAYPNT>\n\nSyntax: save_name" goto1
+:HELP="\n<SAVING a WAYPNT>\n\nSyntax: save_name" goto1
+:HELP="\n<LOAD CURRENT POSITION>\n\nSyntax:\ncur" goto1
+:HELP="\n<LOAD ZERO>\n\nSyntax: zero" goto1
+:I=2 goto1
+
