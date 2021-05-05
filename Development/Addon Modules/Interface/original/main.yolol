@@ -1,0 +1,20 @@
+bk="\n 0) back" 
+:_=" COMPASS\n\n\n     .\n\n\n  INACTIVE"  :0=0 goto 2+:ENT
+:_="    MENU\n 1) Dest.\n 2) AuPilot  3) waypoints\n\n"+bk :ENT=0
+:0=0 :1=0 :2=0 :3=0 :4=0 :5=0 :6=0 :7=0 :8=0 :9=0 :ENT=0
+goto 5-3*:0+:1+:2*4+:3*14
+:1=0 :e_dest=1
+goto 6-5*:e_dest
+:0=0
+:2=0 s=" AuPilot  1) i: "+:AUTOi+"\n 2) s: "+:AUTOs+"\n 3) debug\n en"
+:_=s+"gaged? "+:AUTO+"\n output?  "+:OUT+bk goto 9-7*:0+2*:1+3*:2+4*:3
+:1=0 :_="Not editable" goto 8 //AUTOi todo
+:2=0 :_="Not editable" goto 8 //AUTOs todo
+:3=0 :_="AP debug  1) V_dest\n 2) V_left\n 3) V_dir\n 4) V_up\n"+bk
+goto 14-12*:0+:1+2*:2+3*:3+4*:4
+:1=0 :_="  V_dest"+:dest+"\n"+bk goto 15-7*:0
+:2=0 :_="  V_left"+:left+"\n"+bk goto 16-8*:0
+:3=0 :_="   V_dir"+:dir+"\n"+bk  goto 17-9*:0
+:4=0 :_="    V_up"+:up+"\n"+bk   goto 18-10*:0
+:3=0 :e_waypt=1
+goto 3+17*:e_waypt

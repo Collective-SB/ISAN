@@ -1,0 +1,101 @@
+// get last, ship, destination vectors
+// rotate ship and dest such that ship would be towards 0,y,0
+// save difference in angle from ship to last and dest. to correct movement multilpiers
+// rotate dest around ship by the angle between ship and dest, ignoring y
+// get dest p and h and autopilot with those times the direction sensitivities
+
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+goto1+:Autopilot
+:FcuForward=100 :FcuRotationalPitch=0 :FcuRotationalYaw=0
+
+a // p+
+b // p-
+c // y+
+d // y-
+e // temp
+f // temp
+gh // last PY
+ijk // last
+lmn
+opq // dest alt
+rst // ship alt
+uvw // dest
+xyz // ship
+
+// get last, ship, destination vectors
+i=x j=y k=z                                                         //Last ship dir [r-space]
+x=:I-:X  y=:J-:Y  z=:K-:Z  m=sqrt(x^2+y^2+z^2) x/=m y/=m z/=m       //Ship dir      [r-space]
+u=:X-:DX v=:DY-:Y w=:DZ-:Z n=sqrt(u^2+v^2+w^2) u/=n v/=n w/=n       //dest dir      [r-space]
+
+
+//last => 0,1,0 
+// & current ship dir on xy plane   (aka last X current -> 0,1,0)
+
+
+// Y = last
+// Z = last ** current
+// X = last ** (last ** current)  || flatten current onto plane specd by last
+
+// double double cross (double det)
+// double 90 (2d*), 2d rotation
+
+// X  Y  Z
+// i  i  j         x       i*x + i*y + j*z
+// k  j -i    X    y   =   k*x + j*y - i*z
+//-j  k  k         z
+
+r=i*x+j*y+j*z     //rotate x,y,z (ship dir) into the "last on y" space (ly-space)
+s=k*x+j*y-i*z     
+t=-j*x+k*y+k*z
+
+o=i*u+j*v+j*w      //rotate u,v,w (dest dir) into the "last on y" space (ly-space)
+p=k*u+j*v-i*w      
+q=-j*u+k*v+k*w
+
+
+
+// correct multipliers
+e=sqrt(x^2+z^2) f=sqrt(u^2+w^2) f=atan(f/v)+180+(v>0)*((f<0)-0.5)*360
+f/=atan(e/y)+180+(y>0)*((e<0)-0.5)*360
+:a*=f*(g>0) :b*=f*(g<0) :c*=f*(h>0) :d*=f*(h<0)
+
+
+
+//(angle of dest  dir from xy plane)-(angle of ship dir from xy plane)
+//Correction=atan(o/q)+180+(o>0)*((q<0)-0.5)*360-(atan(r/t)+180+(r>0)*((t<0)-0.5)*360)
+//Correction=atan(o/q)+(o>0)*((q<0)-0.5)*360-atan(r/t)-(r>0)*((t<0)-0.5)*360
+//Correction=atan(o/q)-atan(r/t)+(o>0)*((q<0)-0.5)*360-(r>0)*((t<0)-0.5)*360
+e=atan(o/q)-atan(r/t)+((o>0)*((q<0)-0.5)-(r>0)*((t<0)-0.5))*360
+
+
+// create "fake" dest vector by rotating dest around ship by correction
+i=cos(e) j=sin(e) k=1-cos(e)
+
+o=(i+x^2*k)*u+(x*y*k-z*j)*v+(x*z*k+y*j)*w
+p=(x*y*k+z*j)*u+(i+y^2*k)*v+(y*z*k-x*j)*w
+q=(z*x*k-y*j)*u+(z*y*k+x*j)*v+(i+z^2*k)*w
+
+
+
+
+// get dest p and h and autopilot with those times the direction sensitivities
+e=sqrt(x^2+y^2) :P=atan(z/e) :H=atan(x/y)+180+(y>0)*((x<0)-0.5)*360
+
+x=x-u y=v-y z=w-z e=sqrt(x^2+y^2) :DD=sqrt(x^2+y^2+z^2)
+:DP=atan(z/e) :DH=atan(x/y)+180+(y>0)*((x<0)-0.5)*360
+
+g=:P-:DP h=(((:H-:DH+180)%360)-180) g*=a*(g>0)+b*(g<0) h*=c*(h>0)+d*(h<0)
+e=g f=h
+:FcuRotationalPitch=e :FcuRotationalYaw=f
+
+
+
+//
+
+
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----| Orn (oh theres a lot to fix with these actually)
+m=sqrt(x^2+y^2) :P=atan(z/m) :H=atan(x/y)+180+(y>0)*((x<0)-0.5)*360
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----| Auto (remove roll, also fix for 4 directions)
+e=(((:H-:DH+b)%d)-b) c=cos :R s=sin :R i=:P-:DP j=e/k e=(j>q)*(j<r)*e
+e+=k k=e h=a*sin(e/2) n=i/o i=(n>q)*(n<r)*i+o p=a*sin(i/2) g=h*s+p*c
+o=i f=h*c-p*s l=a*m-sqrt(f^2+g^2)*m :FP=g :FY=f :FF=l m=2.4 goto2

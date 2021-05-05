@@ -1,0 +1,272 @@
+var datapoints = [];
+var traces = [];
+
+var allshifted = {};
+var cmspace = {};
+window.addEventListener('load',()=>{
+
+    prepdatapoints();
+    generate_allshifted();
+    generate_cmspace();
+
+    
+    //Now have:
+    // allshifted = {T0:[{x,y,z, m, from:"xpT0"}] ... } //all measurements in cmspace
+    // cmspace    = {xpT0:[x,y,z] ... }                 //points based on each measure space, all shifted to cmspace
+    // get_all_error([x,y,z], tid)                      //get the error from all measurements related to a specific TID (T0, T1...)
+
+    
+    //generate error surface along a plane
+    
+    //get surface center from xp point
+    var spaces = Object.keys(OFFS);
+
+    var minerr = 10000000;
+    var minerrpt = [];
+    var minerrTrace = {};
+    var target = "T1";
+    var space="xp"
+    //var pX = cmspace[space+target][0];   var xb = 20000; var xi=1000;
+    //var pY = cmspace[space+target][1];   var yb = 20000; var yi=1000;
+    //var pZ = cmspace[space+target][2];
+
+    var pX = -10015.4;                    var xb = 0.4; var xi=0.001;
+    var pY = 30;                         var yb = 2; var yi=0.01;
+    var pZ = cmspace[space+target][2];  var zb = 500; var zi=1000;
+    
+    //T0 [-443.4215962574908, 808.6447828159233, 132.23217439163255];
+    //var pX = -443.4215962574908;   var xb = 100000; var xi=10000;
+    //var pY = 808.6447828159233;   var yb = 100000; var yi=10000;
+    //var pZ = 132.23217439163255;
+    //for(var zdet=-zb; zdet<=zb; zdet+=zi){
+        var ismin = false;
+        var ntrace = {x:[],y:[],z:[],colorscale:'Viridis',intensity:[]};
+        ntrace.type = "mesh3d";
+        
+        for(var i=-xb; i<=xb; i+=xi){
+            for(var j=-yb; j<=yb; j+=yi){
+                var err = absSum(get_all_error([pX+i,pY+j,pZ/*+zdet*/],target));
+                if(err>1500) continue;
+                ntrace.x.push(i);
+                ntrace.y.push(j);
+                
+                if(err<minerr){
+                    minerr = err;
+                    minerrpt = [pX+i,pY+j,pZ];
+                    ismin=true;
+                }
+                ntrace.z.push(err);
+                ntrace.intensity.push(err);
+            }
+        }
+        if(ismin){
+            console.log("min err: ", minerr, minerrpt);
+            minerrTrace = ntrace;
+        }
+    //}
+       
+
+    //});
+
+    traces.push(minerrTrace);
+
+    
+
+    var layout = {margin: {
+        l: 0,
+        r: 0,
+        b: 0,
+        t: 0
+    }};
+
+    Plotly.newPlot('chart', traces, layout,{editable: true});
+});
+
+function generate_allshifted(){
+    //var allshifted = {};  //
+    datapoints.forEach(dp=>{    //{x,y,z,data:{xpT0:1231, xnT0:12313}}
+        var dpkeys = Object.keys(dp.data);
+        dpkeys.forEach(dpk=>{
+            var offset = OFFS[dpk.substr(0,2)];
+            var tid = dpk.substr(2,2);
+            if(!allshifted[tid]) allshifted[tid] = [];
+            allshifted[tid].push({
+                x:dp.X - offset[0],
+                y:dp.Y - offset[1],
+                z:dp.Z - offset[2],
+                m: dp.data[dpk],
+                from: dpk
+            })
+        });
+    });
+}
+
+function generate_cmspace(){
+    var keys = Object.keys(GDPTS)
+    //var cmspace = {};
+    keys.forEach(key=>{
+        var offset = OFFS[key.substring(0,2)];
+        //var tid = key.substring(2,2);
+        var pos = GDPTS[key].pos;
+        for(var i=0; i<3;i++){
+            pos[i]-=offset[i];
+        }
+        cmspace[key] = pos;
+    });
+}
+
+function doASGD(pt, tid){
+
+    var ntrace = traceTemplate_markers();
+    ntrace.name = "c m-space";
+    ntrace.mode = 'lines'
+    ntrace.text = [];
+
+    var curpt = [...pt];
+    var step = 0.01;
+    var samples = 100;
+    var gettingBetter, err=absSum(get_all_error(curpt, tid));
+    var numReduce = 0;
+
+    ntrace.x.push(curpt[0]);
+    ntrace.y.push(curpt[1]);
+    ntrace.z.push(curpt[2]);
+    ntrace.text.push(`init, err:${err}`);
+
+    do{
+        gettingBetter = false;
+        
+        var minpt=[];
+        var cerr = err;
+        for(var itheta=0; itheta<samples; itheta++){
+            for(var iphi=0; iphi<samples; iphi++){
+                var tsp = [...curpt];
+                tsp[0] += step*Math.sin(Math.PI*itheta/samples)*Math.cos(Math.PI*2*iphi/samples);
+                tsp[1] += step*Math.sin(Math.PI*itheta/samples)*Math.sin(Math.PI*2*iphi/samples);
+                tsp[2] += step*Math.cos(Math.PI*itheta/samples);
+
+                var nerr = absSum(get_all_error(tsp, tid));
+                if(nerr<cerr){
+                    cerr = nerr;
+                    minpt = [...tsp];
+                }
+            }
+        }
+
+        if(cerr<err){
+            console.log(`Min error is at: ${err}, step: ${step}`);
+            err=cerr;
+            curpt=[...minpt];
+            gettingBetter=true;
+        } 
+
+        if(gettingBetter==false && numReduce<100){
+            gettingBetter=true;
+            step/=2;
+
+            numReduce++;
+        } else {
+            ntrace.x.push(curpt[0]);
+            ntrace.y.push(curpt[1]);
+            ntrace.z.push(curpt[2]);
+            ntrace.text.push(`err: ${cerr}, step: ${step}`);
+        }
+
+    }while(gettingBetter);
+    traces.push(ntrace);
+    return curpt;
+}
+
+function get_all_error(point, tid){
+    var err = [];
+    /*
+    datapoints.forEach(dp=>{
+        err.push(
+            (999999-dp.data[S_T_id]) - 
+            Math.floor(1000*Math.sqrt(Math.pow(point[0]-dp.X,2)+Math.pow(point[1]-dp.Y,2)+Math.pow(point[2]-dp.Z,2)))/1000
+        );
+    });*/
+    allshifted[tid].forEach(p=>{
+        err.push(
+            (999999-p.m) - 
+            Math.floor(1000*Math.sqrt(Math.pow(point[0]-p.x,2)+Math.pow(point[1]-p.y,2)+Math.pow(point[2]-p.z,2)))/1000
+        );
+    });
+    return err;
+}
+
+function prepdatapoints(){
+    var datasets = [XP,XN, YP,YN, ZP,ZN];
+    var datasetNames = ["XP", "XN", "YP", "YN", "ZP", "ZN"];
+
+    var pushed0=false;  //Only push one 0 value
+    datasets.forEach((set,setid)=>{
+        set.X = [];
+        set.Y = [];
+        set.Z = [];
+        var dataKeys = Object.keys(set.data);
+        for(var i=0; i<set.pos[0].length; i++){
+
+            set.X[i] = 0;
+            set.Y[i] = 0;
+            set.Z[i] = 0;
+
+            for(var j=0; j<set.pos.length; j++){
+                set[set.axis][i] += set.pos[j][i] - set.off[j][i];
+            }
+            set[set.axis][i] /=set.pos.length;
+            if(set.neg) set[set.axis][i] = - set[set.axis][i];
+            if(i!=0) set[set.axis][i]+=set[set.axis][i-1];
+
+            var datapoint = {X:set.X[i], Y:set.Y[i], Z:set.Z[i], data:{}};
+            dataKeys.forEach(dkey=>{
+                datapoint.data[dkey] = set.data[dkey][i];
+            });
+
+            if(datapoint.X == 0 && datapoint.Y==0 && datapoint.Z==0){
+                if(pushed0){
+                    datapoints.push(datapoint);
+                    pushed0=true;
+                }
+            } else {
+                datapoints.push(datapoint);
+            }
+        }
+
+        /*
+        var ntrace = traceTemplate_markers();
+        ntrace['x'] = set.X;
+        ntrace['y'] = set.Y;
+        ntrace['z'] = set.Z;
+        ntrace.name = datasetNames[setid];
+        traces.push(ntrace);
+        */
+
+    });
+}
+
+function traceTemplate_markers(){
+    return {
+        x: [], 
+        y: [], 
+        z: [],
+        mode: 'markers',
+        marker: {
+            size: 10,
+            line: {
+                color: 'rgba(217, 217, 217, 0.14)',
+                width: 0.5
+            },
+            opacity: 0.8
+        },
+        type: 'scatter3d'
+    }
+}
+
+function absSum(arr){
+    var s = 0;
+    arr.forEach(a=>{
+        s+=Math.pow(a,2);
+    });
+    return s;
+}

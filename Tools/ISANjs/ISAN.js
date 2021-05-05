@@ -106,25 +106,35 @@ const ISAN = {
         ABvect:(A,B)=>({x:B.x-A.x, y:B.y-A.y, z:B.z-A.z}),
         dist:(A,B)=>(ISAN.math.mag(ISAN.math.ABvect(A,B)))
     },
-    test:(dims=[4, 5, 6, 10, 20], testCount=3)=>{
+    test:(dims=[4, 5, 6, 10, 20], testCount=3, doPrecalc=false)=>{
+        const {performance}=require('perf_hooks');
         console.log("Running ISAN.js test!");
         dims.forEach(refN=>{
             console.log(`\t> ${refN} refs`);
+            var refs=[]; var precalc=0;
+            var TstartTime = performance.now();
             for(var test=0; test<testCount; test++){
                 var target = ISAN.math.randomPT();
 
-                var refs=[];
+                if(!doPrecalc) refs=[];
                 for(var i=0; i<refN; i++){
-                    refs.push(ISAN.math.randomPT());
+                    if(refs.length<refN) refs.push(ISAN.math.randomPT());
                     refs[i]["d"] = ISAN.math.dist(refs[i], target);
                 }
+                var result;
+                var startTime = performance.now();
+                if(doPrecalc){
+                    if(precalc==0) precalc=ISAN.preCalc(refs);
+                    result = ISAN.getPoint_preCalc(precalc,refs);
+                } else {
+                    result = ISAN.getPoint(refs);
+                }
+                var endTime = performance.now();
 
-                var result = ISAN.getPoint(refs);
-                
                 var dist = ISAN.math.dist(result, target);
                 var disagreement = Math.pow(ISAN.math.mag(result),2) - result.d;
                 //console.log(`\t\t> target:${JSON.stringify(target)}, result: ${JSON.stringify(result)}`);
-                console.log(`\t\t> Error:${dist}, Disagree:${disagreement}`);
+                console.log(`\t\t> took:${endTime-startTime}ms Error:${dist}, Disagree:${disagreement}`);
                 if(dist>1){
                     console.log(`\t\t\t> FAILED: high error. May be _extremely_ unlucky case where all refs are coplanar? (or just broken code.)`);
                     console.log(`\t\t\t\t Target: ${JSON.stringify(target)}`);
@@ -137,6 +147,8 @@ const ISAN = {
                     return;
                 }
             }
+            var TendTime = performance.now();
+            console.log(`\t\t> all took:${TendTime-TstartTime}ms`);
         })
     },
     logMagics:(precalc)=>{

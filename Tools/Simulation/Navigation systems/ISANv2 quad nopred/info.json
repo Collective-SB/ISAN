@@ -2,10 +2,10 @@
     "id":"ISANv2quadnp",
     "desc":"ISAN Version 2 (quad) [prediction off]",
     "receivers":[
-        {"targetMessage":"ta", "signalStrength":"a", "message":"message", "initialTarget":""},
-        {"targetMessage":"tb", "signalStrength":"b", "message":"message", "initialTarget":""},
-        {"targetMessage":"tc", "signalStrength":"c", "message":"message", "initialTarget":""},
-        {"targetMessage":"td", "signalStrength":"d", "message":"message", "initialTarget":""}
+        {"targetMessage":"ta", "signalStrength":"a", "message":"ma", "initialTarget":""},
+        {"targetMessage":"tb", "signalStrength":"b", "message":"mb", "initialTarget":""},
+        {"targetMessage":"tc", "signalStrength":"c", "message":"mc", "initialTarget":""},
+        {"targetMessage":"td", "signalStrength":"d", "message":"md", "initialTarget":""}
     ],
     "position":[
         "x","y","z"
