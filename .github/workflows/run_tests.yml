@@ -14,5 +14,5 @@ jobs:
       - run: git submodule status
       - run: git submodule update --init
       - run: git submodule status
-        working-directory: tests
       - run: npm test
+        working-directory: tests
