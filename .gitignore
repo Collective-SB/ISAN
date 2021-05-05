@@ -1,12 +1,1 @@
-# Mac hidden files
-.DS_store
-
-# Azur's TODO list
-/TODO
-
-#any node modules
-/Tools/Simulation/node_modules/
-
-#simulation output
-/Tools/Simulation/web_public/simdata.json
-
+.vscode
