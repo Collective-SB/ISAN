@@ -1,0 +1,2 @@
+:PosV2="\nX: "+(:X-:X%1)+"\nY: "+(:Y-:Y%1)+"\nZ: "+(:Z-:Z%1) goto 1
+//ISAN 2.0:Test display driver                          THE COLLECTIVE

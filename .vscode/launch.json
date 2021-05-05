@@ -7,47 +7,12 @@
         {
             "type": "pwa-node",
             "request": "launch",
-            "name": "Tools: ISANjs test",
+            "name": "Launch tests",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}\\Tools\\ISANjs\\ISAN.js",
-            "outFiles": [
-                "${workspaceFolder}\\Tools\\ISANjs"
-            ]
-        }, {
-            "type": "pwa-node",
-            "request": "launch",
-            "name": "Tools: Simulation",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}\\Tools\\Simulation\\server.js",
-            "outFiles": [
-                "${workspaceFolder}\\Tools\\Simulation"
-            ]
-        },{
-            "type": "pwa-node",
-            "request": "launch",
-            "name": "Tools: ISANjs",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}\\Tools\\ISANjs\\ISAN.js",
-            "outFiles": [
-                "${workspaceFolder}\\Tools\\Simulation"
-            ]
-        }, {
-            "type": "pwa-node",
-            "request": "launch",
-            "name": "Tools: Simulation_auto",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}\\Tools\\Simulation\\server_autopilot.js",
-            "outFiles": [
-                "${workspaceFolder}\\Tools\\Simulation"
-            ]
+            "program": "${workspaceFolder}\\tests\\tests.js",
+            "cwd":"${workspaceFolder}\\tests"
         }
     ]
 }

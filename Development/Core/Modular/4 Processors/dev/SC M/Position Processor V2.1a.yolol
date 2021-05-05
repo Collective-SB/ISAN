@@ -1,7 +1,0 @@
-z="station_" M1=z+"hq_imperial_a" M2=z+"hq_kingdom_a"
-M3=z+"proving_grounds" M4=z+"capital_imperial_a" y=999999
-:M1=M1 x=(y-:R1)^2 yt=u/:YA+v/:YB+w/:YC+x/:YD-:YE
-:M1=M2 u=(y-:R1)^2 zt=u/:ZA+v/:ZB+w/:ZC+x/:ZD-:ZE
-:M1=M3 v=(y-:R1)^2 :X=xt :Y=yt :Z=zt
-:M1=M4 w=(y-:R1)^2 xt=u/:XA+v/:XB+w/:XC+x/:XD-:XE goto 3
-//ISAN 2.0:PosP_2.1a                                    THE COLLECTIVE

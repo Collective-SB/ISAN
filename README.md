@@ -8,22 +8,13 @@ Under development by the Collective, ISAN uses in-game station transmitters as r
 The first version of ISAN only allows for the use of four hard-coded transmitters, limiting its effectiveness to the range of them. Version two solves the general case, such that you can use any set of four transmitters in range of your ship for positioning, provided you know their position. Additional core modules are under development which will automatically select the closest usable transmitters to your ship.
 
 ## Things to see
- 
- - Documentation Section
-    - [Under the Hood of ISAN v2](Documentation/Core/README.md)
-    - [Explanation of Terms](Documentation/README.md)
- - Development Section
-    - [The readme](Development/README.md) (file/folder format restrictions)
- - Releases
-    - [V2-dev](Releases/V2-dev)
- - Tools
-    - [Simulation](Tools/Simulation)   See output below
- - How to Contribute
-    - [Contributing.md](Contributing.md)
+- [Feature list](docs\Features.md)
+- [Under the Hood of ISAN v2](docs\Under%20the%20hood.md)
+- [how to contrubute](Contributing.md)
 
 ## Error of various systems while in motion
 
-![](Tools/Simulation/output.png)
+![simulation output](docs\img\sim_outut.png)
 
 
 ## Credits
@@ -43,5 +34,4 @@ The first version of ISAN only allows for the use of four hard-coded transmitter
 |Meboy100|Le rubber duck|
 
 *hover for discord usernames, click for githubs*
-
 

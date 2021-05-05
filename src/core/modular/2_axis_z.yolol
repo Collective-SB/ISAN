@@ -1,0 +1,3 @@
+y=999999
+:Z=(y-:R1)^2/:ZA+(y-:R2)^2/:ZB+(y-:R3)^2/:ZC+(y-:R4)^2/:ZD-:ZE goto 2
+goto 2 //ISAN 2.0:AxP_Z_2.2b                            THE COLLECTIVE
