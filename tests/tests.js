@@ -169,8 +169,10 @@ function runTests(){
     }
 }
 
+
 let compileDirExists = fs.existsSync("compiled");
 if(!compileDirExists) fs.mkdirSync("compiled");
+
 runTests();
 
 setTimeout(()=>{console.log("done")}, 5000); //hacky node bs
