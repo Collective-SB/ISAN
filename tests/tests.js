@@ -1,9 +1,40 @@
 const fs = require('fs');
-const path = require('path');
+const path_module = require('path');
+const joinPath = path_module.join;
+const { execSync } = require('child_process');
 
 const Y = require('./Yazur/yazur');
+const optimiser = require('./simpleOptimiser');
+const { split } = require('./utils');
 
-function getCode(path){return fs.readFileSync(path).toString().split("\r\n")}
+function getCode(path){
+    if(path[path.length-1].endsWith(".yasm")){
+
+
+        let outPath = joinPath(...path) + ".yolol";
+
+        console.log("      Assembling yasm");
+        let yasmOutput = execSync(
+            `${joinPath("..","tests","yasm","YololAssembler")} -i ${joinPath(...path)} -o ${outPath}`,
+            {
+                cwd:joinPath("..","src")
+            }    
+        ).toString();
+
+        //TODO check this output!
+        split(yasmOutput).forEach(line=>{
+            if(line.trim().length>0) console.log(`        >${line}`);
+        });
+
+        //run optimiser
+        console.log("      Running optimiser");
+        optimiser(outPath, joinPath("..","src", ...path) + ".opt.yolol")
+
+        return split(fs.readFileSync(joinPath("..","src", ...path) + ".opt.yolol").toString());
+    } else {
+        return split(fs.readFileSync(joinPath("..","src", ...path)).toString());
+    }
+}
 
 function updateReceivers(receivers, craft){
     if(receivers[0]) receivers[0].setPosition(craft.x, craft.y, craft.z);
@@ -84,11 +115,11 @@ function runTests(){
 
             console.log(`  Adding yolol chips:`);
             test.yolol_chips.forEach(chip=>{
-                let src = path.join('..', ...chip);
+                let src = joinPath('..', ...chip);
 
                 console.log(`    ${src}`);
                 new Y.yChip(
-                    getCode(src),
+                    getCode(chip),
                     "root",
                     net
                 );
@@ -138,6 +169,8 @@ function runTests(){
     }
 }
 
+let compileDirExists = fs.existsSync("compiled");
+if(!compileDirExists) fs.mkdirSync("compiled");
 runTests();
 
 setTimeout(()=>{console.log("done")}, 5000); //hacky node bs
