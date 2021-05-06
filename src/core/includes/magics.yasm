@@ -24,3 +24,10 @@
 #define MAGICS_ZD -43636.344
 #define MAGICS_ZE -1606.533
 
+#define MAGICS(axis, la, lb, lc, ld, le) {
+    la = MAGICS_axisA;
+    lb = MAGICS_axisB;
+    lc = MAGICS_axisC;
+    ld = MAGICS_axisD;
+    le = MAGICS_axisE;
+}

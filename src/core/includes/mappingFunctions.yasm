@@ -1,0 +1,9 @@
+## get target global field for given transmitter
+#define T_target(id) {
+    GLOBAL_TRANSMITTER_id_TARGET
+}
+
+## get name of given transmitter from magics set
+#define T_magic(id) {
+    MAGICS_TRANSMITTER_id
+}
