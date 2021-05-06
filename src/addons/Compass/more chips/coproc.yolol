@@ -7,7 +7,7 @@ u=m*((x*c-z*a)*c-b*(y*a-x*b))+n*(a*(y*a-x*b)-(z*b-y*c)*c)
 v=m*(b*z-y*c)+n*(x*c-a*z)+o*(a*y-x*b) u+=o*((z*b-y*c)*b-a*(x*c-z*a))
 w=m*(y*(y*a-x*b)-(x*c-z*a)*z)+n*((z*b-y*c)*z-x*(y*a-x*b))
 w+=o*(x*(x*c-z*a)-(z*b-y*c)*y) :u=u :v=v :w=w goto 1
-//--+----|----+----|----+----|----+----|----+----|----+----|----    +----|
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
 s=" COMPASS\n" u=:u v=(:v-1)/2*9 w=(1-:w)/2*5 z="\n"
 if w>0 then s+=z end if w>1 then s+=z end if w>2 then s+=z end 
 if w>3 then s+=z end if w>4 then s+=z end if w>5 then s+=z end 
