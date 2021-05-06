@@ -62,8 +62,8 @@ function testTemplate(name, yolol_chip, receivers){
 
 
 module.exports = [
-    testTemplate("mono", ["core", "mono.yolol"],[
-        {targetMessage: "t", signalStrength: "a", message: "m", initialTarget: ""}
+    testTemplate("mono", ["core", "mono.yasm"],[
+        {targetMessage: "at", signalStrength: "a", message: "am", initialTarget: ""}
     ]),
     testTemplate("quad", ["core", "quad.yasm"],[
         {targetMessage: "at", signalStrength: "a", message: "am", initialTarget: ""},
