@@ -1,0 +1,18 @@
+if :SYNC==0 then :SYNC++ else goto 1 end
+lx=cx ly=cy lz=cz cx=:X cy=:Y cz=:Z x2=:X-:I y2=:Y-:J m=:DX-cx
+z2=:Z-:K n=:DY-cy o=:DZ-cz x=cx-lx y=cy-ly z=cz-lz 
+a=y*z2-z*y2 b=z*x2-x*z2 c=x*y2-y*x2 v=sqrt(a^2+b^2+c^2) a/=v b/=v c/=v
+v=sqrt(x^2+y^2+z^2) x/=v y/=v z/=v  v=sqrt(m^2+n^2+o^2) m/=v n/=v o/=v
+u=m*((x*c-z*a)*c-b*(y*a-x*b))+n*(a*(y*a-x*b)-(z*b-y*c)*c)
+v=m*(b*z-y*c)+n*(x*c-a*z)+o*(a*y-x*b) u+=o*((z*b-y*c)*b-a*(x*c-z*a))
+w=m*(y*(y*a-x*b)-(x*c-z*a)*z)+n*((z*b-y*c)*z-x*(y*a-x*b))
+w+=o*(x*(x*c-z*a)-(z*b-y*c)*y) :u=u :v=v :w=w goto 1
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+s=" COMPASS\n" u=:u v=(:v-1)/2*9 w=(1-:w)/2*5 z="\n"
+if w>0 then s+=z end if w>1 then s+=z end if w>2 then s+=z end 
+if w>3 then s+=z end if w>4 then s+=z end if w>5 then s+=z end 
+if v>0 then s++  end if v>1 then s++  end if v>2 then s++  end
+if v>3 then s++  end if v>4 then s++  end if v>5 then s++  end
+if v>6 then s++  end if v>7 then s++  end if v>8 then s++  end
+if u<0 then :compass=s+"o" else :compass=s+"x" end goto 1
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|

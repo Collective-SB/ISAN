@@ -1,1 +1,8 @@
+
 .vscode/*
+
+notes.txt
+
+*.yasm.yolol
+*.yasm.opt.yolol
+

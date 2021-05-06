@@ -1,0 +1,45 @@
+#import core/includes/magics.yasm
+#import core/includes/transmitterGlobals.yasm
+
+@setup_transmitters_1:
+    GLOBAL_TRANSMITTER_D_TARGET = MAGICS_TRANSMITTER_PREFIX;
+    GLOBAL_TRANSMITTER_A_TARGET = GLOBAL_TRANSMITTER_D_TARGET + MAGICS_TRANSMITTER_A;
+    GLOBAL_TRANSMITTER_B_TARGET = GLOBAL_TRANSMITTER_D_TARGET + MAGICS_TRANSMITTER_B;
+
+@setup_transmitters_2:
+    GLOBAL_TRANSMITTER_C_TARGET = GLOBAL_TRANSMITTER_D_TARGET + MAGICS_TRANSMITTER_C;
+    GLOBAL_TRANSMITTER_D_TARGET += MAGICS_TRANSMITTER_D;
+    t=999999;
+
+@setup_magics_x:
+    xa = MAGICS_XA;
+    xb = MAGICS_XB;
+    xc = MAGICS_XC;
+    xd = MAGICS_XD;
+    xe = MAGICS_XE;
+
+@setup_magics_y:
+    ya = MAGICS_YA;
+    yb = MAGICS_YB;
+    yc = MAGICS_YC;
+    yd = MAGICS_YD;
+    ye = MAGICS_YE;
+
+@setup_magics_z:
+    za = MAGICS_ZA;
+    zb = MAGICS_ZB;
+    zc = MAGICS_ZC;
+    zd = MAGICS_ZD;
+    ze = MAGICS_ZE;
+
+@read_transmitters:
+    a = (t-:A)^2;
+    b = (t-:B)^2;
+    c = (t-:C)^2;
+    d = (t-:D)^2;
+
+@calc_position:
+    :X = a/xa + b/xb + c/xc + d/xd - xe;
+    :Y = a/ya + b/yb + c/yc + d/yd - ye;
+    :Z = a/za + b/zb + c/zc + d/zd - ze;
+    goto read_transmitters;

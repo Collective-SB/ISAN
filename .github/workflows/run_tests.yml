@@ -14,5 +14,6 @@ jobs:
       - run: git submodule status
       - run: git submodule update --init
       - run: git submodule status
+      - run: chmod +x ./tests/yasm/YololAssembler
       - run: npm test
         working-directory: tests
