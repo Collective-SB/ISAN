@@ -10,7 +10,7 @@ The first version of ISAN only allows for the use of four hard-coded transmitter
 ## Things to see
 - [Feature list](docs\Features.md)
 - [Under the Hood of ISAN v2](docs\Under%20the%20hood.md)
-- [how to contrubute](Contributing.md)
+- [how to contribute](Contributing.md)
 
 ## Error of various systems while in motion
 
