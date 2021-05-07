@@ -7,22 +7,22 @@
 ## get distance from given transmitter
 ## rem: set signalOffset in setup!
 #define getDistance(id) {
-    (signalOffset-GLOBAL_TRANSMITTER_id_SIGNAL)
+    (signalOffset-GLOBAL_TRANSMITTER_{id}_SIGNAL)
 }
 
 #define measurementHandler(nextMessage, axis, nextJump) {
-    T_target(A)=nextMessage;
-    axis=getDistance(A)^2;
-    axis_rate = (axis - last_axis)/4;
-    axis_rate_rate = (axis_rate - last_axis_rate)/4;
-    last_axis = axis;
-    last_axis_rate = axis_rate;
-    jump = nextJump;
+    T_target(A)={nextMessage};
+    {axis}=getDistance(A)^2;
+    {axis}_rate = ({axis} - last_{axis})/4;
+    {axis}_rate_rate = ({axis}_rate - last_{axis}_rate)/4;
+    last_{axis} = {axis};
+    last_{axis}_rate = {axis}_rate;
+    jump = {nextJump};
 }
 
 #define predictForward(axis){
-    axis_rate+=axis_rate_rate;
-    axis+=axis_rate;
+    {axis}_rate+={axis}_rate_rate;
+    {axis}+={axis}_rate;
 }
 
 ##--------------------------- CODE START ---------------------------##
