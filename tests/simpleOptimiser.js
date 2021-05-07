@@ -87,7 +87,7 @@ module.exports=(path_in, path_out)=>{
 
     for(let j=0; j<avail_2.length; j++){
         if(i+j>=localCounters_arr.length) break;
-
+      
         rnmap.push(`//  ${localCounters_arr[i+j].tokens[0].value} -> ${avail_2[j]}`);
 
         localCounters_arr[i+j].tokens.forEach(token=>{
