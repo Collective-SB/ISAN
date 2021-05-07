@@ -2,9 +2,9 @@ function testTemplate(name, yolol_chip, receivers){
     return {
         name,
 
-        yolol_chips: [
-            yolol_chip//["src", "core", "mono.yolol"]
-        ],
+        yolol_chips: [{
+            src: yolol_chip,
+        }],
 
         fields: [
             "X", "Y", "Z"
@@ -29,12 +29,21 @@ function testTemplate(name, yolol_chip, receivers){
         },
 
         state: {
-            max_error: 0
+            max_error: 0,
+            failed: false
         },
 
-        preTick: ()=>{},
-        postTick: ()=>{},
-        error: (test, net, memchip, receivers, craft, tick)=>{
+        start: ()=>{
+
+        },
+        preTick: ({receivers, craft})=>{
+            receivers[0].setPosition(craft.x, craft.y, craft.z);
+            if(receivers[1]) receivers[1].setPosition(craft.x, craft.y+0.96, craft.z);
+            if(receivers[2]) receivers[2].setPosition(craft.x, craft.y, craft.z+1.08);
+            if(receivers[3]) receivers[3].setPosition(craft.x, craft.y+0.96, craft.z+1.08);
+            return false;
+        },
+        postTick: ({test, memchip, craft, tick})=>{
 
             let real_pos = [craft.x, craft.y, craft.z];
             let calc_pos = [memchip.localEnv.global[":x"].value, memchip.localEnv.global[":y"].value, memchip.localEnv.global[":z"].value]
@@ -43,7 +52,7 @@ function testTemplate(name, yolol_chip, receivers){
             for(let i=0; i<3; i++) error += Math.pow((real_pos[i] - calc_pos[i]),2);
             error = Math.sqrt(error);
 
-            if(error > test.state.max_error){
+            if(error > test.state.max_error && tick>50){
                 test.state.max_error = error;
             }
 
@@ -51,11 +60,15 @@ function testTemplate(name, yolol_chip, receivers){
 
             //REM: ignore startup error
             //if(error>20 && tick>50) console.warn(`    Error over 20 @ tick ${tick} (${error})`);
-            if(error>500 && tick>50) return `Excess error: ${error}`;
+            if(error>500 && tick>50){
+                test.state.failed = true;
+                return `Excess error: ${error}`;
+            }
             return false;
         },
-        end: ()=>{
-            console.log(`    Max error was ${test.state.max_error}`);
+        end: ({test})=>{
+            console.log(`Max error was ${test.state.max_error}`);
+            return test.state.failed;
         }
     }
 }

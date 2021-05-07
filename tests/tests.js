@@ -23,7 +23,7 @@ function runSimulation(test, net, memchip, receivers){
     let craft_state = test.simulation.craft_states[0];
     let cstate = 0;
 
-    let sim_fail = false;
+    test.start({test, net, memchip, receivers, craft:craft_state});
 
     for(let tick=0; tick<totalTicks; tick++){
 
@@ -36,36 +36,34 @@ function runSimulation(test, net, memchip, receivers){
             });
         }
 
-        //update receivers
-        updateReceivers(receivers, craft_state);
-
         //run yolol tick
-        test.preTick(test, net, memchip, receivers, craft_state, tick);
+        let preTickTest = test.preTick({test, net, memchip, receivers, craft:craft_state, tick});
+        if(preTickTest) throw preTickTest;
 
         net.queueTick_random();
         net.doTick();
 
-        test.postTick(test, net, memchip, receivers, craft_state, tick);
+        let postTickTest = test.postTick({test, net, memchip, receivers, craft:craft_state, tick});
+        if(postTickTest) throw postTickTest;
 
-        //verify
-        let error = test.error(test, net, memchip, receivers, craft_state, tick);
-        if(error){
-            console.error(error);
-            sim_fail = true;
-            break;
-        }
         //update state
         [..."xyz"].forEach(axis=>{
             craft_state[axis]+=craft_state[`v${axis}`]*0.2;
             craft_state[`v${axis}`]+=craft_state[`a${axis}`]*0.2;
         });
+        
     }
 
-    if(sim_fail){
+    let simEndTest = test.end({test, net, memchip, receivers, craft:craft_state});
+
+    if(simEndTest){
         console.error("  Simulation failed.");
+        throw "Failed";
     } else {
         console.log("  Test passed.");
     }
+
+    
 }
 
 function runTests(){
@@ -84,7 +82,7 @@ function runTests(){
 
             console.log(`  Adding yolol chips:`);
             test.yolol_chips.forEach(chip=>{
-                let src = joinPath('..', ...chip);
+                let src = joinPath('..', ...chip.src);
 
                 console.log(`    ${src}`);
                 new Y.yChip(
@@ -137,10 +135,6 @@ function runTests(){
 
     }
 }
-
-
-let compileDirExists = fs.existsSync("compiled");
-if(!compileDirExists) fs.mkdirSync("compiled");
 
 runTests();
 

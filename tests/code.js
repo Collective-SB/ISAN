@@ -5,16 +5,25 @@ const { execSync } = require('child_process');
 const optimiser = require('./simpleOptimiser');
 const { split } = require('./utils');
 
-function getCode(path){
-    if(path[path.length-1].endsWith(".yasm")){
+function getCode(chip){
+    let code = "";
+    if(chip.src[chip.src.length-1].endsWith(".yasm")){
 
-        assembleYasm(path);
-        runOptimiser(path);
+        assembleYasm(chip.src);
+        runOptimiser(chip.src);
 
-        return split(fs.readFileSync(joinPath("..","src", ...path) + ".opt.yolol").toString());
+        code = fs.readFileSync(joinPath("..","src", ...chip.src) + ".opt.yolol").toString();
     } else {
-        return split(fs.readFileSync(joinPath("..","src", ...path)).toString());
+        code = fs.readFileSync(joinPath("..","src", ...chip.src)).toString();
     }
+
+    if(chip.redef){
+        Object.keys(chip.redef).forEach(def=>{
+            code = code.replace(new RegExp(def, 'ig'), chip.redef[def]);
+        });
+    }
+
+    return split(code);
 }
 
 
