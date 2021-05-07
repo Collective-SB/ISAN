@@ -18,7 +18,6 @@
     last_axis = axis;
     last_axis_rate = axis_rate;
     jump = nextJump;
-    goto predict_forward;
 }
 
 #define predictForward(axis){
@@ -49,15 +48,19 @@
 
 @measure_A:
     measurementHandler(messageB, a, measure_B);
+    goto predict_forward;
 
 @measure_B:
     measurementHandler(messageC, b, measure_C);
+    goto predict_forward;
 
 @measure_C:
     measurementHandler(messageD, c, measure_D);
+    goto predict_forward;
 
 @measure_D:
     measurementHandler(messageA, d, measure_A);
+    goto predict_forward;
 
 @predict_forward:
     predictForward(a);
