@@ -20,7 +20,14 @@ module.exports=(path_in, path_out)=>{
 
     //count local var references
     let localCounters = {};
-    let avail = [..."abcdefghijklmnopqrstuvwxyz"];
+    let avail_1 = [..."abcdefghijklmnopqrstuvwxyz"];
+    let avail_2 = [];
+    for(let i=0; i<avail_1.length; i++){
+        for(let j=0; j<avail_1.length; j++){
+            avail_2.push(`${avail_1[i]}${avail_1[j]}`);
+        }
+    }
+
     opt.forEach(lexedLine=>{
         lexedLine.forEach(token=>{
             if(token.type == 3 && token.subtype == 2 && !token.value.startsWith(":")){
@@ -31,7 +38,14 @@ module.exports=(path_in, path_out)=>{
                         localCounters[token.value].push(token);
                     }
                 } else {
-                    avail=avail.reduce((acc, cur)=>{
+                    avail_1=avail_1.reduce((acc, cur)=>{
+                        if(cur!==token.value) acc.push(cur);
+                        return acc;
+                    },[]);
+                }
+
+                if(token.value.length>2){
+                    avail_2=avail_2.reduce((acc, cur)=>{
                         if(cur!==token.value) acc.push(cur);
                         return acc;
                     },[]);
@@ -49,16 +63,28 @@ module.exports=(path_in, path_out)=>{
 
     //rename longest vars using available single chars
     let rnmap = ["//Rename map:"];
-    for(var i=0; i<avail.length; i++){
+    let i;
+    for(i=0; i<avail_1.length; i++){
         if(i>=localCounters_arr.length) break;
 
-        rnmap.push(`//  ${localCounters_arr[i][0].value} -> ${avail[i]}`);
+        rnmap.push(`//  ${localCounters_arr[i][0].value} -> ${avail_1[i]}`);
 
         localCounters_arr[i].forEach(token=>{
-            token.value = avail[i];
+            token.value = avail_1[i];
         });
-        
     }
+
+    for(let j=0; j<avail_2.length; j++){
+        if(i+j>=localCounters_arr.length) break;
+
+        rnmap.push(`//  ${localCounters_arr[i+j][0].value} -> ${avail_2[j]}`);
+
+        localCounters_arr[i+j].forEach(token=>{
+            token.value = avail_2[j];
+        });
+    }
+
+
 
     //rebuild code
     let builder = [];
