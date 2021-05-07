@@ -4,6 +4,7 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
             "type": "pwa-node",
             "request": "launch",
@@ -12,6 +13,16 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}\\tests\\tests.js",
+            "cwd":"${workspaceFolder}\\tests"
+        },
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "Watch yasm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}\\tests\\code.js",
             "cwd":"${workspaceFolder}\\tests"
         }
     ]

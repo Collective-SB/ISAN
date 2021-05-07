@@ -1,40 +1,9 @@
 const fs = require('fs');
 const path_module = require('path');
 const joinPath = path_module.join;
-const { execSync } = require('child_process');
 
 const Y = require('./Yazur/yazur');
-const optimiser = require('./simpleOptimiser');
-const { split } = require('./utils');
-
-function getCode(path){
-    if(path[path.length-1].endsWith(".yasm")){
-
-
-        let outPath = joinPath(...path) + ".yolol";
-
-        console.log("      Assembling yasm");
-        let yasmOutput = execSync(
-            `${joinPath("..","tests","yasm","YololAssembler")} -i ${joinPath(...path)} -o ${outPath}`,
-            {
-                cwd:joinPath("..","src")
-            }    
-        ).toString();
-
-        //TODO check this output!
-        split(yasmOutput).forEach(line=>{
-            if(line.trim().length>0) console.log(`        >${line}`);
-        });
-
-        //run optimiser
-        console.log("      Running optimiser");
-        optimiser(outPath, joinPath("..","src", ...path) + ".opt.yolol")
-
-        return split(fs.readFileSync(joinPath("..","src", ...path) + ".opt.yolol").toString());
-    } else {
-        return split(fs.readFileSync(joinPath("..","src", ...path)).toString());
-    }
-}
+const { getCode } = require('./code');
 
 function updateReceivers(receivers, craft){
     if(receivers[0]) receivers[0].setPosition(craft.x, craft.y, craft.z);
