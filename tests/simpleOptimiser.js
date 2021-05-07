@@ -10,11 +10,11 @@ module.exports=(path_in, path_out)=>{
     let code = fs.readFileSync(joinPath("..","src",path_in)).toString();
 
     //get rid of spaces around operators
-    code = code.replace(/ ([\+-\/\*><\^=%!]=?) /g, (match, g1)=>(g1));
+    code = split(code.replace(/ ([\+-\/\*><\^=%!]=?) /g, (match, g1)=>(g1)));
 
     //Lex code
     let opt = [];
-    split(code).forEach((line,i)=>{
+    code.forEach((line,i)=>{
         opt.push(lexer(line,i))
     });
 
@@ -57,9 +57,20 @@ module.exports=(path_in, path_out)=>{
     //find most common longest variables
     let localCounters_arr = [];
     Object.keys(localCounters).forEach(varname=>{
-        localCounters_arr.push(localCounters[varname]);
+
+        let tokens = localCounters[varname];
+        let linelens = 0;
+
+        tokens.forEach(token=>{
+            linelens += code[token.pos.l].length;
+        })
+
+      localCounters_arr.push({
+            tokens,
+            linelens
+        });
     });
-    localCounters_arr.sort((a,b)=>(b.length*b[0].value.length - a.length*a[0].value.length));
+    localCounters_arr.sort((a,b)=>(b.tokens.length+b.linelens - a.tokens.length-b.linelens));
 
     //rename longest vars using available single chars
     let rnmap = ["//Rename map:"];
@@ -67,9 +78,9 @@ module.exports=(path_in, path_out)=>{
     for(i=0; i<avail_1.length; i++){
         if(i>=localCounters_arr.length) break;
 
-        rnmap.push(`//  ${localCounters_arr[i][0].value} -> ${avail_1[i]}`);
+        rnmap.push(`//  ${localCounters_arr[i].tokens[0].value} -> ${avail_1[i]}`);
 
-        localCounters_arr[i].forEach(token=>{
+        localCounters_arr[i].tokens.forEach(token=>{
             token.value = avail_1[i];
         });
     }
@@ -77,9 +88,9 @@ module.exports=(path_in, path_out)=>{
     for(let j=0; j<avail_2.length; j++){
         if(i+j>=localCounters_arr.length) break;
 
-        rnmap.push(`//  ${localCounters_arr[i+j][0].value} -> ${avail_2[j]}`);
+        rnmap.push(`//  ${localCounters_arr[i+j].tokens[0].value} -> ${avail_2[j]}`);
 
-        localCounters_arr[i+j].forEach(token=>{
+        localCounters_arr[i+j].tokens.forEach(token=>{
             token.value = avail_2[j];
         });
     }
