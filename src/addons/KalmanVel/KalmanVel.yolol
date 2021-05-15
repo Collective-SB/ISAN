@@ -14,4 +14,4 @@ N=O/S3 Kz=zv/S3 z=N*Y3+z vz=Kz*Y3+vz O=O*(1-N) Pz=-Kz*zv+Pz
 M=Q/S2 Ky=yv/S2 y=M*Y2+y vy=Ky*Y2+vy Q=Q*(1-M) Py=-Ky*yv+Py
 K=P/S1 Kv=xv/S1 x=K*Y1+x vx=Kv*Y1+vx P=P*(1-K) Pv=-Kv*xv+Pv gotog
 
-//Kalman Filtered Velocity by [VIR] Renz
+//Kalman Filtered Velocity by RenzDot

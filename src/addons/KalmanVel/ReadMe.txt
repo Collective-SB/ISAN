@@ -1,3 +1,3 @@
 Kalman Filtered Velocity for ISAN2 Mono
 
-KalmanVel.yolol & Kalman
+Use either KalmanVel or KalmanVel_Mini in conjunction with mono kalman

@@ -15,4 +15,4 @@ vy=Ky*Y2+vy Q=Q*(1-M) Py=-Ky*yv+Py x=x+vx*t xv=Pv+th P=P+Pv*fa
 Pv=Pv+at S1=P+R Y1=:XX-x K=P/S1 Kv=xv/S1 x=K*Y1+x vx=Kv*Y1+vx
 P=P*(1-K) Pv=-Kv*xv+Pv :VV=(vx^2+vy^2+vz^2)^h gotog
 
-//Kalman Filtered Velocity by [VIR] Renz
+//Kalman Filtered Velocity by RenzDot
