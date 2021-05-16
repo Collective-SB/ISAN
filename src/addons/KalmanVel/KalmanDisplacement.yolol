@@ -1,0 +1,13 @@
+i=94
+i-- goto(2/(i/i))
+x=0 vx=0 P=25.0 Pv=12.5
+xx=0 yy=0 zz=0
+h=0.5 f=0.25 g=8
+
+
+a=0.3 R=50 t=1.45 t2=t^2 t3=t^3 t4=t^4 :VV=vx
+x=x+vx*t xv=Pv*t+h*a*t3 P=P+Pv*t2+f*a*t4 Pv=Pv+a*t2 S1=P+R 
+Y1=((:XX-xx)^2 + (:YY-yy)^2 + (:ZZ-zz)^2)^h-x xx=:XX yy=:yy zz=:zz
+K=P/S1 Kv=xv/S1 x=K*Y1+x vx=Kv*Y1+vx P=P*(1-K) Pv=-Kv*xv+Pv gotog
+
+//Kalman Filtered Velocity by RenzDot
