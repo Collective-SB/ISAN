@@ -1,6 +1,6 @@
 [submodule "tests/Yazur"]
 	path = tests/Yazur
 	url = https://github.com/Azurethi/Yazur
-[submodule ".\\tools\\paster\\winnatives"]
-	path = .\\tools\\paster\\winnatives
+[submodule "tools/paster/winnatives"]
+	path = tools/paster/winnatives
 	url = https://github.com/Azurethi/winnatives
