@@ -1,5 +1,5 @@
 const WB = require('./winnatives/ssc_wrapper');
-const {load, paste} = require('./loader');
+const {load, paste, backup} = require('./loader');
 
 const jp = require('path').join
 
@@ -14,13 +14,18 @@ let mainInterval = setInterval(()=>{
     if(!ok) throw "failed to handle event!";
 }, 2);
 
-WB.onShift('P', ()=>{
+WB.onShift('P', ()=>{       //paste chip
     WB.backspace();
     paste(line=>{
         if(IN_SSC) WB.selectLine(true);
         WB.sendString(line);
         WB.nextLine(IN_SSC);
     });
+});
+
+WB.onShift('O', ()=>{       //go back a chip
+    WB.backspace();
+    backup();
 });
 
 WB.onShift('\x1B', ()=>{    //shift+esc

@@ -84,6 +84,11 @@ module.exports = {
         lines.forEach(handler);
 
         if(cur.chipCount==0) pasteQueue.shift();
+    },
+    backup:()=>{
+        if(pasteQueue[0]?.scope.chip > 0){
+            pasteQueue[0].scope.chip--;
+        }
     }
 }
 
