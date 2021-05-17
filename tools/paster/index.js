@@ -1,22 +1,28 @@
 const WB = require('./winnatives/ssc_wrapper');
-const {load, paste, backup} = require('./loader');
+const codeLoader = require('./loader');
+
 
 const jp = require('path').join
 
 const IN_SSC = false
 
 //load chips to paste (go see code/directive_example/example.yolol for how directives look)
-load(jp("code","coproc_new","coproc_new.yolol"));
+codeLoader.load(jp("code","coproc_new","coproc_new.yolol"));
 
+let kInt = setInterval(()=>{
+    WB.checkKeys();
+}, 20);
 
-let mainInterval = setInterval(()=>{
+let pInt = setInterval(()=>{
     let ok = WB.handleEvent();
     if(!ok) throw "failed to handle event!";
-}, 2);
+}, 30);
+
+
 
 WB.onShift('P', ()=>{       //paste chip
     WB.backspace();
-    paste(line=>{
+    codeLoader.paste(line=>{
         if(IN_SSC) WB.selectLine(true);
         WB.sendString(line);
         WB.nextLine(IN_SSC);
@@ -25,10 +31,11 @@ WB.onShift('P', ()=>{       //paste chip
 
 WB.onShift('O', ()=>{       //go back a chip
     WB.backspace();
-    backup();
+    codeLoader.backup();
 });
 
 WB.onShift('\x1B', ()=>{    //shift+esc
-    clearInterval(mainInterval);
+    clearInterval(kInt);
+    clearInterval(pInt);
 });
 
