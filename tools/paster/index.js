@@ -34,8 +34,10 @@ WB.onShift('P', ()=>{       //paste chip
 WB.onShift('I', ()=>{       //Paste fields
     codeLoader.pasteFields(
         (name, value)=>{
+            WB.selectLine(true);
             WB.sendString(name);
             WB.nextCell();
+            WB.selectLine(true);
             WB.sendString(value);
             WB.nextCell();
         },

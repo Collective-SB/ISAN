@@ -120,8 +120,8 @@ module.exports = {
                     nextDev();
                 } else {
                     field(
-                        evalInScope(f.fields[j].name, f.scope),
-                        evalInScope(f.fields[j].value, f.scope)
+                        ""+evalInScope(f.fields[j].name, f.scope),
+                        ""+evalInScope(f.fields[j].value, f.scope)
                     )
                 }
             }
