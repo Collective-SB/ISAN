@@ -23,6 +23,9 @@ module.exports = {
         let replacers = [];
         let chipCount = 1;
 
+        let fields = [];
+        let devCount = 1;
+
         lines.forEach((line,i)=>{
             if(line.startsWith("//#replacer ")){
                 let split = line.substr(12, line.length).split(" --> ");
@@ -32,6 +35,18 @@ module.exports = {
                 });
             } else if(line.startsWith("//#numchips ")){
                 chipCount = parseInt(line.split(" ")[1]);
+            } else if(line.startsWith("//#numdevs ")){
+                chipCount = 0;
+                devCount = parseInt(line.split(" ")[1]);
+            } else if(line.startsWith("//#field ")){
+                let split = line.substr(9, line.length).split(" --> ");
+                fields.push({
+                    name: split[0].trim(),
+                    value: split[1].trim(),
+                    skip: 0
+                });
+            } else if(line.startsWith("//#skippage")){
+                fields.push({ skip: 1 });
             } else if (i<20){
                 chipCode.push(line.substr(0,70).trim());
             }
@@ -42,6 +57,7 @@ module.exports = {
             replacers,
             scope: {
                 chip:0,
+                dev:0,
                 alpha:(number, id)=>{
                     //debugger;
                     const chars = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
@@ -57,7 +73,9 @@ module.exports = {
                 },
                 floor: Math.floor
             },
-            chipCount
+            chipCount,
+            devCount,
+            fields
         });
     },
     paste: (handler)=>{
@@ -79,11 +97,39 @@ module.exports = {
             for(let i=0; i<lines.length; i++){
                 lines[i] = lines[i].replace(replacer.target, replacement);
             }
-        })
+        });
 
         lines.forEach(handler);
 
-        if(cur.chipCount==0) pasteQueue.shift();
+        if(cur.chipCount<=0) pasteQueue.shift();
+    },
+    pasteFields:(field, nextDev)=>{
+        if(pasteQueue.length==0){
+            console.log("No fields to paste")
+            return;
+        } 
+
+        console.log("Pasting fields");
+
+        let f = pasteQueue.shift();
+
+        for(let i=0; i<f.devCount; i++){
+            
+            for(let j=0; j<f.fields.length; j++){
+                if(f.fields[j].skip == 1) {
+                    nextDev();
+                } else {
+                    field(
+                        evalInScope(f.fields[j].name, f.scope),
+                        evalInScope(f.fields[j].value, f.scope)
+                    )
+                }
+            }
+
+            f.scope.dev++;
+            nextDev();
+        }
+
     },
     backup:()=>{
         if(pasteQueue[0]?.scope.chip > 0){

@@ -4,12 +4,12 @@ const codeLoader = require('./loader');
 
 const jp = require('path').join
 
-const IN_SSC = false
+const IN_SSC = true
 
 //load chips to paste (go see code/directive_example/example.yolol for how directives look)
-codeLoader.load(jp("code","coproc_new","coproc_new.yolol"));
+codeLoader.load(jp("code","coproc_new","coproc_new_fields.yolol"));
 
-codeLoader.setChip(0);
+//codeLoader.setChip(0);
 
 let kInt = setInterval(()=>{
     WB.checkKeys();
@@ -30,6 +30,21 @@ WB.onShift('P', ()=>{       //paste chip
         WB.nextLine(IN_SSC);
     });
 });
+
+WB.onShift('I', ()=>{       //Paste fields
+    codeLoader.pasteFields(
+        (name, value)=>{
+            WB.sendString(name);
+            WB.nextCell();
+            WB.sendString(value);
+            WB.nextCell();
+        },
+        ()=>{
+            WB.click();
+            WB.nextCell();
+        }
+    )
+})
 
 WB.onShift('O', ()=>{       //go back a chip
     WB.backspace();
