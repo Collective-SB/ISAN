@@ -9,6 +9,8 @@ const IN_SSC = false
 //load chips to paste (go see code/directive_example/example.yolol for how directives look)
 codeLoader.load(jp("code","coproc_new","coproc_new.yolol"));
 
+codeLoader.setChip(0);
+
 let kInt = setInterval(()=>{
     WB.checkKeys();
 }, 20);

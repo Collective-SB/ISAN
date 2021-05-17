@@ -89,6 +89,11 @@ module.exports = {
         if(pasteQueue[0]?.scope.chip > 0){
             pasteQueue[0].scope.chip--;
         }
+    },
+    setChip:(i)=>{
+        if(pasteQueue[0]?.scope){
+            pasteQueue[0].scope.chip = i;
+        }
     }
 }
 
