@@ -1,0 +1,10 @@
+z="station_" w=z+"hq_imperial_a" x=z+"proving_grounds" dt=0.5 al=0.05
+y=z+"kingdom_outpost_b" z+="kingdom_outpost_b_2" t=999999 :t=w
+e= 207744.954 f=-1550111.534 g=486779.292 h=-160699.392 i=-46169.175
+j=-140483.070 k=  103669.797 l=799664.698 m=-264673.522 n= -4718.935
+o=-230400.908 p=  345153.593 q= 41051.448 r= -43636.344 s= -1606.533
+:t=x a=(t-:a)^2 u=7 goto10
+:t=y b=(t-:a)^2 u=8 goto 10
+:t=z c=(t-:a)^2 u=9 goto 10
+:t=w d=(t-:a)^2 u=6 goto 10
+:x=a/e+b/f+c/g+d/h-i :y=a/j+b/k+c/l+d/m-n :z=a/o+b/p+c/q+d/r-s goto u
