@@ -4,8 +4,8 @@ x=:a vx=0 Px=25.0 Pv=12.5
 y=:a vy=0 Qy=Px    Py=Pv
 z=:a vz=0 Oz=Px    Pz=Pv
 w=:a vw=0 Wz=Px    Pw=Pv
-ac=0.3 ob=50 t1=1.45 t2=t1^2 t3=t1^3 t4=t1^4 
-th=0.5*ac*t3 at=ac*t2 fa=0.25*ac*t4
+ac=0.3 ob=50 t1=1.45 t2=t1^2
+th=0.5*ac*(t1^3) at=ac*t2 fa=0.25*ac*(t1^4)
 
 x+=vx*t1 xv=Pv*t1+th Px+=Pv*t2+fa Pv+=at S1=Px+ob Y1=:a-x
 Ka=Px/S1 Kv=xv/S1 x+=Ka*Y1 vx+=Kv*Y1 Px*=1-Ka Pv+=-Kv*xv
