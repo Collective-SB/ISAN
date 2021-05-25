@@ -1,0 +1,19 @@
+sz="station_" sw=sz+"hq_imperial_a" sx=sz+"proving_grounds"
+sy=sz+"kingdom_outpost_b" sz+="kingdom_outpost_b_2" t=999999 :t=sw
+e= 207744.954 f=-1550111.534 g=486779.292 h=-160699.392 i=-46169.175
+j=-140483.070 k=  103669.797 l=799664.698 m=-264673.522 n= -4718.935
+o=-230400.908 p=  345153.593 q= 41051.448 r= -43636.344 s= -1606.533
+ac=0.3 ob=50 t1=1.45 t2=t1^2 t3=t1^3 t4=t1^4 
+th=0.5*ac*t3 at=ac*t2 fa=0.25*ac*t4
+:t=sx x+=vx*t1 xv=Pv*t1+th Px+=Pv*t2+fa Pv+=at S1=Px+ob Y1=:a-x
+Ka=Px/S1 Kv=xv/S1 x+=Ka*Y1 vx+=Kv*Y1 Px*=1-Ka Pv+=-Kv*xv a=(t-x)^2
+:x=a/e+b/f+c/g+d/h-i :y=a/j+b/k+c/l+d/m-n :z=a/o+b/p+c/q+d/r-s 
+:t=sy y+=vy*t1 yv=Py*t1+th Qy+=Py*t2+fa Py+=at S2=Qy+ob Y2=:a-y
+Ka=Qy/S2 Ky=yv/S2 y+=Ka*Y2 vy+=Ky*Y2 Qy*=1-Ka Py+=-Ky*yv b=(t-:a)^2
+:x=a/e+b/f+c/g+d/h-i :y=a/j+b/k+c/l+d/m-n :z=a/o+b/p+c/q+d/r-s 
+:t=sz z+=vz*t1 zv=Pz*t1+th Oz+=Pz*t2+fa Pz+=at S3=Oz+ob Y3=:a-z
+Ka=Oz/S3 Kz=zv/S3 z+=Ka*Y3 vz+=Kz*Y3 Oz*=1-Ka Pz+=-Kz*zv c=(t-:a)^2
+:x=a/e+b/f+c/g+d/h-i :y=a/j+b/k+c/l+d/m-n :z=a/o+b/p+c/q+d/r-s 
+:t=sw w+=vw*t1 wv=Pw*t1+th Wz+=Pw*t2+fa Pw+=at S4=Wz+ob Y4=:a-w
+d=(t-:a)^2 Ka=Wz/S4 Kw=wv/S4 w+=Ka*Y4 vw+=Kw*Y4 Wz*=1-Ka Pw+=-Kw*wv
+:x=a/e+b/f+c/g+d/h-i :y=a/j+b/k+c/l+d/m-n :z=a/o+b/p+c/q+d/r-s 

@@ -1,0 +1,20 @@
+i=94
+i-- goto(2/(i/i))
+x=:a vx=0 Px=25.0 Pv=12.5
+y=:a vy=0 Qy=Px    Py=Pv
+z=:a vz=0 Oz=Px    Pz=Pv
+w=:a vw=0 Wz=Px    Pw=Pv
+ac=0.3 ob=50 t1=1.45 t2=t1^2 t3=t1^3 t4=t1^4 
+th=0.5*ac*t3 at=ac*t2 fa=0.25*ac*t4
+
+x+=vx*t1 xv=Pv*t1+th Px+=Pv*t2+fa Pv+=at S1=Px+ob Y1=:a-x
+Ka=Px/S1 Kv=xv/S1 x+=Ka*Y1 vx+=Kv*Y1 Px*=1-Ka Pv+=-Kv*xv
+
+y+=vy*t1 yv=Py*t1+th Qy+=Py*t2+fa Py+=at S2=Qy+ob Y2=:a-y
+Ka=Qy/S2 Ky=yv/S2 y+=Ka*Y2 vy+=Ky*Y2 Qy*=1-Ka Py+=-Ky*yv
+
+z+=vz*t1 zv=Pz*t1+th Oz+=Pz*t2+fa Pz+=at S3=Oz+ob Y3=:a-z
+Ka=Oz/S3 Kz=zv/S3 z+=Ka*Y3 vz+=Kz*Y3 Oz*=1-Ka Pz+=-Kz*zv
+
+w+=vw*t1 wv=Pw*t1+th Wz+=Pw*t2+fa Pw+=at S4=Wz+ob Y4=:a-w
+Ka=Wz/S4 Kw=wv/S4 w+=Ka*Y4 vw+=Kw*Y4 Wz*=1-Ka Pw+=-Kw*wv
