@@ -1,0 +1,8 @@
+ac=0.3 ob=50 t1=0.6 Px=25.0 Pa=12.5 delay=157 m=delay
+delay-- :VV="Loading "+((m - delay)/m)*100+"%" goto2+(delay==0)
+ o=1000 n="\n" a=n+"X " b=n+"Y " c=n+"Z "
+:Vx=0 x=:x t2=t1^2 th=0.5*ac*(t1^3) at=ac*t2 fa=0.25*ac*(t1^4) 
+:VV=(:Vx^2+:Vy^2+:Vz^2)^0.5 :Pos=a+:XX/o*o+b+:YY/o*o+c+:ZZ/o*o
+x+=:Vx*t1 Pxv=Pa*t1+th Px+=Pa*t2+fa Pa+=at S=Px+ob Y1=:x-x
+Kx=Px/S Ka=Pxv/S x+=Kx*Y1 :XX=x :Vx+=Ka*Y1 Px*=1-Kx Pa+=-Ka*Pxv goto5
+
