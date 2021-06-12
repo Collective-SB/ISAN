@@ -1,0 +1,16 @@
+sz="station_" sw=sz+"hq_imperial_a" sx=sz+"proving_grounds"
+sy=sz+"kingdom_outpost_b" sz+="kingdom_outpost_b_2" t=999999 :t=sw
+e= 207744.954 f=-1550111.534 g=486779.292 h=-160699.392 i=-46169.175
+j=-140483.070 k=  103669.797 l=799664.698 m=-264673.522 n= -4718.935
+o=-230400.908 p=  345153.593 q= 41051.448 r= -43636.344 s= -1606.533
+ac=0.3 ob=50 Px=25 Pv=12 t1=1.45 t2=t1^2 th=0.5*ac*(t1^3) at=ac*t2
+Qy=Px Qz=Px Oz=Px Py=Pv Pz=Pv fa=0.25*ac*(t1^4)
+:t=sx a=(t-:a)^2 x=:x+:v*t1 y=:y+:w*t1 z=:z+:u*t1 u=9 goto12
+:t=sy b=(t-:a)^2 x=:x+:v*t1 y=:y+:w*t1 z=:z+:u*t1 u=10 goto13
+:t=sz c=(t-:a)^2 x=:x+:v*t1 y=:y+:w*t1 z=:z+:u*t1 u=11 goto14
+:t=sw d=(t-:a)^2 x=:x+:v*t1 y=:y+:w*t1 z=:z+:u*t1 u=8 goto15
+xv=Pv*t1+th Pv+=at S1=Px+ob xK=Px/S1 Kv=xv/S1 Pv+=-Kv*xv goto15
+yv=Py*t1+th Py+=at S2=Qy+ob yK=Qy/S2 Ky=yv/S2 Py+=-Ky*yv goto15
+zv=Pz*t1+th Pz+=at S3=Oz+ob zK=Oz/S3 Kz=zv/S3 Pz+=-Kz*zv goto15
+Y1=a/e+b/f+c/g+d/h-i-x Y2=a/j+b/k+c/l+d/m-n-y Y3=a/o+b/p+c/q+d/r-s-z
+:v+=Kv*Y1 :w+=Ky*Y2 :u+=Kz*Y3 :x=x+xK*Y1 :y+=y+yK*Y2 :z=z+zK*Y3 gotou
