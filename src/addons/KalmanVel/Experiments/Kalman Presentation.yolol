@@ -2,8 +2,6 @@ ac=0.3 ob=50 t1=1.45 t2=t1^2 th=0.5*ac*(t1^3) at=ac*t2
 Px=25 Pv=12 Qy=Px Py=Pv Qz=Px Pz=Pv Wz=Px Pw=Pv fa=0.25*ac*(t1^4)
 :t=sx x+=vx*t1 xv=Pv*t1+th Px+=Pv*t2+fa Pv+=at S1=Px+ob Y1=:a-x
 Ka=Px/S1 Kv=xv/S1 x+=Ka*Y1 vx+=Kv*Y1 Px*=1-Ka Pv+=-Kv*xv a=(t-x)^2
-
-//      |
 //      |
 //     \ /
 //      .
@@ -16,5 +14,7 @@ Px+=Pv*t2+fa                     //Covariance, renamed xv to Pxv
 S1=Px+ob Ka=Px/S1 
 Y1=:a-x x+=Ka*Y1 Px*=1-Ka 
 
-Pv+=at Pxv=Pv*t1+th Kv=Pxv/S1 
+v=v 
+Pv+=at 
+Pxv=Pv*t1+th Kv=Pxv/S1 
 vx+=Kv*Y1 Pv+=-Kv*Pxv
