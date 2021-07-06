@@ -1,6 +1,6 @@
 Kalman Filtered Velocity by RenzDot https://github.com/RenzDot
-A Kalman Filter is a statistical approach to extracting speed from noisy positional data
-The filter is used with an existing navigation system (Mono) as the Kalman doesn't calculate positions itself
+A Kalman Filter attempts to remove noise from datasets using Guassian distributions
+Filtering positional values will reduce noise and provide better velocities
 
 Global Variables used
 :a, :Vx, :Vy, :Vz, :VV, :x, :y, :z, :at
