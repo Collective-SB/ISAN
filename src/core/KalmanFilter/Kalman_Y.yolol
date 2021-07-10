@@ -1,0 +1,9 @@
+ac=0.3 ob=50 t1=0.6 Py=25.0 Pb=12.5 delay=157
+delay-- goto2+(delay==0)
+
+:Vy=0 y=:y t2=t1*t1 th=0.5*ac*(t1*t2) at=ac*t2 fa=0.25*ac*(t2*t2) 
+
+y+=:Vy*t1 Pyv=Pb*t1+th Py+=Pb*t2+fa Pb+=at S=Py+ob Y1=:y-y 
+Ky=Py/S Kb=Pyv/S y+=Ky*Y1 :Vy+=Kb*Y1 Py*=1-Ky Pb+=-Kb*Pyv goto5
+
+//Kalman Filtered Velocity By RenzDot https://github.com/RenzDot 
