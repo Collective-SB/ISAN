@@ -1,4 +1,0 @@
-//#numdevs 80
-//#field "RF"+alpha(1, floor(dev/20))  --> 1
-//#field "S"+alpha(1, floor(dev/20)) --> 250
-//#field ""+alpha(2, dev) --> 0
