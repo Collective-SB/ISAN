@@ -1,0 +1,24 @@
+A=1000 n=1000 pr=0 sp=0 div=10.4+2.4*pr so=1-sp o=160000 c=50
+z="origin_" mr=z+"north" br=z+"south" cr=z+"east" z+="west" sm="\nS: " 
+u=295384.615 k=-202105.263 l=-218947.368 mm=2*o e=8*o x/=so sm="" s=""
+rr="ISAN2 :_\n     " xm="\nX: " ym="\nY: " zm="\nZ: " nn=1386666.667 
+ej=16*sp h="Q" pj=14-pr b=0.5 p=1000000 :at=mr :bt=br :ct=cr :dt=z x=0 
+t=p-:a t*=t i=p-:b i*=i g=p-:c g*=g f=p-:d f*=f x/=:a*:b*:c*:d goto14 
+h="M" t=p-:a t*=t er=(t-el)/4 el=t x/=:a :at=br x=8 gotopj
+i=p-:a i*=i fr=(i-fl)/4 fl=i x/=:a :at=cr x=9 gotopj
+g=p-:a g*=g gr=(g-gl)/4 gl=g x/=:a :at=z x=10 gotopj
+f=p-:a f*=f hr=(f-hl)/4 hl=f x/=:a :at=mr x=7  gotopj
+:_=rr+"\nSignal lost from:\n"+:at goto 11*(:a==0)
+st=:_!="" :_=rr+"\nReceiver(s) damaged." goto 12*st
+t+=er i+=fr g+=gr f+=hr //              visit starmap: https://isan.to
+x+=(6-x)*(x<8) xx=(t+i)/e+g/u+f/k yy=t/l+i/mm+(g+f)/nn zz=(g+f-t-i)/o
+st=:_=="" :_=rr+h+xm+xx/n*A+ym+yy/n*A+zm+zz/n*A+sm+s goto ej+x*so+p*st
+w+=xx uu+=yy vv+=zz r=w-tu j=uu-uv v=vv-vt ej+=(ii++%3)>1 d=:m gotox
+m=(r*r+j*j+v*v)^b s=m/div tu=w uv=uu vt=vv w=0 uu=0 vv=0 ej=16 y=:n
+d-=xx y-=yy q=:o-zz :f=(d*d+y*y+q*q)^b :e=(r*d+j*y+v*q)*c/:f/m+c gotox
+:e="not in motion" goto x
+st=:_!="" :_=rr+"\n\n   ISAN2\n  OFFLINE" goto 20*st
+
+// <-------------- this line is 70 characters long ------------------>
+// Please note that this is an experimental beta version!
+// This will be released with proper documentation :soon:
