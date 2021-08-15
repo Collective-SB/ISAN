@@ -1,0 +1,7 @@
+//#numdevs 80
+//#field alpha(2, dev) + "S" --> 1
+//#field alpha(2, dev) + "C" --> 1
+//#field alpha(2, dev) + "A" --> 0
+//#field alpha(2, dev) + "B" --> 0
+//#field alpha(2, dev) + "V" --> 0
+//#skippage

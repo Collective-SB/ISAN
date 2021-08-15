@@ -1,0 +1,18 @@
+di=1000 mu=1000                                                       //Rounding options
+td="station_" ta=td+"hq_imperial_a" tb=td+"proving_grounds"   dd=3
+tc=td+"kingdom_outpost_b" td+="kingdom_outpost_b_2" t=999999 :at=ta
+e= 207744.954 f=-1550111.534 g=486779.292 h=-160699.392 i=-46169.175
+j=-140483.070 k=  103669.797 l=799664.698 m=-264673.522 n= -4718.935
+o=-230400.908 p=  345153.593 q= 41051.448 r= -43636.344 s= -1606.533
+:at=tb a=t-:a a*=a ar=(a-la)/dd arr=(ar-lar)/dd la=a lar=ar u=7 goto12
+:at=tc b=t-:a b*=b br=(b-lb)/dd brr=(br-lbr)/dd lb=b lbr=br u=8 goto12
+:at=td c=t-:a c*=c cr=(c-lc)/dd crr=(cr-lcr)/dd lc=c lcr=cr u=9 goto12
+:at=ta d=t-:a d*=d dr=(d-ld)/dd drr=(dr-ldr)/dd ld=d ldr=dr u=6 goto12
+:x=a/e+b/f+c/g+d/h-i :y=a/j+b/k+c/l+d/m-n :z=a/o+b/p+c/q+d/r-s goto:MC
+vx+=:x vy+=:y vz+=:z :MC+=(ii++>0)                                     //accumulate pos, need keep track of counts
+:S=sqrt((x-u)^2+(y-v)^2+(z-w)^2)/20 u=x v=y w=z x=0 y=0 z=0 ii=0 :MC--
+goto 15                                                                //none
+a+=ar b+=br c+=cr d+=dr goto 15                                        //Linear
+:ISAN=x+:x/di*mu+y+:y/di*mu+z+:Z/di*mu+s goto 15                       //none        + display
+:ISAN=x+:x/di*mu+y+:y/di*mu+z+:Z/di*mu+s a+=ar b+=br c+=cr d+=dr goto 15 //Linear      + display
+ar+=arr br+=brr cr+=crr dr+=drr a+=ar b+=br c+=cr d+=dr        goto 15 //Quadratic

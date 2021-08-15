@@ -1,0 +1,38 @@
+x=1000 y=20 id=1
+:IA*=++:IA<y a=:IA<1 :HA+=(:KA-:HA)*a :KA+=:AA<:SD-:KA*a goto2+:XA     //async hit counter     
+:JA*=++:JA<y a=:JA<1 :MA+=(:KA-:MA)*a :KA+=(:AA-:KA)*((:AA<:KA+a)>0)   //minimum distance with reset
+goto 2+:XA                                                             //   ==
+a=:AA<:MA :MA+=(:AA-:MA)*a :TA+=(id-:TA)*a goto 2+:XA                  //async min distance (no reset logic)
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+
+:JA*=++:JA<y a=:JA<1 :MA+=(:KA-:MA)*a :KA+=(:AA-:KA)*((:AA<:KA+a)>0)   //minimum distance with reset
+                                      b=:AA-:KA :KA+=b*(:AA<:KA) :KA+=b*a  //technically incorrect, but could work with rolling 0th chip?
+
+
+
+
+
+
+
+
+goto 19+(:JA>y)                                                         //waitloop
+:JA=0 :IA=0 goto 2                                                      //reset
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+// globals (# : group id {A, B, C...})
+//  X#      : group execution control
+//  I#, J#  : group counters             {1->20} (0->19)
+//  K#      : group async accumulator
+//  H#      : group hit count buffer
+//  M#      : group min dist buffer
+//  T#      : group min dist id buffer
+
+//  SD      : hit trigger range
+
+// locals (not to be overwritten)
+// x        : 1k
+// y        : groupsize
+// id       : RF id
+
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|

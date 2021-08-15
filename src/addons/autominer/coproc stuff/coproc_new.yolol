@@ -1,0 +1,97 @@
+id=1 y=20 g=0 of=0 s=45 u=0 x=1 :AAB=of+u-0.1 :AAC=1                    //setup
+:IA*=++:IA<y a=:IA<1 :HA+=(:KA-:HA)*a :KA+=:AA<:SA-:KA*a goto2+:XA      //async hit counter     
+:JA*=++:JA<y a=:JA<1 :MA+=(:KA-:MA)*a :KA+=(:AA-:KA)*((:AA<:KA+a)>0)    //minimum distance with reset
+goto 2+:XA                                                              //==
+:AAA=of+s*x k=:AAC==0 :AAS=k :AAV=10-9.98*k goto 5+k                    //fanout :: relies on hinge initilally being :AAC!=0 (~ :AAS==1)
+k=:AA<:SA a=2-3*x b=:AAC==1 c=1-k x-=b*x goto 6+(b*a+(2-b*a)*:F)*c+k    //scan
+:F=1 :FID=id :FR=:AA :FG=g :FA=(:AAA-:AAB)*:AAC+:AAB :AAA=:FA           //on scan find
+d=0 :AAA=d+(:FA-d)*(:FG==g) :AAV=10 :AAS=:F :AAC=1 :JA++ goto 19        //not found (either end of scan, or someone else found)
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|  // ??
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+goto 19+(:JA>=y)                                                        //waitloop
+:JA=0 :IA=0 :XA=0 x=1 goto 2                                            //reset
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+
+
+//XA calls
+// 0:   async hitcounter
+// 1:   min distance
+// 2:   ---------
+// 3:   fanout & scan
+// 4:   ---------
+// 5:   ---------
+// 6:   ---------
+// 7:   ??
+
+
+//locals
+// id - chip gl_id
+// u  - fanout offset
+// y  - 20
+// g  - chip gr_id
+// of - ship hingeoffset
+// s  - 45
+// x  - scan state
+
+//globals
+// :AA - RF distance
+
+// :AAA- Start angle
+// :AAB- end angle
+// :AAC- door current state
+// :AAS- door state
+// :AAV- door vel
+
+// :SA - group search dist
+// :HA - group hit counter
+// :XA - exec control
+
+// :IA - async ctr 1
+// :JA - async ctr 2
+// :KA - async ctr 3
+
+// :F  - found?
+// :FID- found by (gl_id)
+// :FG - found by (gr_id)
+// :FR - found range
+// :FA - found angle
+
+
+//Paster directives     (chip=1 -> 80)
+//#replacer id=1 --> "id="+chip
+//g=(id/y)/z*z
+//#replacer g=0  --> "g="+floor((chip-1)/20)
+//u=(id%y-1)*2.25
+//#replacer u=0  --> "u="+((chip-1)%20)*2.25
+//#replacer d=0  --> "d=" + [0, 90, 90, 0][floor((chip-1)/20)]
+//#replacer of=0 --> [0,3].includes(floor((chip-1)/20))?"of=75":"of=45"
+
+
+//#replacer :AA  --> ":" + alpha(2, chip-1)
+
+//#replacer :AAA --> ":" + alpha(2, chip-1) + "A"
+//#replacer :AAB --> ":" + alpha(2, chip-1) + "B"
+//#replacer :AAC --> ":" + alpha(2, chip-1) + "C"
+//#replacer :AAS --> ":" + alpha(2, chip-1) + "S"
+//#replacer :AAV --> ":" + alpha(2, chip-1) + "V"
+
+//#replacer :HA  --> ":H" + alpha(1, floor((chip-1)/20))
+//#replacer :IA  --> ":I" + alpha(1, floor((chip-1)/20))
+//#replacer :JA  --> ":J" + alpha(1, floor((chip-1)/20))
+//#replacer :KA  --> ":K" + alpha(1, floor((chip-1)/20))
+//#replacer :MA  --> ":M" + alpha(1, floor((chip-1)/20))
+//#replacer :SA  --> ":S" + alpha(1, floor((chip-1)/20))
+//#replacer :XA  --> ":X" + alpha(1, floor((chip-1)/20))
+
+
+//#numchips 80
+
+

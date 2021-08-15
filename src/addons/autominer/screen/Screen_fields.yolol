@@ -1,0 +1,4 @@
+//#numdevs 96
+
+//#field alpha(1, floor(floor(dev/4)/6)) + (floor(dev/4)%6+1) + floor((dev%4)+1) --> "\\n welcome"
+
