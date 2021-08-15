@@ -25,7 +25,7 @@ The first version of ISAN only allows for the use of four hard-coded transmitter
 |[Azurethi](https://github.com/Azurethi "Azurethi#0789 on Discord")|ISAN V2 math & code, repo management ‘The V2 guy’
 |[Lumi](https://github.com/Lumi-Virtual "Lumi Virtual#9704 on Discord")|Development of ISAN V1 ‘ISAN alchemist’
 |[Recatek](https://github.com/Recatek "Recatek#1707 on Discord")|Code minification, Lighthouse protocol
-|[Strikeeaglechase](# "Strikeeaglechase#0001 on discord")|Development of offsets and Autopilot
+|[Strikeeaglechase](# "Strikeeaglechase#0001 on discord")|Development of V1 offsets and Autopilot
 |MuNk|Code consultation
 |Nordwolf|Coordinate system calculation and measurements, Dev of ISAN V0
 |Battle_Wrath|Various design ideas and general help|
