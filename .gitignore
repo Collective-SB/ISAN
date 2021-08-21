@@ -1,8 +1,12 @@
+## Extra vsc stuff
+.vscode/c_cpp_properties.json
+.vscode/settings.json
 
-.vscode/*
-
+## Azur's personal notes
 notes.txt
+_scratchpad/
 
-*.yasm.yolol
-*.yasm.opt.yolol
+## pre-release bundles
+bundles/IsanX
+bundles/navigator
 
