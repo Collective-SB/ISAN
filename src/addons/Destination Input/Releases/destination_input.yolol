@@ -1,0 +1,22 @@
+xm="\nX: " ym="\nY: " zm="\nZ: " dm="\n\nD:" l="" :WPT="" k=1000
+a=:WPT b=l l=xm+:m+ym+:n+zm+:o+dm+:f/k :WPT=l goto 2+a!=b
+:WPT=l+"\nParsing" s="98743" i=0 o=0 j=-1
+c=a c-=a-- d=5*(c>4)+2*(s>(s-c)) d+=c>d d+=c>d o+=d*10^j++ goto4+c<0 
+v=1 if c=="-" then v=-1 a-- end
+i++ z=y y=x x=o*v o=0 j=-1 goto 4+3*(i>2)
+:m=x :n=y :o=z :WPT="\nParsed" goto 1
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
+//Name:             Destination Input
+//Current Version:      V1
+//Credit:               Azurethi
+
+//Globals:
+//  :WPT            - Display
+//  :M, :N, :O      - Current destination
+//  :f              - Distance from current destination
+//                    > (calculated by isan core)
+
+//Locals:
+//  k=1000          - converts distance into km
+
+//--+----|----+----|----+----|----+----|----+----|----+----|----+----|
