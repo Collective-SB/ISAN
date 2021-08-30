@@ -6,10 +6,10 @@ ej=16*sp h="Q" pj=14-pr b=0.5 p=1000000 :at=mr :bt=br :ct=cr :dt=z x=0
 t=p-:a t*=t i=p-:b i*=i g=p-:c g*=g f=p-:d f*=f x/=:a*:b*:c*:d goto14 
 h="M" t=p-:a t*=t er=(t-el)/4 el=t x/=:a :at=br x=8 gotopj//   ISAN 
 i=p-:a i*=i fr=(i-fl)/4 fl=i x/=:a :at=cr x=9 gotopj// From Collective
-g=p-:a g*=g gr=(g-gl)/4 gl=g x/=:a :at=z x=10 gotopj//  v2.5 - 190821
+g=p-:a g*=g gr=(g-gl)/4 gl=g x/=:a :at=z x=10 gotopj// v2.5.2  300821
 f=p-:a f*=f hr=(f-hl)/4 hl=f x/=:a :at=mr x=7 gotopj
 st=:_!=c :_=rr+"\n\n   "+(:at-"origin_")+sl goto 11*(:a==0)*st
-st=:_!=c :_=rr+"\n\n can't see\n recievers" goto 12*st
+st=:_!=c :_=rr+"\n\n can't see\n receivers" goto 12*st
 t+=er i+=fr g+=gr f+=hr //ISAN doc: isan.to/doc   -   Starmap: isan.to
 x+=(6-x)*(x<7) xx=(t+i)/e+g/u-f/k yy=i/l-t/mm+(g+f)/nn zz=(g+f-t-i)/o
 st=:_==c :_=rr+h+xm+xx/n*A+ym+yy/n*A+zm+zz/n*A+sm+s gotoej+x*so+p*st

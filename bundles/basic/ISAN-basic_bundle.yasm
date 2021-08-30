@@ -8,8 +8,13 @@
 // (((A A A)-(A A A))/3 )/(4*(0.8+0.2*pr))
 //                           loop = 4*0.2 + predict*0.2
 
-
-(((A A A)-(A A A)) )/(2*(0.8+0.2*pr)+0.2)
+//samples*loops*(4*0.2 + 0.2*pr)
+//
+//samples*loops*0.8 + samples*loops*0.2*pr
+//
+//
+//
+//(((A A A)-(A A A)) )/(2*(0.8+0.2*pr)+0.2)
 
 // A A A A A s A A A A A
 //           a
@@ -196,7 +201,7 @@
     :at=t_d;
     loop_jmp=_measure_mono_d;
     gotopredict_jmp
-    //  v2.5 - 190821
+    // v2.5.2  300821
 
 @_measure_mono_d:
     m_d=ssc-:a m_d*=m_d;
@@ -213,7 +218,7 @@
     goto _LOS*(:a==0)*screen_tmp
 
 @_RD:
-    screen_tmp=:_!=empty_string :_=rr+"\n\n can't see\n recievers";
+    screen_tmp=:_!=empty_string :_=rr+"\n\n can't see\n receivers";
     goto _RD*screen_tmp
     
 @_predict:

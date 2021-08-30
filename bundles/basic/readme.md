@@ -2,6 +2,12 @@
 
 ## Version history
 
+
+- V2.5.2: minor typo fix
+    ```diff
+    + fixed spelling of "receivers" on line 12 (221 in yasm)
+    ```
+
 - V2.5: Public release 2
     ```diff
     + Added reboot from LOS
