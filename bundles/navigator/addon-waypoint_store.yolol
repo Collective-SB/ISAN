@@ -1,0 +1,23 @@
+xx="\nX: " yy="\nY: " zz="\nZ: " s="98743" a="" :wpt=a i=0 k=1000 r=15
+i-=:ws i*=(i>0)*(i<r) q=:save m=:x/k*k n=:y/k*k o=:z/k*k :save=0 :ws=0
+a=:wpt b=a!=l l="\n"+:p+xx+:m+yy+:n+zz+:o :wpt=l goto i+7-(i+3)*b
+m=:m n=:n o=:o p=a q=1 e=-1 j=e f=" " v=0 ii=0 goto 5+(i+2)*((a-f)==a)
+c=a c-=a-- d=5*(c>4)+2*(s>(s-c)) d+=c>d d+=c>d v+=d*10^j++ goto 5+c<0
+if c>f then v*=e a-- end o=n n=m m=v j=e v=0 p=a goto5+(i+2)*(ii++>2)
+:m=x1 :n=y1 :o=z1 :p=n1 if q then x1=m y1=n z1=o n1=p end goto 2
+:m=x2 :n=y2 :o=z2 :p=n2 if q then x2=m y2=n z2=o n2=p end goto 2
+:m=x3 :n=y3 :o=z3 :p=n3 if q then x3=m y3=n z3=o n3=p end goto 2
+:m=x4 :n=y4 :o=z4 :p=n4 if q then x4=m y4=n z4=o n4=p end goto 2
+:m=x5 :n=y5 :o=z5 :p=n5 if q then x5=m y5=n z5=o n5=p end goto 2
+:m=x6 :n=y6 :o=z6 :p=n6 if q then x6=m y6=n z6=o n6=p end goto 2
+:m=x7 :n=y7 :o=z7 :p=n7 if q then x7=m y7=n z7=o n7=p end goto 2
+:m=x8 :n=y8 :o=z8 :p=n8 if q then x8=m y8=n z8=o n8=p end goto 2
+:m=x9 :n=y9 :o=z9 :p=n9 if q then x9=m y9=n z9=o n9=p end goto 2
+:m=xA :n=yA :o=zA :p=nA if q then xA=m yA=n zA=o nA=p end goto 2
+:m=xB :n=yB :o=zB :p=nB if q then xB=m yB=n zB=o nB=p end goto 2
+:m=xC :n=yC :o=zC :p=nC if q then xC=m yC=n zC=o nC=p end goto 2
+:m=xD :n=yD :o=zD :p=nD if q then xD=m yD=n zD=o nD=p end goto 2
+:m=xE :n=yE :o=zE :p=nE if q then xE=m yE=n zE=o nE=p end goto 2
+
+
+// <-------------- this line is 70 characters long ------------------>

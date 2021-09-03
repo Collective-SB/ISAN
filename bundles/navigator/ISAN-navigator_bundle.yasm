@@ -1,0 +1,230 @@
+// speed calc4
+// Loop 1 2 3 4 5 6 7 8 9 A B C D E F
+//      A A s A A s A A A ....
+//          a
+//       |<-->|
+//         4 loops
+// 4.5 loops?!
+// (((A A A)-(A A A))/3 )/(4*(0.8+0.2*pr)+0.2)
+//                           loop = 4*0.2 + predict*0.2
+
+//samples*loops*(4*0.2 + 0.2*pr)
+
+
+//Transmitters
+#define t_a mr
+#define t_b br
+#define t_c cr
+#define t_d z
+
+//Measurements
+#define m_a t
+#define m_b i
+#define m_c g
+#define m_d f
+
+//ROCO measurements
+#define m_ar er
+#define m_br fr
+#define m_cr gr
+#define m_dr hr
+
+//Last measurements
+#define m_al el
+#define m_bl fl
+#define m_cl gl
+#define m_dl hl
+
+#define c1 e
+#define c2 u
+#define c3 k
+#define c4 mm
+#define c5 l
+#define c6 nn
+#define c7 o
+
+#define ssc p
+
+#define mode hh
+
+#define dir_x r
+#define dir_y j
+#define dir_z v
+
+#define acc_xc w
+#define acc_yc uu
+#define acc_zc vv
+
+#define acc_xp tu
+#define acc_yp uv
+#define acc_zp vt
+
+#define loop_jmp x
+#define screen_tmp st
+#define speed_jmp ej
+#define predict_jmp pj
+
+#define speed_div div
+
+#define empty_string c
+#define los_msg sl
+
+#define c_mul A
+#define c_div n
+
+//already used: x,y,z,s
+
+@_settings:
+    c_mul=1000 c_div=1000 pr=0;
+    speed_div=(10.2+2.4*pr)*c_div;
+    c7=160000;
+    c1=8*c7;
+    empty_string="";
+    h=50
+
+@_consts_a:
+    t_d="origin_";
+    t_a=t_d+"north";
+    t_b=t_d+"south";
+    t_c=t_d+"east";
+    t_d+="west";
+    sm="\nS: ";
+
+@_consts_b:
+    c2=c1*3/13 
+    c5=2*c7;
+    c4=c5*13/19;
+    c3=c1*3/19;
+    los_msg="\nsignal lost"
+
+@_consts_c:
+    rr="ISAN2 :_\n     ";
+    xm="\nX: ";
+    ym="\nY: ";
+    zm="\nZ: ";
+    c6=c5*13/3;
+
+@_consts_d:
+    speed_jmp=_speed_a;
+    mode="Q";
+    predict_jmp=_calc-pr;
+    b=0.5;
+    ssc=1000000;
+    :at=t_a;
+    :bt=t_b;
+    :ct=t_c;
+    :dt=t_d;
+    loop_jmp=0;
+
+@_measure_quad:
+    m_a=ssc-:a m_a*=m_a;
+    m_b=ssc-:b m_b*=m_b;
+    m_c=ssc-:c m_c*=m_c;
+    m_d=ssc-:d m_d*=m_d;
+    loop_jmp/=:a*:b*:c*:d;
+    goto_calc;
+
+@_measure_mono_a:
+    mode="M";
+    m_a=ssc-:a m_a*=m_a;
+    m_ar=(m_a-m_al)/4;
+    m_al=m_a;
+    loop_jmp/=:a;
+    :at=t_b;
+    loop_jmp=_measure_mono_b;
+    gotopredict_jmp
+    //   ISAN 
+
+@_measure_mono_b:
+    m_b=ssc-:a m_b*=m_b;
+    m_br=(m_b-m_bl)/4;
+    m_bl=m_b;
+    loop_jmp/=:a;
+    :at=t_c;
+    loop_jmp=_measure_mono_c;
+    gotopredict_jmp
+    // From Collective
+    
+@_measure_mono_c:
+    m_c=ssc-:a m_c*=m_c;
+    m_cr=(m_c-m_cl)/4;
+    m_cl=m_c;
+    loop_jmp/=:a;
+    :at=t_d;
+    loop_jmp=_measure_mono_d;
+    gotopredict_jmp
+    // >>Navigator
+
+@_measure_mono_d:
+    m_d=ssc-:a m_d*=m_d;
+    m_dr=(m_d-m_dl)/4;
+    m_dl=m_d;
+    loop_jmp/=:a;
+    :at=t_a;
+    loop_jmp=_measure_mono_a;
+    gotopredict_jmp
+    // v1.0  300821
+
+@_LOS:
+    screen_tmp=:_!=empty_string;
+    :_=rr+"\n\n   "+(:at-"origin_")+los_msg;
+    goto _LOS*(:a==0)*screen_tmp
+
+@_RD:
+    screen_tmp=:_!=empty_string :_=rr+"\n\n can't see\n receivers";
+    goto _RD*screen_tmp
+    
+@_predict:
+    m_a+=m_ar;
+    m_b+=m_br;
+    m_c+=m_cr;
+    m_d+=m_dr;
+    //ISAN doc: isan.to/doc   -   Starmap: isan.to
+
+@_calc:
+    loop_jmp+=(_measure_quad-loop_jmp)*(loop_jmp<_measure_mono_a);
+    :x=
+        (m_a+m_b)/c1+
+        m_c/c2-
+        m_d/c3;
+    :y=
+        m_b/c5-
+        m_a/c4+
+        (m_c+m_d)/c6;
+    :z=
+        (m_c+m_d-m_a-m_b)/c7
+    
+@_display:
+    screen_tmp=:_==empty_string;
+    :_=rr+mode+
+        xm+:x/c_div*c_mul+
+        ym+:y/c_div*c_mul+
+        zm+:z/c_div*c_mul+
+        sm+s;
+    goto
+        speed_jmp+              ##Jump to speed
+        ssc*screen_tmp          ##Shutdown
+
+@_speed_a:
+    acc_xc+=:x acc_yc+=:y acc_zc+=:z;
+    dir_x=acc_xc-acc_xp dir_y=acc_yc-acc_yp dir_z=acc_zc-acc_zp;
+    speed_jmp+=(ii++%3)>1;
+    d=:m;
+    gotoloop_jmp
+
+@_speed_b:
+    m=(dir_x*dir_x+dir_y*dir_y+dir_z*dir_z)^b;
+    s=m/speed_div*c_mul;
+    acc_xp=acc_xc acc_yp=acc_yc acc_zp=acc_zc;
+    acc_xc=0 acc_yc=0 acc_zc=0;
+    speed_jmp=_speed_a;
+    y=:n
+
+@_align_calc:
+    d-=:x y-=:y q=:o-:z :f=(d*d+y*y+q*q)^b :e=(r*d+j*y+v*q)*h/:f/m+h gotox
+
+@_align_error:
+    :e="not in motion" goto x
+
+@_offline:
+    screen_tmp=:_!=empty_string :_=rr+"\n\n   ISAN2\n  OFFLINE" goto _offline*screen_tmp

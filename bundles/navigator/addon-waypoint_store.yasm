@@ -1,0 +1,75 @@
+#define waypointSlot(index) {
+    :m=xindex :n=yindex :o=zindex :p=nindex if q then xindex=m yindex=n zindex=o nindex=p end goto 2
+}
+
+@setup:
+    xx="\nX: " yy="\nY: " zz="\nZ: " s="98743" a="" :wpt=a i=0 k=1000 r=15
+
+@mainloop_a:
+    i-=:ws i*=(i>0)*(i<r) q=:save m=:x/k*k n=:y/k*k o=:z/k*k :save=0 :ws=0
+@mainloop_b:
+    a=:wpt b=a!=l l="\n"+:p+xx+:m+yy+:n+zz+:o :wpt=l goto i+7-(i+3)*b
+
+@parse_setup:
+    m=:m n=:n o=:o p=a q=1 e=-1 j=e f=" " v=0 ii=0 goto 5+(i+2)*((a-f)==a)
+
+@parse_main:
+    c=a c-=a-- d=5*(c>4)+2*(s>(s-c)) d+=c>d d+=c>d v+=d*10^j++ goto 5+c<0
+
+@parse_array:
+    if c>f then v*=e a-- end o=n n=m m=v j=e v=0 p=a goto5+(i+2)*(ii++>2)
+
+@slot_1:
+    waypointSlot(1)
+
+@slot_2:
+    waypointSlot(2)
+
+@slot_3:
+    waypointSlot(3)
+    
+@slot_4:
+    waypointSlot(4)
+
+@slot_5:
+    waypointSlot(5)
+
+@slot_6:
+    waypointSlot(6)
+
+@slot_7:
+    waypointSlot(7)
+
+@slot_8:
+    waypointSlot(8)
+
+@slot_9:
+    waypointSlot(9)
+
+@slot_A:
+    waypointSlot(A)
+
+@slot_B:
+    waypointSlot(B)
+
+@slot_C:
+    waypointSlot(C)
+
+@slot_D:
+    waypointSlot(D)
+
+@slot_E:
+    waypointSlot(E)
+
+## global alloc
+## a b c d e f g h i j k l m n o p q r s t u v w x y z
+## R R R R | |             <DST> |               <POS>
+##         a d                   i                    
+##         l i                   n                    
+##         i s                   d                    
+##         g t                   e                    
+##         n                     x                    
+##                                                    
+
+
+
