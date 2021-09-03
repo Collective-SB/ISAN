@@ -140,10 +140,10 @@
     c5=2*c7;
     c4=c5*13/19;
     c3=c1*3/19;
+    los_msg="\nsignal lost";
     x/=so;
     sm=empty_string;
     s=empty_string;
-    los_msg="\nsignal lost"
 
 @_consts_c:
     rr="ISAN2 :_\n     ";

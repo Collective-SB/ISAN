@@ -3,9 +3,10 @@
 ## Version history
 
 
-- V2.5.2: minor typo fix
+- V2.5.2:
     ```diff
     + fixed spelling of "receivers" on line 12 (221 in yasm)
+    + fixed positioning of los_msg set
     ```
 
 - V2.5: Public release 2
