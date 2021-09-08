@@ -109,7 +109,7 @@
 #define predict_jmp pj
 #define speed_off so
 
-#define speed_div div
+#define speed_div dv
 
 #define empty_string c
 #define los_msg sl
@@ -201,7 +201,7 @@
     :at=t_d;
     loop_jmp=_measure_mono_d;
     gotopredict_jmp
-    // v2.5.2  300821
+    // v2.5.3  080921
 
 @_measure_mono_d:
     m_d=ssc-:a m_d*=m_d;
@@ -247,7 +247,7 @@
         xm+xx/c_div*c_mul+
         ym+yy/c_div*c_mul+
         zm+zz/c_div*c_mul+
-        sm+s;
+        sm+ss;
     goto
         speed_jmp+              ##Jump to speed
         loop_jmp*speed_off+     ##Jump to next loop
@@ -261,7 +261,7 @@
 
 @_speed_b:
     m=(dir_x*dir_x+dir_y*dir_y+dir_z*dir_z)^b;
-    s=m/speed_div*c_mul;
+    ss=m/speed_div*c_mul;
     acc_xp=acc_xc acc_yp=acc_yc acc_zp=acc_zc;
     acc_xc=0 acc_yc=0 acc_zc=0;
     speed_jmp=_speed_a; ##y=:n

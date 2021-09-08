@@ -2,6 +2,10 @@
 
 ## Version history
 
+- V2.5.3:
+    ```diff
+    + renamed speed variable (s) to ss, allows users to optionally export speed (:s)
+    ```
 
 - V2.5.2:
     ```diff
