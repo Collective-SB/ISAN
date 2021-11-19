@@ -143,7 +143,7 @@
     los_msg="\nsignal lost";
     x/=so;
     sm=empty_string;
-    s=empty_string;
+    ss=empty_string;
 
 @_consts_c:
     rr="ISAN2 :_\n     ";
